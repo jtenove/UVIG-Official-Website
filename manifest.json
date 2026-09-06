@@ -1,0 +1,14 @@
+{
+  "name": "UVic Investment Group",
+  "short_name": "UVIG",
+  "description": "News, events, equity reports and membership for the UVic Investment Group.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FAFAF8",
+  "theme_color": "#0A1F3D",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

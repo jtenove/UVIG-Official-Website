@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join UVIG — UVic Investment Group</title>
+<meta name="theme-color" content="#0A1F3D">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="UVIG">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-inner wrap">
+      <a href="index.html" class="wordmark">UVic Investment Group <small>EST. UVIC · GUSTAVSON</small></a>
+      <a href="index.html" class="nav-link" style="font-size:14px;">← Back to site</a>
+    </div>
+  </header>
+
+  <div class="join-shell">
+
+    <div class="progress-track" id="progressTrack">
+      <div class="progress-seg"><div class="fill" data-step="1"></div></div>
+      <div class="progress-seg"><div class="fill" data-step="2"></div></div>
+      <div class="progress-seg"><div class="fill" data-step="3"></div></div>
+    </div>
+
+    <!-- Step 0: Intro -->
+    <div class="quiz-step active" data-step="0">
+      <span class="hero-eyebrow">MEMBERSHIP</span>
+      <h2>Join UVic Investment Group</h2>
+      <p class="step-note">UVIG bridges the gap between the classroom and the finance industry — through equity research, speaker events, and case competitions. Membership takes two minutes to set up.</p>
+      <div class="quiz-perks">
+        <h4>What you get as a member</h4>
+        <ul>
+          <li>The bi-weekly newsletter and a heads-up on every upcoming event</li>
+          <li>A reserved seat at events — with snacks and pamphlets waiting for you</li>
+          <li>Eligibility for trading competitions and stock pitch challenges</li>
+          <li>Access to the speaker series, panels, and workshops</li>
+        </ul>
+      </div>
+      <div class="quiz-nav" style="justify-content:flex-end;">
+        <button class="btn btn-primary" id="startBtn">Get started</button>
+      </div>
+    </div>
+
+    <!-- Step 1: Basic info -->
+    <div class="quiz-step" data-step="1">
+      <h2>Let's get you set up</h2>
+      <p class="step-note">Step 1 of 3</p>
+      <div class="field">
+        <label for="fName">Full name</label>
+        <input type="text" id="fName" placeholder="Jayce Tenove" required>
+      </div>
+      <div class="field">
+        <label for="fEmail">UVic email</label>
+        <input type="email" id="fEmail" placeholder="you@uvic.ca" required>
+      </div>
+      <div class="field">
+        <label for="fYear">Year of study</label>
+        <select id="fYear">
+          <option>1st year</option>
+          <option>2nd year</option>
+          <option>3rd year</option>
+          <option>4th year+</option>
+          <option>Graduate / Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="fFaculty">Faculty / program</label>
+        <input type="text" id="fFaculty" placeholder="e.g. Gustavson BCom">
+      </div>
+      <div class="quiz-nav">
+        <button class="btn btn-ghost" data-back>Back</button>
+        <button class="btn btn-primary" data-next="1">Continue</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Interests -->
+    <div class="quiz-step" data-step="2">
+      <h2>What are you interested in?</h2>
+      <p class="step-note">Step 2 of 3 — pick as many as you like</p>
+      <div class="choice-grid" id="interestGrid">
+        <label class="choice-card">
+          <input type="checkbox" value="Equity Research">
+          <div><div class="choice-label">Equity Research</div><div class="choice-sub">Writing &amp; publishing reports</div></div>
+        </label>
+        <label class="choice-card">
+          <input type="checkbox" value="Speaker Series & Networking">
+          <div><div class="choice-label">Speaker Series</div><div class="choice-sub">Panels &amp; networking events</div></div>
+        </label>
+        <label class="choice-card">
+          <input type="checkbox" value="Trading Competition">
+          <div><div class="choice-label">Trading Competition</div><div class="choice-sub">Annual portfolio challenge</div></div>
+        </label>
+        <label class="choice-card">
+          <input type="checkbox" value="Stock Pitch Challenge">
+          <div><div class="choice-label">Stock Pitch Challenge</div><div class="choice-sub">Pitch a company, live</div></div>
+        </label>
+        <label class="choice-card">
+          <input type="checkbox" value="Case Competitions (JDC West)">
+          <div><div class="choice-label">Case Competitions</div><div class="choice-sub">Incl. JDC West Finance</div></div>
+        </label>
+        <label class="choice-card">
+          <input type="checkbox" value="Just staying in the loop">
+          <div><div class="choice-label">Just the newsletter</div><div class="choice-sub">Keep me in the loop</div></div>
+        </label>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn btn-ghost" data-back>Back</button>
+        <button class="btn btn-primary" data-next="2">Continue</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Final details -->
+    <div class="quiz-step" data-step="3">
+      <h2>Last thing</h2>
+      <p class="step-note">Step 3 of 3</p>
+      <div class="field">
+        <label for="fHeard">How did you hear about UVIG?</label>
+        <select id="fHeard">
+          <option>Instagram</option>
+          <option>Friend / word of mouth</option>
+          <option>Class announcement</option>
+          <option>Club fair</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <label class="choice-card" style="margin-top:6px;">
+        <input type="checkbox" id="fNewsletter" checked>
+        <div><div class="choice-label">Sign me up for the newsletter</div><div class="choice-sub">Bi-weekly, unsubscribe anytime</div></div>
+      </label>
+      <div class="quiz-nav">
+        <button class="btn btn-ghost" data-back>Back</button>
+        <button class="btn btn-primary" id="submitBtn">Submit</button>
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div class="quiz-step" data-step="4">
+      <div class="success-screen">
+        <div class="success-icon">✓</div>
+        <h2>You're in.</h2>
+        <p>Welcome to UVIG. You'll get the next newsletter and event updates by email — and your seat is reserved at whatever's next on the calendar.</p>
+        <a href="events.html" class="btn btn-primary" style="margin-top:22px;">See upcoming events</a>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+  // ============================================================
+  // Google Sheet backend
+  // Replace this with your deployed Apps Script Web App URL.
+  // See GOOGLE_SHEETS_SETUP.md for the one-time setup steps.
+  // ============================================================
+  const SHEET_ENDPOINT = "REPLACE_WITH_YOUR_APPS_SCRIPT_WEB_APP_URL";
+
+  const steps = document.querySelectorAll('.quiz-step');
+  const fills = document.querySelectorAll('.progress-seg .fill');
+  let current = 0;
+
+  function showStep(n){
+    steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === n));
+    fills.forEach(f => {
+      const step = Number(f.dataset.step);
+      f.style.width = step <= n ? '100%' : '0%';
+    });
+    current = n;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.getElementById('startBtn').addEventListener('click', () => showStep(1));
+
+  document.querySelectorAll('[data-next]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const step = Number(btn.dataset.next);
+      if (step === 1) {
+        const name = document.getElementById('fName').value.trim();
+        const email = document.getElementById('fEmail').value.trim();
+        if (!name || !email) { alert('Please add your name and email to continue.'); return; }
+      }
+      showStep(step + 1);
+    });
+  });
+
+  document.querySelectorAll('[data-back]').forEach(btn => {
+    btn.addEventListener('click', () => showStep(Math.max(0, current - 1)));
+  });
+
+  document.querySelectorAll('.choice-card').forEach(card => {
+    const input = card.querySelector('input');
+    const sync = () => card.classList.toggle('selected', input.checked);
+    input.addEventListener('change', sync);
+    sync();
+  });
+
+  document.getElementById('submitBtn').addEventListener('click', async () => {
+    const interests = [...document.querySelectorAll('#interestGrid input:checked')].map(i => i.value);
+    const payload = {
+      name: document.getElementById('fName').value.trim(),
+      email: document.getElementById('fEmail').value.trim(),
+      year: document.getElementById('fYear').value,
+      faculty: document.getElementById('fFaculty').value.trim(),
+      interests,
+      heardFrom: document.getElementById('fHeard').value,
+      newsletterOptIn: document.getElementById('fNewsletter').checked
+    };
+
+    if (SHEET_ENDPOINT.startsWith('REPLACE_WITH')) {
+      console.warn('UVIG join form: SHEET_ENDPOINT is still a placeholder — response was not saved. See GOOGLE_SHEETS_SETUP.md.', payload);
+    } else {
+      try {
+        await fetch(SHEET_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(payload)
+        });
+      } catch (err) {
+        console.error('UVIG join form: submission failed', err);
+      }
+    }
+    showStep(4);
+  });
+</script>
+</body>
+</html>
