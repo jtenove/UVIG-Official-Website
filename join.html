@@ -59,8 +59,13 @@
         <input type="text" id="fName" placeholder="Jayce Tenove" required>
       </div>
       <div class="field">
+        <label for="fUvicEmail">UVic email</label>
+        <input type="email" id="fUvicEmail" placeholder="you@uvic.ca" required>
+      </div>
+      <div class="field">
         <label for="fEmail">Main email address</label>
         <input type="email" id="fEmail" placeholder="you@example.com" required>
+        <div class="field-note" style="font-size:12px; color:var(--graphite); margin-top:6px;">The email you actually check — this is where we'll send the newsletter and updates.</div>
       </div>
       <div class="field">
         <label for="fYear">Year of study</label>
@@ -136,7 +141,7 @@
   // Replace this with your deployed Apps Script Web App URL.
   // See GOOGLE_SHEETS_SETUP.md for the one-time setup steps.
   // ============================================================
-  const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxsShfaG-0EgMWCaKdl08aEyKDpgh8jrq8of2TwnrKG2Js0qdV7LcVr4fc9U1cy36B7zg/exec";
+  const SHEET_ENDPOINT = "REPLACE_WITH_YOUR_APPS_SCRIPT_WEB_APP_URL";
 
   // Render interest choices from data.js (draft categories, per Will's request)
   document.getElementById('interestGrid').innerHTML = UVIG_INTERESTS.map(i => `
@@ -167,8 +172,9 @@
       const step = Number(btn.dataset.next);
       if (step === 1) {
         const name = document.getElementById('fName').value.trim();
+        const uvicEmail = document.getElementById('fUvicEmail').value.trim();
         const email = document.getElementById('fEmail').value.trim();
-        if (!name || !email) { alert('Please add your name and email to continue.'); return; }
+        if (!name || !uvicEmail || !email) { alert('Please add your name and both emails to continue.'); return; }
       }
       showStep(step + 1);
     });
@@ -189,6 +195,7 @@
     const interests = [...document.querySelectorAll('#interestGrid input:checked')].map(i => i.value);
     const payload = {
       name: document.getElementById('fName').value.trim(),
+      uvicEmail: document.getElementById('fUvicEmail').value.trim(),
       email: document.getElementById('fEmail').value.trim(),
       year: document.getElementById('fYear').value,
       faculty: document.getElementById('fFaculty').value.trim(),
