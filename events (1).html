@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events — UVic Investment Group</title>
+<meta name="theme-color" content="#0A1F3D">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="UVIG">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="ticker-bar" aria-hidden="true">
+    <div class="ticker-track">
+      <span>TSX <b>22,481</b> <span class="up">▲ 0.42%</span></span>
+      <span>S&amp;P 500 <b>6,112</b> <span class="up">▲ 0.18%</span></span>
+      <span>UVIG PORTFOLIO WATCH <b>NEXT REPORT: WK 3</b></span>
+      <span>CAD/USD <b>0.735</b> <span class="down">▼ 0.06%</span></span>
+      <span>10Y GoC YIELD <b>3.21%</b></span>
+      <span>NEXT SPEAKER SESSION <b>THU 5:30PM</b></span>
+      <span>TSX <b>22,481</b> <span class="up">▲ 0.42%</span></span>
+      <span>S&amp;P 500 <b>6,112</b> <span class="up">▲ 0.18%</span></span>
+      <span>UVIG PORTFOLIO WATCH <b>NEXT REPORT: WK 3</b></span>
+      <span>CAD/USD <b>0.735</b> <span class="down">▼ 0.06%</span></span>
+      <span>10Y GoC YIELD <b>3.21%</b></span>
+      <span>NEXT SPEAKER SESSION <b>THU 5:30PM</b></span>
+    </div>
+  </div>
+
+  <header class="masthead">
+    <div class="masthead-inner wrap">
+      <a href="index.html" class="wordmark">UVic Investment Group <small>EST. 2015</small></a>
+      <div class="header-actions-mobile">
+        <button class="icon-app-btn use-as-app-trigger" type="button" aria-label="UVIG App">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        </button>
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <nav class="primary-nav" id="primaryNav">
+        <a href="events.html" class="nav-link current">Events</a>
+        <a href="index.html#reports" class="nav-link">Reports</a>
+        <a href="team.html" class="nav-link">Team</a>
+        <a href="newsletter.html" class="nav-link">Newsletter</a>
+        <div class="nav-actions">
+          <button class="btn-app use-as-app-trigger" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+            UVIG App
+          </button>
+          <a href="join.html" class="nav-cta">Join UVIG</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="hero-eyebrow">SPEAKERS, PANELS &amp; SOCIALS</span>
+      <h1>Events</h1>
+      <p class="lede">Everything happening this season, plus a look back at the panels, workshops and socials that came before it.</p>
+    </div>
+  </section>
+
+  <section id="upcoming">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>This season</h2>
+        <span class="section-note">2026 / 27</span>
+      </div>
+      <div id="upcomingList"></div>
+    </div>
+  </section>
+
+  <section id="past" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Past events</h2>
+        <span class="section-note">A LOOK BACK</span>
+      </div>
+      <div class="past-grid" id="pastGrid"></div>
+    </div>
+  </section>
+
+  <section id="firms" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Who we've hosted</h2>
+        <span class="section-note">FIRMS &amp; SPEAKERS FROM PAST EVENTS</span>
+      </div>
+    </div>
+    <div class="firms-marquee" aria-hidden="true">
+      <div class="firms-track" id="firmsTrack"></div>
+    </div>
+    <div class="wrap">
+      <div class="speakers-grid" id="speakersGrid"></div>
+    </div>
+  </section>
+
+  <footer id="join">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-word">UVic Investment Group</div>
+          <p>A student-run investment club at the University of Victoria.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/uvicinvestmentgroup/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.97.24 2.43.4a4.9 4.9 0 0 1 1.77 1.15 4.9 4.9 0 0 1 1.15 1.77c.16.46.35 1.26.4 2.43.07 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.24 1.97-.4 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.46.16-1.26.35-2.43.4-1.25.07-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.97-.24-2.43-.4a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.16-.46-.35-1.26-.4-2.43C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.24-1.97.4-2.43A4.9 4.9 0 0 1 3.82 3 4.9 4.9 0 0 1 5.6 1.85c.46-.16 1.26-.35 2.43-.4C9.28 1.38 9.68 1.38 12 1.38V2.2zm0 3.15a6.65 6.65 0 1 0 0 13.3 6.65 6.65 0 0 0 0-13.3zm0 10.97a4.32 4.32 0 1 1 0-8.64 4.32 4.32 0 0 1 0 8.64zm6.9-11.2a1.55 1.55 0 1 1-3.1 0 1.55 1.55 0 0 1 3.1 0z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/company/uvic-investment-group/" target="_blank" rel="noopener" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.9 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.25h4.5V23H.24V8.25zM8.5 8.25h4.31v2.01h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V23h-4.5v-6.28c0-1.5-.03-3.43-2.09-3.43-2.09 0-2.41 1.63-2.41 3.32V23H8.5V8.25z"/></svg>
+            </a>
+            <a href="mailto:investmentgroup.uvic@gmail.com" aria-label="Email">
+              <svg viewBox="0 0 24 24"><path d="M2 4h20v16H2V4zm2 2v.01L12 12l8-5.99V6H4zm16 2.24-7.4 5.55a1 1 0 0 1-1.2 0L4 8.24V18h16V8.24z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4>Social Media</h4>
+          <a href="https://www.instagram.com/uvicinvestmentgroup/" target="_blank" rel="noopener">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="https://www.linkedin.com/company/uvic-investment-group/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div>
+          <h4>Get involved</h4>
+          <a href="newsletter.html">Newsletter</a>
+          <a href="join.html">Membership</a>
+          <a href="mailto:investmentgroup.uvic@gmail.com">Speaker requests</a>
+        </div>
+        <div>
+          <h4>Our Team</h4>
+          <a href="team.html#board">Board of Directors</a>
+          <a href="team.html#internal">Internal Team</a>
+          <a href="team.html#external">External Team</a>
+          <a href="team.html#members">Members</a>
+        </div>
+      </div>
+      <div class="footer-bottom wrap" style="padding-left:0;padding-right:0;">
+        <span>© 2026 UVic Investment Group. Student-run, not affiliated with UVic's official investment funds.</span>
+        <span>University of Victoria</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal-overlay" id="appModalOverlay">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="appModalTitle">
+      <div class="modal-head">
+        <h3 id="appModalTitle">UVIG Member's App</h3>
+        <button class="modal-close" id="appModalClose" aria-label="Close">&times;</button>
+      </div>
+      <div class="app-modal-preview">
+        <img src="app-preview-1.png" alt="UVIG Member's App preview">
+        <span class="coming-soon-tag">Coming Soon</span>
+        <p>Daily market dashboards, internal UVIG updates, and live stock-picking challenges — a members-only app currently in development at <strong>uvig.app</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+<script>
+  // ---- Upcoming events (confirmed only) ----
+  const upcomingList = document.getElementById('upcomingList');
+  const confirmed = UVIG_UPCOMING.filter(ev => ev.status === 'confirmed');
+
+  function dateBits(ev) {
+    const d = new Date(ev.isoDate + 'T00:00:00');
+    return { day: d.getDate(), month: d.toLocaleString('en-US', { month: 'short' }).toUpperCase() };
+  }
+
+  upcomingList.innerHTML = [...confirmed].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate)).map(ev => {
+    const { day, month } = dateBits(ev);
+    return `
+      <div class="event-banner" id="${ev.id}">
+        <div class="event-date-block"><div class="day">${day}</div><div class="month">${month}</div></div>
+        <div class="event-body">
+          <span class="partner-tag">${ev.partner !== 'TBD' ? 'WITH ' + ev.partner.toUpperCase() : 'UVIG EVENT'}</span>
+          <h3>${ev.title}</h3>
+          <p>${ev.blurb}</p>
+          <div class="event-meta-row">
+            <span><strong>Venue:</strong>&nbsp;${ev.venue}</span>
+            <span><strong>Time:</strong>&nbsp;${ev.time}</span>
+            <span><strong>Speakers:</strong>&nbsp;${ev.speakers}</span>
+          </div>
+          ${renderCalDropdown(ev.id)}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // ---- Past events (always shown, no toggle) ----
+  const pastGrid = document.getElementById('pastGrid');
+  pastGrid.innerHTML = UVIG_PAST.map(ev => {
+    const photoBlock = ev.photos ? `
+      <div class="photo-row">
+        ${ev.photos.map(p => `<img src="${p}" alt="Photo from ${ev.title}" loading="lazy">`).join('')}
+      </div>
+    ` : '';
+    const bodyOpen = ev.photos ? '<div class="photo-card-body">' : '';
+    const bodyClose = ev.photos ? '</div>' : '';
+    return `
+      <div class="past-card ${ev.highlight ? 'highlight' : ''} ${ev.photos ? 'has-photo' : ''}">
+        ${photoBlock}
+        ${bodyOpen}
+        <span class="tag">${ev.tag}</span>
+        <h4>${ev.title}</h4>
+        <div class="meta">${ev.dateDisplay} · ${ev.venue}</div>
+        <p>${ev.blurb}</p>
+        ${ev.speakers ? `<div class="speaker-line">${ev.speakers.join(' · ')}</div>` : ''}
+        ${bodyClose}
+      </div>
+    `;
+  }).join('');
+
+  // ---- Firms marquee (duplicated for seamless loop) ----
+  const firmsTrack = document.getElementById('firmsTrack');
+  const firmSpans = UVIG_FIRMS.map(f => `<span>${f}</span>`).join('<span style="color:#5B6472;">/</span>');
+  firmsTrack.innerHTML = firmSpans + '<span style="color:#5B6472;">/</span>' + firmSpans;
+
+  // ---- Speakers grid ----
+  const speakersGrid = document.getElementById('speakersGrid');
+  speakersGrid.innerHTML = UVIG_SPEAKERS.map(sp => {
+    const initials = sp.name.split(',')[0].split(' ').filter(Boolean).slice(0,2).map(w => w[0]).join('');
+    return `
+      <div class="speaker-card">
+        <div class="speaker-avatar">${initials}</div>
+        <div>
+          <div class="name">${sp.name}</div>
+          <div class="role">${sp.role}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // ---- Deep-link support: index.html links to events.html#event-id ----
+  if (location.hash) {
+    const target = document.getElementById(location.hash.slice(1));
+    if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'center' }), 150);
+  }
+</script>
+</body>
+</html>
