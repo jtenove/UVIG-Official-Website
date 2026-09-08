@@ -84,7 +84,8 @@ const UVIG_PAST = [
     dateDisplay: "September 15",
     venue: "McKinnon 150",
     tag: "Kickoff",
-    blurb: "Season kickoff co-hosted with Longship Investment Club — mentorship, guidance and career exploration in finance."
+    blurb: "Season kickoff co-hosted with Longship Investment Club — mentorship, guidance and career exploration in finance.",
+    photos: ["photo-longship-1.jpg", "photo-longship-2.jpg"]
   },
   {
     title: "Exploring Careers in Financial Services",
@@ -98,8 +99,7 @@ const UVIG_PAST = [
     dateDisplay: "October 21",
     venue: "DSB C108",
     tag: "Panel",
-    blurb: "UVic alumni in asset management and investment roles shared career journeys and practical advice on portfolio management and research.",
-    photos: ["photo-asset-panel-1.jpg", "photo-asset-panel-2.jpg"]
+    blurb: "UVic alumni in asset management and investment roles shared career journeys and practical advice on portfolio management and research."
   },
   {
     title: "Annual Finance Networking Event",
