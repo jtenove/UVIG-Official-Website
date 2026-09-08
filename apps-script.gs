@@ -14,7 +14,7 @@ function doPost(e) {
   // Create the sheet with headers on first run, if it doesn't exist yet
   if (!sheet) {
     sheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet("Members");
-    sheet.appendRow(["Timestamp", "Name", "Email", "Year", "Faculty", "Interests", "Heard From", "Newsletter Opt-In"]);
+    sheet.appendRow(["Timestamp", "Name", "UVic Email", "Main Email", "Year", "Faculty", "Interests", "Heard From", "Newsletter Opt-In"]);
   }
 
   var data = JSON.parse(e.postData.contents);
@@ -22,6 +22,7 @@ function doPost(e) {
   sheet.appendRow([
     new Date(),
     data.name || "",
+    data.uvicEmail || "",
     data.email || "",
     data.year || "",
     data.faculty || "",
