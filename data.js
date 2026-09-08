@@ -18,7 +18,8 @@ const UVIG_UPCOMING = [
     venue: "TBD",
     partner: "Longship Investment Club",
     speakers: "UVIG & Longship Exec(s)",
-    blurb: "An evening of mentorship, guidance and career exploration in finance — co-hosted with Longship Investment Club. Anyone welcome."
+    blurb: "An evening of mentorship, guidance and career exploration in finance — co-hosted with Longship Investment Club. Everyone welcome.",
+    visible: true
   },
   {
     id: "girls-that-invest",
@@ -29,7 +30,8 @@ const UVIG_UPCOMING = [
     venue: "TBD",
     partner: "UVic Girls That Invest",
     speakers: "TBD",
-    blurb: "A joint session with UVic Girls That Invest — details on speakers and format to follow."
+    blurb: "A joint session with UVic Girls That Invest — details on speakers and format to follow.",
+    visible: false
   },
   {
     id: "wealth-management-panel",
@@ -40,7 +42,8 @@ const UVIG_UPCOMING = [
     venue: "TBD",
     partner: "TBD",
     speakers: "TBD",
-    blurb: "Learn from and network with wealth management professionals. Past panels have featured speakers from TD, RBC and Scotiabank."
+    blurb: "Learn from and network with wealth management professionals. Past panels have featured speakers from TD, RBC and Scotiabank.",
+    visible: false
   },
   {
     id: "finance-social",
@@ -51,7 +54,8 @@ const UVIG_UPCOMING = [
     venue: "Maude Hunter's",
     partner: "TBD",
     speakers: "N/A",
-    blurb: "A casual social to meet other students interested in finance — no agenda, just conversation and networking."
+    blurb: "A casual social to meet other students interested in finance — no agenda, just conversation and networking.",
+    visible: false
   },
   {
     id: "asset-management-panel",
@@ -62,9 +66,14 @@ const UVIG_UPCOMING = [
     venue: "TBD",
     partner: "TBD",
     speakers: "TBD",
-    blurb: "Hear from professionals working in asset management and investment roles. Open to everyone, no finance background required."
+    blurb: "Hear from professionals working in asset management and investment roles. Open to everyone, no finance background required.",
+    visible: false
   }
 ];
+// NOTE: "visible: false" events are hidden from the live site but kept here
+// so you can flip them back to "true" the moment dates/venues are locked in.
+// This was Will's call — he didn't want students calendaring events that
+// might still move.
 
 // ---------- PAST EVENTS (selected highlights) ----------
 // Pulled from the club's Instagram history. Exact years weren't
@@ -185,6 +194,37 @@ const UVIG_PAST = [
     tag: "Panel",
     blurb: "Learn from and network with wealth management professionals from TD, RBC and Scotiabank."
   }
+];
+
+// ---------- EQUITY REPORTS (Latest coverage) ----------
+// Placeholder until the real report titles from last year's Brightspace
+// archive are dropped in here. Each needs: title, sector, and optionally
+// a link once reports have a real destination.
+const UVIG_REPORTS = [
+  {
+    title: "Last year's equity reports — updating shortly",
+    sector: "Pulling titles from the Brightspace archive",
+    pending: true
+  },
+  {
+    title: "Consumer Staples sector coverage",
+    sector: "Coming soon",
+    pending: true,
+    comingSoon: true
+  }
+];
+
+// ---------- JOIN QUIZ: areas of finance/investing interest ----------
+// Draft reframe per Will's request — "what areas of finance/investing
+// interest you" with careers listed, rather than activity checkboxes.
+// Flagged as a draft for review — swap wording freely.
+const UVIG_INTERESTS = [
+  { area: "Equity & Public Markets", careers: "Equity research, asset management, portfolio management" },
+  { area: "Investment Banking & Corporate Finance", careers: "M&A, capital markets, corporate development" },
+  { area: "Wealth & Private Client", careers: "Wealth advisory, financial planning" },
+  { area: "Venture Capital & Private Equity", careers: "VC analyst, PE associate" },
+  { area: "Trading & Derivatives", careers: "Sales & trading, quantitative trading" },
+  { area: "Just here for the newsletter & events", careers: "Keep me in the loop" }
 ];
 
 // ---------- FIRMS & PARTNERS represented at past events ----------

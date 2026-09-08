@@ -18,7 +18,7 @@
 
   <header class="masthead">
     <div class="masthead-inner wrap">
-      <a href="index.html" class="wordmark">UVic Investment Group <small>EST. UVIC · GUSTAVSON</small></a>
+      <a href="index.html" class="wordmark">UVic Investment Group <small>EST. 2015</small></a>
       <a href="index.html" class="nav-link" style="font-size:14px;">← Back to site</a>
     </div>
   </header>
@@ -35,12 +35,12 @@
     <div class="quiz-step active" data-step="0">
       <span class="hero-eyebrow">MEMBERSHIP</span>
       <h2>Join UVic Investment Group</h2>
-      <p class="step-note">UVIG bridges the gap between the classroom and the finance industry — through equity research, speaker events, and case competitions. Membership takes two minutes to set up.</p>
+      <p class="step-note">Bridging the gap between academics and industry — UVIG exposes UVic students to the finance industry through equity research, speaker events, and case competitions. Membership takes two minutes to set up.</p>
       <div class="quiz-perks">
         <h4>What you get as a member</h4>
         <ul>
           <li>The bi-weekly newsletter and a heads-up on every upcoming event</li>
-          <li>A reserved seat at events — with snacks and pamphlets waiting for you</li>
+          <li>Event invites and sign-up links as soon as they're posted</li>
           <li>Eligibility for trading competitions and stock pitch challenges</li>
           <li>Access to the speaker series, panels, and workshops</li>
         </ul>
@@ -84,34 +84,9 @@
 
     <!-- Step 2: Interests -->
     <div class="quiz-step" data-step="2">
-      <h2>What are you interested in?</h2>
-      <p class="step-note">Step 2 of 3 — pick as many as you like</p>
-      <div class="choice-grid" id="interestGrid">
-        <label class="choice-card">
-          <input type="checkbox" value="Equity Research">
-          <div><div class="choice-label">Equity Research</div><div class="choice-sub">Writing &amp; publishing reports</div></div>
-        </label>
-        <label class="choice-card">
-          <input type="checkbox" value="Speaker Series & Networking">
-          <div><div class="choice-label">Speaker Series</div><div class="choice-sub">Panels &amp; networking events</div></div>
-        </label>
-        <label class="choice-card">
-          <input type="checkbox" value="Trading Competition">
-          <div><div class="choice-label">Trading Competition</div><div class="choice-sub">Annual portfolio challenge</div></div>
-        </label>
-        <label class="choice-card">
-          <input type="checkbox" value="Stock Pitch Challenge">
-          <div><div class="choice-label">Stock Pitch Challenge</div><div class="choice-sub">Pitch a company, live</div></div>
-        </label>
-        <label class="choice-card">
-          <input type="checkbox" value="Case Competitions (JDC West)">
-          <div><div class="choice-label">Case Competitions</div><div class="choice-sub">Incl. JDC West Finance</div></div>
-        </label>
-        <label class="choice-card">
-          <input type="checkbox" value="Just staying in the loop">
-          <div><div class="choice-label">Just the newsletter</div><div class="choice-sub">Keep me in the loop</div></div>
-        </label>
-      </div>
+      <h2>What areas of finance interest you?</h2>
+      <p class="step-note">Step 2 of 3 — pick as many as you like. (Draft categories — let us know if you'd frame these differently.)</p>
+      <div class="choice-grid" id="interestGrid"></div>
       <div class="quiz-nav">
         <button class="btn btn-ghost" data-back>Back</button>
         <button class="btn btn-primary" data-next="2">Continue</button>
@@ -147,13 +122,14 @@
       <div class="success-screen">
         <div class="success-icon">✓</div>
         <h2>You're in.</h2>
-        <p>Welcome to UVIG. You'll get the next newsletter and event updates by email — and your seat is reserved at whatever's next on the calendar.</p>
+        <p>Welcome to UVIG. Keep an eye on your inbox — you'll get the next newsletter and hear about upcoming events as they're posted.</p>
         <a href="events.html" class="btn btn-primary" style="margin-top:22px;">See upcoming events</a>
       </div>
     </div>
 
   </div>
 
+<script src="data.js"></script>
 <script>
   // ============================================================
   // Google Sheet backend
@@ -161,6 +137,14 @@
   // See GOOGLE_SHEETS_SETUP.md for the one-time setup steps.
   // ============================================================
   const SHEET_ENDPOINT = "REPLACE_WITH_YOUR_APPS_SCRIPT_WEB_APP_URL";
+
+  // Render interest choices from data.js (draft categories, per Will's request)
+  document.getElementById('interestGrid').innerHTML = UVIG_INTERESTS.map(i => `
+    <label class="choice-card">
+      <input type="checkbox" value="${i.area}">
+      <div><div class="choice-label">${i.area}</div><div class="choice-sub">${i.careers}</div></div>
+    </label>
+  `).join('');
 
   const steps = document.querySelectorAll('.quiz-step');
   const fills = document.querySelectorAll('.progress-seg .fill');
