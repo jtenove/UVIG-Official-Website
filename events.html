@@ -75,6 +75,15 @@
         <span class="section-note">2026 / 27</span>
       </div>
       <div id="upcomingList"></div>
+
+      <div class="planned-heading">
+        <div class="section-head">
+          <h2 style="font-size:20px;">Planned for this season</h2>
+          <span class="planned-badge">NOT YET CONFIRMED</span>
+        </div>
+        <p style="color:var(--graphite); font-size:14px; margin:-8px 0 20px;">Dates and details below are still being finalized — a preview, not a commitment. Nothing to add to your calendar yet.</p>
+        <div id="plannedList"></div>
+      </div>
     </div>
   </section>
 
@@ -177,14 +186,19 @@
 <script src="data.js"></script>
 <script src="script.js"></script>
 <script>
-  // ---- Upcoming events (visible only — see data.js note on hidden events) ----
+  // ---- Upcoming events: confirmed get full treatment, planned are a lighter preview ----
   const upcomingList = document.getElementById('upcomingList');
-  const visibleUpcoming = UVIG_UPCOMING.filter(ev => ev.visible !== false);
-  const sortedUpcoming = [...visibleUpcoming].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate));
-  upcomingList.innerHTML = sortedUpcoming.map(ev => {
+  const plannedList = document.getElementById('plannedList');
+  const confirmed = UVIG_UPCOMING.filter(ev => ev.status === 'confirmed');
+  const planned = UVIG_UPCOMING.filter(ev => ev.status !== 'confirmed');
+
+  function dateBits(ev) {
     const d = new Date(ev.isoDate + 'T00:00:00');
-    const day = d.getDate();
-    const month = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+    return { day: d.getDate(), month: d.toLocaleString('en-US', { month: 'short' }).toUpperCase() };
+  }
+
+  upcomingList.innerHTML = [...confirmed].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate)).map(ev => {
+    const { day, month } = dateBits(ev);
     return `
       <div class="event-banner" id="${ev.id}">
         <div class="event-date-block"><div class="day">${day}</div><div class="month">${month}</div></div>
@@ -197,9 +211,24 @@
             <span><strong>Time:</strong>&nbsp;${ev.time}</span>
             <span><strong>Speakers:</strong>&nbsp;${ev.speakers}</span>
           </div>
-          <div class="calendar-actions">
-            <button class="cal-btn" data-cal="google" data-event-id="${ev.id}">+ Google Calendar</button>
-            <button class="cal-btn" data-cal="ics" data-event-id="${ev.id}">+ Apple / Outlook</button>
+          ${renderCalDropdown(ev.id)}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  plannedList.innerHTML = [...planned].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate)).map(ev => {
+    const { day, month } = dateBits(ev);
+    return `
+      <div class="event-banner is-planned" id="${ev.id}">
+        <div class="event-date-block"><div class="day">${day}</div><div class="month">${month}</div></div>
+        <div class="event-body">
+          <span class="partner-tag">${ev.partner !== 'TBD' ? 'WITH ' + ev.partner.toUpperCase() : 'UVIG EVENT'} · <span class="planned-badge" style="margin-left:2px;">NOT YET CONFIRMED</span></span>
+          <h3>${ev.title}</h3>
+          <p>${ev.blurb}</p>
+          <div class="event-meta-row">
+            <span><strong>Venue:</strong>&nbsp;${ev.venue}</span>
+            <span><strong>Time:</strong>&nbsp;${ev.time}</span>
           </div>
         </div>
       </div>
@@ -210,15 +239,27 @@
   const pastToggle = document.getElementById('pastToggle');
   const pastWrap = document.getElementById('pastEventsWrap');
   const pastGrid = document.getElementById('pastGrid');
-  pastGrid.innerHTML = UVIG_PAST.map(ev => `
-    <div class="past-card ${ev.highlight ? 'highlight' : ''}">
-      <span class="tag">${ev.tag}</span>
-      <h4>${ev.title}</h4>
-      <div class="meta">${ev.dateDisplay} · ${ev.venue}</div>
-      <p>${ev.blurb}</p>
-      ${ev.speakers ? `<div class="speaker-line">${ev.speakers.join(' · ')}</div>` : ''}
-    </div>
-  `).join('');
+  pastGrid.innerHTML = UVIG_PAST.map(ev => {
+    const photoBlock = ev.photos ? `
+      <div class="photo-row">
+        ${ev.photos.map(p => `<img src="${p}" alt="Photo from ${ev.title}" loading="lazy">`).join('')}
+      </div>
+    ` : '';
+    const bodyOpen = ev.photos ? '<div class="photo-card-body">' : '';
+    const bodyClose = ev.photos ? '</div>' : '';
+    return `
+      <div class="past-card ${ev.highlight ? 'highlight' : ''} ${ev.photos ? 'has-photo' : ''}">
+        ${photoBlock}
+        ${bodyOpen}
+        <span class="tag">${ev.tag}</span>
+        <h4>${ev.title}</h4>
+        <div class="meta">${ev.dateDisplay} · ${ev.venue}</div>
+        <p>${ev.blurb}</p>
+        ${ev.speakers ? `<div class="speaker-line">${ev.speakers.join(' · ')}</div>` : ''}
+        ${bodyClose}
+      </div>
+    `;
+  }).join('');
   pastToggle.addEventListener('click', () => {
     const isOpen = pastToggle.classList.toggle('open');
     pastToggle.setAttribute('aria-expanded', isOpen);

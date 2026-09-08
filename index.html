@@ -163,23 +163,15 @@
     </div>
   </section>
 
-  <!-- UVIG App preview -->
-  <section id="app-preview">
+  <!-- UVIG Member's App preview -->
+  <section id="app-preview" style="padding-top:8px; padding-bottom:8px;">
     <div class="wrap">
-      <div class="section-head">
-        <h2>The UVIG App</h2>
-        <span class="coming-soon-tag">COMING SOON</span>
-      </div>
-      <p class="app-preview-lede">A members-only app with daily market dashboards, internal UVIG updates, and live stock-picking challenges — currently in development at <strong>uvig.app</strong>.</p>
-      <div class="app-preview-grid">
-        <figure>
-          <img src="app-preview-1.png" alt="UVIG App stock challenge dashboard preview, showing portfolio value and rank">
-          <figcaption>Stock Picking Challenge — dashboard</figcaption>
-        </figure>
-        <figure>
-          <img src="app-preview-2.png" alt="UVIG App leaderboard preview, ranking top performers and holdings">
-          <figcaption>Stock Picking Challenge — leaderboard</figcaption>
-        </figure>
+      <div class="app-preview-compact">
+        <img src="app-preview-1.png" alt="UVIG Member's App preview">
+        <div class="app-preview-compact-body">
+          <h3>The UVIG Member's App <span class="coming-soon-tag" style="margin-left:6px;">Coming Soon</span></h3>
+          <p>Daily market dashboards, internal updates, and live stock-picking challenges — in development at <strong>uvig.app</strong>.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -300,10 +292,10 @@
 <script src="data.js"></script>
 <script src="script.js"></script>
 <script>
-  // Render the soonest VISIBLE upcoming event as the home page teaser banner
+  // Render the soonest CONFIRMED upcoming event as the home page teaser banner
   (function(){
-    const visible = UVIG_UPCOMING.filter(ev => ev.visible !== false);
-    const sorted = [...visible].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate));
+    const confirmed = UVIG_UPCOMING.filter(ev => ev.status === 'confirmed');
+    const sorted = [...confirmed].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate));
     const next = sorted[0];
     if (!next) return;
     const d = new Date(next.isoDate + 'T00:00:00');
@@ -320,10 +312,7 @@
             <span>${next.venue}</span>
             <span>${next.time}</span>
           </div>
-          <div class="calendar-actions">
-            <button class="cal-btn" data-cal="google" data-event-id="${next.id}">+ Google Calendar</button>
-            <button class="cal-btn" data-cal="ics" data-event-id="${next.id}">+ Apple / Outlook</button>
-          </div>
+          ${renderCalDropdown(next.id)}
         </div>
         <div class="next-event-cta"><a href="events.html#${next.id}" class="btn btn-primary">See details</a></div>
       </div>

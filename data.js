@@ -19,7 +19,7 @@ const UVIG_UPCOMING = [
     partner: "Longship Investment Club",
     speakers: "UVIG & Longship Exec(s)",
     blurb: "An evening of mentorship, guidance and career exploration in finance — co-hosted with Longship Investment Club. Everyone welcome.",
-    visible: true
+    status: "confirmed"
   },
   {
     id: "girls-that-invest",
@@ -31,7 +31,7 @@ const UVIG_UPCOMING = [
     partner: "UVic Girls That Invest",
     speakers: "TBD",
     blurb: "A joint session with UVic Girls That Invest — details on speakers and format to follow.",
-    visible: false
+    status: "planned"
   },
   {
     id: "wealth-management-panel",
@@ -43,7 +43,7 @@ const UVIG_UPCOMING = [
     partner: "TBD",
     speakers: "TBD",
     blurb: "Learn from and network with wealth management professionals. Past panels have featured speakers from TD, RBC and Scotiabank.",
-    visible: false
+    status: "planned"
   },
   {
     id: "finance-social",
@@ -55,7 +55,7 @@ const UVIG_UPCOMING = [
     partner: "TBD",
     speakers: "N/A",
     blurb: "A casual social to meet other students interested in finance — no agenda, just conversation and networking.",
-    visible: false
+    status: "planned"
   },
   {
     id: "asset-management-panel",
@@ -67,13 +67,12 @@ const UVIG_UPCOMING = [
     partner: "TBD",
     speakers: "TBD",
     blurb: "Hear from professionals working in asset management and investment roles. Open to everyone, no finance background required.",
-    visible: false
+    status: "planned"
   }
 ];
-// NOTE: "visible: false" events are hidden from the live site but kept here
-// so you can flip them back to "true" the moment dates/venues are locked in.
-// This was Will's call — he didn't want students calendaring events that
-// might still move.
+// "status: confirmed" events get the full treatment (calendar add, top billing).
+// "status: planned" events show as a lighter "not yet confirmed" preview —
+// flip to "confirmed" once a date/venue is locked in.
 
 // ---------- PAST EVENTS (selected highlights) ----------
 // Pulled from the club's Instagram history. Exact years weren't
@@ -99,7 +98,8 @@ const UVIG_PAST = [
     dateDisplay: "October 21",
     venue: "DSB C108",
     tag: "Panel",
-    blurb: "UVic alumni in asset management and investment roles shared career journeys and practical advice on portfolio management and research."
+    blurb: "UVic alumni in asset management and investment roles shared career journeys and practical advice on portfolio management and research.",
+    photos: ["photo-asset-panel-1.jpg", "photo-asset-panel-2.jpg"]
   },
   {
     title: "Annual Finance Networking Event",
@@ -121,14 +121,16 @@ const UVIG_PAST = [
     venue: "Michele Pujol Room, SUB",
     tag: "Partner event",
     blurb: "A recurring sandwich-buffet networking lunch run with the Commerce Students' Society, featuring finance professionals as speakers.",
-    speakers: ["Shaun Rosson — Certified Financial Planner, VP Wealth Management"]
+    speakers: ["Shaun Rosson — Certified Financial Planner, VP Wealth Management"],
+    photos: ["photo-css-lunch-1.jpg", "photo-css-lunch-2.jpg"]
   },
   {
     title: "People in Finance Social",
     dateDisplay: "November 6",
     venue: "Maude Hunter's Pub",
     tag: "Social",
-    blurb: "A relaxed chance to meet fellow finance students and AIMC/APMP alumni."
+    blurb: "A relaxed chance to meet fellow finance students and AIMC/APMP alumni.",
+    photos: ["photo-finance-social-1.jpg", "photo-finance-social-2.jpg"]
   },
   {
     title: "Women in Capital Markets",

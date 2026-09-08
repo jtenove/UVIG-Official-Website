@@ -89,14 +89,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ---- Add to Calendar (event delegation) ---- */
+  /* ---- Add to Calendar (minimal dropdown, event delegation) ---- */
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-cal]');
-    if (!btn || typeof UVIG_UPCOMING === 'undefined') return;
-    const ev = UVIG_UPCOMING.find(x => x.id === btn.dataset.eventId);
-    if (!ev) return;
-    if (btn.dataset.cal === 'google') openGoogleCalendar(ev);
-    if (btn.dataset.cal === 'ics') downloadICS(ev);
+    const trigger = e.target.closest('.cal-trigger');
+    const menuBtn = e.target.closest('[data-cal]');
+
+    if (trigger) {
+      const dropdown = trigger.closest('.cal-dropdown');
+      const wasOpen = dropdown.classList.contains('open');
+      document.querySelectorAll('.cal-dropdown.open').forEach(d => d.classList.remove('open'));
+      if (!wasOpen) dropdown.classList.add('open');
+      return;
+    }
+
+    if (menuBtn && typeof UVIG_UPCOMING !== 'undefined') {
+      const ev = UVIG_UPCOMING.find(x => x.id === menuBtn.dataset.eventId);
+      if (ev) {
+        if (menuBtn.dataset.cal === 'google') openGoogleCalendar(ev);
+        if (menuBtn.dataset.cal === 'ics') downloadICS(ev);
+      }
+      menuBtn.closest('.cal-dropdown').classList.remove('open');
+      return;
+    }
+
+    // Click outside any dropdown closes all of them
+    if (!e.target.closest('.cal-dropdown')) {
+      document.querySelectorAll('.cal-dropdown.open').forEach(d => d.classList.remove('open'));
+    }
   });
 });
 
@@ -141,6 +160,21 @@ function openGoogleCalendar(ev) {
     location: ev.venue || ''
   });
   window.open(`https://www.google.com/calendar/render?${params.toString()}`, '_blank', 'noopener');
+}
+
+function renderCalDropdown(eventId) {
+  return `
+    <div class="cal-dropdown">
+      <button class="cal-trigger" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        Add to calendar
+      </button>
+      <div class="cal-menu">
+        <button type="button" data-cal="google" data-event-id="${eventId}">Google Calendar</button>
+        <button type="button" data-cal="ics" data-event-id="${eventId}">Apple / Outlook (.ics)</button>
+      </div>
+    </div>
+  `;
 }
 
 function downloadICS(ev) {
