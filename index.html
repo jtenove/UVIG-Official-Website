@@ -22,16 +22,14 @@
     <div class="ticker-track">
       <span>TSX <b>22,481</b> <span class="up">▲ 0.42%</span></span>
       <span>S&amp;P 500 <b>6,112</b> <span class="up">▲ 0.18%</span></span>
-      <span>UVIG PORTFOLIO WATCH <b>NEXT REPORT: WK 3</b></span>
       <span>CAD/USD <b>0.735</b> <span class="down">▼ 0.06%</span></span>
-      <span>10Y GoC YIELD <b>3.21%</b></span>
-      <span>NEXT SPEAKER SESSION <b>THU 5:30PM</b></span>
+      <span>10Y GoC YIELD <b>3.82%</b></span>
+      <span>MARKETS DRIVE OPPORTUNITY</span>
       <span>TSX <b>22,481</b> <span class="up">▲ 0.42%</span></span>
       <span>S&amp;P 500 <b>6,112</b> <span class="up">▲ 0.18%</span></span>
-      <span>UVIG PORTFOLIO WATCH <b>NEXT REPORT: WK 3</b></span>
       <span>CAD/USD <b>0.735</b> <span class="down">▼ 0.06%</span></span>
-      <span>10Y GoC YIELD <b>3.21%</b></span>
-      <span>NEXT SPEAKER SESSION <b>THU 5:30PM</b></span>
+      <span>10Y GoC YIELD <b>3.82%</b></span>
+      <span>MARKETS DRIVE OPPORTUNITY</span>
     </div>
   </div>
 
@@ -49,7 +47,7 @@
       </div>
       <nav class="primary-nav" id="primaryNav">
         <a href="events.html" class="nav-link">Events</a>
-        <a href="index.html#reports" class="nav-link">Reports</a>
+        <a href="index.html#reports" class="nav-link">Research</a>
         <a href="team.html" class="nav-link">Team</a>
         <a href="newsletter.html" class="nav-link">Newsletter</a>
         <div class="nav-actions">
@@ -63,72 +61,74 @@
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero" id="top">
-    <div class="wrap hero-inner">
+  <!-- Hero Carousel -->
+  <section class="hero-carousel" id="heroCarousel">
+    <div class="hero-slide active" style="background-image:url('photo-hero-speaker.jpg');" data-slide="0"></div>
+    <div class="hero-slide" style="background-image:url('photo-laptop-chart.jpg');" data-slide="1"></div>
+    <div class="hero-slide" style="background-image:url('photo-students-laptop.jpg');" data-slide="2"></div>
+    <div class="hero-slide" style="background-image:url('photo-vancouver-dusk.jpg');" data-slide="3"></div>
+
+    <div class="hero-carousel-content">
+      <span class="hero-eyebrow-white">THE UNIVERSITY OF VICTORIA INVESTMENT GROUP</span>
+      <h1>Think like an investor.</h1>
+      <p class="lede">Student research. Industry's connections. Real opportunities.</p>
+      <div class="hero-actions">
+        <a href="index.html#reports" class="btn btn-primary">Explore Research</a>
+        <a href="join.html" class="btn btn-ghost">Join UVIG</a>
+      </div>
+    </div>
+
+    <div class="hero-quote-card">Better investors build a brighter tomorrow.</div>
+
+    <div class="carousel-controls">
+      <span class="carousel-counter" id="carouselCounter">01 / 04</span>
+      <div class="carousel-dots" id="carouselDots">
+        <button class="carousel-dot active" data-goto="0" aria-label="Slide 1"></button>
+        <button class="carousel-dot" data-goto="1" aria-label="Slide 2"></button>
+        <button class="carousel-dot" data-goto="2" aria-label="Slide 3"></button>
+        <button class="carousel-dot" data-goto="3" aria-label="Slide 4"></button>
+      </div>
+      <div class="carousel-arrows">
+        <button class="carousel-arrow" id="carouselPrev" aria-label="Previous slide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="carousel-arrow" id="carouselNext" aria-label="Next slide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Events + Featured Research -->
+  <section>
+    <div class="wrap home-split">
       <div>
-        <span class="hero-eyebrow">STUDENT-RUN EQUITY RESEARCH &amp; NETWORKING</span>
-        <h1>Bridging the Gap Between Academics and Industry</h1>
-        <p class="lede">To expose students to the finance industry and increase the University of Victoria's reputation within it. UVIG publishes equity research, hosts industry speakers, and prepares members for national case competitions.</p>
-        <div class="hero-actions">
-          <a href="index.html#reports" class="btn btn-primary">Read our latest report</a>
-          <a href="join.html" class="btn btn-ghost">Join the group</a>
+        <div class="section-head">
+          <h2>Upcoming Events</h2>
+          <span class="section-note"><a href="events.html" style="color:inherit; text-decoration:none;">VIEW ALL →</a></span>
+        </div>
+        <div class="mini-events-list" id="miniEventsList"></div>
+      </div>
+      <div>
+        <div class="section-head">
+          <h2>Featured Research</h2>
+          <span class="section-note"><a href="index.html#reports" style="color:inherit; text-decoration:none;">VIEW ALL →</a></span>
+        </div>
+        <div class="featured-research-card">
+          <div class="fr-image" style="background-image:url('photo-laptop-chart.jpg');"></div>
+          <div class="fr-body">
+            <span class="research-tag">BUY</span>
+            <h3>NVIDIA — Initiation of Coverage</h3>
+            <p>We initiate coverage on NVIDIA with a BUY rating, driven by accelerating data centre growth and strong competitive positioning.</p>
+            <a href="#" class="read-link">Read Report</a>
+          </div>
         </div>
       </div>
-      <svg class="hero-chart" viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg">
-        <line x1="0" y1="60" x2="480" y2="60" stroke="#DADFE6" stroke-width="1"/>
-        <line x1="0" y1="140" x2="480" y2="140" stroke="#DADFE6" stroke-width="1"/>
-        <line x1="0" y1="220" x2="480" y2="220" stroke="#DADFE6" stroke-width="1"/>
-        <polyline points="0,220 40,205 80,215 120,170 160,180 200,130 240,150 280,95 320,110 360,60 400,75 440,30 480,45"
-          fill="none" stroke="#0A1F3D" stroke-width="2.5"/>
-        <polygon points="0,220 40,205 80,215 120,170 160,180 200,130 240,150 280,95 320,110 360,60 400,75 440,30 480,45 480,300 0,300"
-          fill="#0A1F3D" opacity="0.06"/>
-        <circle cx="480" cy="45" r="4.5" fill="#B99A5B"/>
-      </svg>
     </div>
   </section>
 
-  <!-- Upcoming events teaser -->
-  <section id="upcoming-events">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>Upcoming UVIG Events</h2>
-        <span class="section-note">SEE THE FULL SCHEDULE →</span>
-      </div>
-      <div id="nextEventBanner"></div>
-      <div style="margin-top:20px;">
-        <a href="events.html" class="btn btn-ghost">View all events</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Featured insight -->
-  <section id="insights">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>This week's insight</h2>
-        <span class="section-note">WEEKLY RESEARCH — COMING SOON</span>
-      </div>
-      <div class="featured">
-        <div>
-          <span class="issue-tag">COMING SOON</span>
-          <h3>Weekly market insight, launching this semester</h3>
-          <p class="excerpt">Our Internal team is building out a regular research brief — economic trends, sector notes, and a plain-language read on what moved markets. Check back soon for the first issue.</p>
-        </div>
-        <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
-          <rect width="400" height="220" fill="#FAFAF8"/>
-          <line x1="0" y1="180" x2="400" y2="180" stroke="#DADFE6"/>
-          <line x1="0" y1="120" x2="400" y2="120" stroke="#DADFE6"/>
-          <line x1="0" y1="60" x2="400" y2="60" stroke="#DADFE6"/>
-          <polyline points="0,150 30,160 60,140 90,155 120,110 150,120 180,90 210,100 240,70 270,85 300,50 330,60 360,35 400,40"
-            fill="none" stroke="#163862" stroke-width="2.5"/>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <!-- Coverage list -->
-  <section id="reports">
+  <!-- Latest coverage (kept for #reports anchor + pending list) -->
+  <section id="reports" style="padding-top:0;">
     <div class="wrap">
       <div class="section-head">
         <h2>Latest coverage</h2>
@@ -138,87 +138,120 @@
     </div>
   </section>
 
-  <!-- What we do -->
+  <!-- Banner 1: More than a club -->
+  <section style="padding:0;">
+    <div class="split-banner" style="background-image:url('photo-forest-dusk.jpg');">
+      <div class="split-banner-inner">
+        <div class="split-banner-text">
+          <span class="tag">UVIG</span>
+          <h2>More than a club. A launchpad for what's next.</h2>
+          <p>Research. People. Opportunity. At the University of Victoria.</p>
+          <div class="split-banner-actions">
+            <a href="team.html" class="btn btn-primary">Explore UVIG</a>
+            <a href="join.html" class="btn btn-ghost">Join the Group</a>
+          </div>
+        </div>
+        <div class="banner-word-list">
+          PEOPLE<br>IDEAS<br>OPPORTUNITIES<br>A STRONGER TOMORROW
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is UVIG -->
   <section id="about">
     <div class="wrap">
-      <div class="section-head">
-        <h2>What we do</h2>
-        <span class="section-note">TWO TEAMS, ONE GROUP</span>
-      </div>
-      <div class="split-two">
-        <div class="pillar">
-          <span class="pillar-index">Internal Team</span>
-          <h3>Research &amp; reporting</h3>
-          <p>Our Internal team publishes equity research and industry reports — analysts get real coverage experience, reviewed before release.</p>
-          <a href="index.html#reports" class="btn btn-ghost" style="margin-top:16px;">See our research</a>
+      <div class="about-wrap">
+        <div class="about-text">
+          <span class="hero-eyebrow">EST. 2015</span>
+          <h2>What is UVIG?</h2>
+          <p>The University of Victoria Investment Group is a student-run organization focused on developing investment knowledge, connecting students with the financial industry, and representing UVic on the national stage.</p>
         </div>
-        <div class="pillar">
-          <span class="pillar-index">External Team</span>
-          <h3>Events &amp; partnerships</h3>
-          <p>Our External team runs the speaker series, panels, and partnerships that bring industry into the room.</p>
-          <a href="events.html" class="btn btn-ghost" style="margin-top:16px;">See upcoming events</a>
-        </div>
-      </div>
-      <p class="split-note">Members also compete in national case competitions throughout the year.</p>
-    </div>
-  </section>
-
-  <!-- Firms credibility strip -->
-  <section style="padding-top:0; padding-bottom:36px;">
-    <div class="wrap">
-      <p style="text-align:center; font-family:var(--mono); font-size:11px; color:var(--graphite); letter-spacing:0.03em; margin-bottom:16px;">SPEAKERS &amp; PARTNERS HAVE JOINED US FROM</p>
-    </div>
-    <div class="firms-marquee" aria-hidden="true">
-      <div class="firms-track" id="homeFirmsTrack"></div>
-    </div>
-  </section>
-
-  <!-- UVIG Member's App preview -->
-  <section id="app-preview" style="padding-top:8px; padding-bottom:8px;">
-    <div class="wrap">
-      <div class="app-preview-compact">
-        <img src="app-preview-1.png" alt="UVIG Member's App preview">
-        <div class="app-preview-compact-body">
-          <h3>The UVIG Member's App <span class="coming-soon-tag" style="margin-left:6px;">Coming Soon</span></h3>
-          <p>Daily market dashboards, internal updates, and live stock-picking challenges — in development at <strong>uvig.app</strong>.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats -->
-  <section class="stats-band">
-    <div class="wrap stats-grid">
-      <div class="stat">
-        <div class="num">40+</div>
-        <div class="label">Active members</div>
-      </div>
-      <div class="stat">
-        <div class="num">14</div>
-        <div class="label">Reports published this year</div>
-      </div>
-      <div class="stat">
-        <div class="num">25+</div>
-        <div class="label">Industry professionals hosted</div>
-      </div>
-    </div>
-    <p style="text-align:center; font-family:var(--mono); font-size:11.5px; color:#8FA0BD; margin-top:20px;">Stats updating for the 2026/27 season — check back soon.</p>
-  </section>
-
-  <!-- Newsletter teaser -->
-  <section id="newsletter">
-    <div class="wrap">
-      <div class="newsletter">
-        <div>
-          <h2>Get the biweekly market brief</h2>
-          <p>Receive an update on major economic trends, our latest internal equity research, recruitment timelines, and partnership news. Stay informed on upcoming events and discover how to get involved.</p>
-        </div>
-        <div>
-          <div class="newsletter-actions">
-            <a href="newsletter.html" class="btn btn-ghost">See what's inside</a>
-            <a href="join.html" class="btn btn-primary">Subscribe</a>
+        <div class="about-stats-inline">
+          <div class="stat">
+            <div class="num">40+</div>
+            <div class="label">Members</div>
           </div>
-          <p class="fine">One email every two weeks. Unsubscribe anytime.</p>
+          <div class="stat">
+            <div class="num">14</div>
+            <div class="label">Research Reports</div>
+          </div>
+          <div class="stat">
+            <div class="num">25+</div>
+            <div class="label">Industry Professionals Hosted</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-photo-grid">
+        <div class="feature-photo-card">
+          <div class="fp-image" style="background-image:url('photo-laptop-chart.jpg');"></div>
+          <div class="fp-body">
+            <span class="fp-label">RESEARCH</span>
+            <h3>Think like an analyst.</h3>
+            <p>Student-led equity research, valuation, and investment ideas.</p>
+            <a href="index.html#reports" class="read-link">Explore Research →</a>
+          </div>
+        </div>
+        <div class="feature-photo-card">
+          <div class="fp-image" style="background-image:url('photo-hero-speaker.jpg');"></div>
+          <div class="fp-body">
+            <span class="fp-label">EVENTS</span>
+            <h3>Meet the industry.</h3>
+            <p>Speaker events, workshops, socials and networking opportunities.</p>
+            <a href="events.html" class="read-link">View Events →</a>
+          </div>
+        </div>
+        <div class="feature-photo-card">
+          <div class="fp-image" style="background-image:url('photo-students-laptop.jpg');"></div>
+          <div class="fp-body">
+            <span class="fp-label">DEVELOPMENT</span>
+            <h3>Build your career.</h3>
+            <p>Financial modelling, case competitions, and real-world experience.</p>
+            <a href="team.html" class="read-link">Learn About UVIG →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Three Ways to Get Involved -->
+  <section style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head" style="border-bottom:none; margin-bottom:0;">
+        <h2>Three Ways to Get Involved</h2>
+      </div>
+      <div class="involved-grid">
+        <a href="events.html" class="involved-card">
+          <div class="ic-image" style="background-image:url('photo-hero-speaker.jpg');"></div>
+          <h3>Attend an Event</h3>
+          <p>Speaker series, workshops, and networking.</p>
+        </a>
+        <a href="index.html#reports" class="involved-card">
+          <div class="ic-image" style="background-image:url('photo-laptop-chart.jpg');"></div>
+          <h3>Read Our Research</h3>
+          <p>Equity research, sector reports, and market insights.</p>
+        </a>
+        <a href="newsletter.html" class="involved-card">
+          <div class="ic-image" style="background-image:url('photo-students-laptop.jpg');"></div>
+          <h3>Join the Newsletter</h3>
+          <p>Be part of a driven and supportive network.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Banner 2: A stronger financial tomorrow -->
+  <section style="padding:0;">
+    <div class="split-banner" style="background-image:url('photo-vancouver-dusk.jpg');">
+      <div class="split-banner-inner">
+        <div class="split-banner-text">
+          <span class="tag">STUDENTS TODAY.</span>
+          <h2>A stronger financial tomorrow.</h2>
+          <p>Develop your skills. Build your network. Make an impact.</p>
+          <div class="split-banner-actions">
+            <a href="join.html" class="btn btn-primary">Join UVIG</a>
+          </div>
         </div>
       </div>
     </div>
@@ -270,7 +303,7 @@
     </div>
   </footer>
 
-  <!-- Use as App modal -->
+  <!-- UVIG App modal -->
   <div class="modal-overlay" id="appModalOverlay">
     <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="appModalTitle">
       <div class="modal-head">
@@ -288,31 +321,57 @@
 <script src="data.js"></script>
 <script src="script.js"></script>
 <script>
-  // Render the soonest CONFIRMED upcoming event as the home page teaser banner
+  // ---- Hero carousel ----
   (function(){
-    const confirmed = UVIG_UPCOMING.filter(ev => ev.status === 'confirmed');
-    const sorted = [...confirmed].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate));
-    const next = sorted[0];
-    if (!next) return;
-    const d = new Date(next.isoDate + 'T00:00:00');
-    const day = d.getDate();
-    const month = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
-    document.getElementById('nextEventBanner').innerHTML = `
-      <div class="next-event-banner">
-        <div class="next-event-date"><div class="day">${day}</div><div class="month">${month}</div></div>
-        <div class="next-event-body">
-          <span class="tag">NEXT UP · ${next.partner !== 'TBD' ? next.partner : 'UVIG'}</span>
-          <h3>${next.title}</h3>
-          <p>${next.blurb}</p>
-          <div class="next-event-meta">
-            <span>${next.venue}</span>
-            <span>${next.time}</span>
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const counter = document.getElementById('carouselCounter');
+    const total = slides.length;
+    let current = 0;
+    let timer;
+
+    function show(i){
+      current = (i + total) % total;
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === current));
+      dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
+      counter.textContent = String(current + 1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+    }
+    function next(){ show(current + 1); }
+    function prev(){ show(current - 1); }
+    function restart(){ clearInterval(timer); timer = setInterval(next, 6000); }
+
+    document.getElementById('carouselNext').addEventListener('click', () => { next(); restart(); });
+    document.getElementById('carouselPrev').addEventListener('click', () => { prev(); restart(); });
+    dots.forEach(d => d.addEventListener('click', () => { show(parseInt(d.dataset.goto,10)); restart(); }));
+
+    restart();
+  })();
+
+  // ---- Upcoming events (mini list, real data — confirmed first, then planned) ----
+  (function(){
+    const sorted = [...UVIG_UPCOMING].sort((a,b) => {
+      if (a.status === 'confirmed' && b.status !== 'confirmed') return -1;
+      if (b.status === 'confirmed' && a.status !== 'confirmed') return 1;
+      return new Date(a.isoDate) - new Date(b.isoDate);
+    }).slice(0, 3);
+
+    document.getElementById('miniEventsList').innerHTML = sorted.map(ev => {
+      const d = new Date(ev.isoDate + 'T00:00:00');
+      const day = d.getDate();
+      const month = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+      const notConfirmed = ev.status !== 'confirmed' ? ' <span class="planned-badge" style="margin-left:4px;">NOT YET CONFIRMED</span>' : '';
+      return `
+        <a href="events.html#${ev.id}" class="mini-event">
+          <div class="mini-event-date"><div class="day">${day}</div><div class="month">${month}</div></div>
+          <div class="mini-event-body">
+            <div class="title-row"><h4>${ev.title}</h4></div>
+            <div class="meta">${ev.venue}${notConfirmed}</div>
+            <p>${ev.blurb.length > 90 ? ev.blurb.slice(0,90) + '…' : ev.blurb}</p>
           </div>
-          ${renderCalDropdown(next.id)}
-        </div>
-        <div class="next-event-cta"><a href="events.html#${next.id}" class="btn btn-primary">See details</a></div>
-      </div>
-    `;
+          <div class="mini-event-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
+        </a>
+      `;
+    }).join('');
   })();
 
   // Render pending equity reports into "Latest coverage"
@@ -324,14 +383,6 @@
         <span class="cov-arrow">READ →</span>
       </span>
     `).join('');
-  })();
-
-  // Render the firms credibility strip (duplicated for a seamless scroll loop)
-  (function(){
-    const track = document.getElementById('homeFirmsTrack');
-    if (!track) return;
-    const spans = UVIG_FIRMS.map(f => `<span>${f}</span>`).join('<span style="color:#5B6472;">/</span>');
-    track.innerHTML = spans + '<span style="color:#5B6472;">/</span>' + spans;
   })();
 </script>
 </body>

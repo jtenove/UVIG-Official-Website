@@ -46,7 +46,7 @@
       </div>
       <nav class="primary-nav" id="primaryNav">
         <a href="events.html" class="nav-link current">Events</a>
-        <a href="index.html#reports" class="nav-link">Reports</a>
+        <a href="index.html#reports" class="nav-link">Research</a>
         <a href="team.html" class="nav-link">Team</a>
         <a href="newsletter.html" class="nav-link">Newsletter</a>
         <div class="nav-actions">
@@ -75,15 +75,6 @@
         <span class="section-note">2026 / 27</span>
       </div>
       <div id="upcomingList"></div>
-
-      <div class="planned-heading">
-        <div class="section-head">
-          <h2 style="font-size:20px;">Planned for this season</h2>
-          <span class="planned-badge">NOT YET CONFIRMED</span>
-        </div>
-        <p style="color:var(--graphite); font-size:14px; margin:-8px 0 20px;">Dates and details below are still being finalized — a preview, not a commitment. Nothing to add to your calendar yet.</p>
-        <div id="plannedList"></div>
-      </div>
     </div>
   </section>
 
@@ -174,11 +165,9 @@
 <script src="data.js"></script>
 <script src="script.js"></script>
 <script>
-  // ---- Upcoming events: confirmed get full treatment, planned are a lighter preview ----
+  // ---- Upcoming events (confirmed only) ----
   const upcomingList = document.getElementById('upcomingList');
-  const plannedList = document.getElementById('plannedList');
   const confirmed = UVIG_UPCOMING.filter(ev => ev.status === 'confirmed');
-  const planned = UVIG_UPCOMING.filter(ev => ev.status !== 'confirmed');
 
   function dateBits(ev) {
     const d = new Date(ev.isoDate + 'T00:00:00');
@@ -200,24 +189,6 @@
             <span><strong>Speakers:</strong>&nbsp;${ev.speakers}</span>
           </div>
           ${renderCalDropdown(ev.id)}
-        </div>
-      </div>
-    `;
-  }).join('');
-
-  plannedList.innerHTML = [...planned].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate)).map(ev => {
-    const { day, month } = dateBits(ev);
-    return `
-      <div class="event-banner is-planned" id="${ev.id}">
-        <div class="event-date-block"><div class="day">${day}</div><div class="month">${month}</div></div>
-        <div class="event-body">
-          <span class="partner-tag">${ev.partner !== 'TBD' ? 'WITH ' + ev.partner.toUpperCase() : 'UVIG EVENT'} · <span class="planned-badge" style="margin-left:2px;">NOT YET CONFIRMED</span></span>
-          <h3>${ev.title}</h3>
-          <p>${ev.blurb}</p>
-          <div class="event-meta-row">
-            <span><strong>Venue:</strong>&nbsp;${ev.venue}</span>
-            <span><strong>Time:</strong>&nbsp;${ev.time}</span>
-          </div>
         </div>
       </div>
     `;
