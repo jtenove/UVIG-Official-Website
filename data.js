@@ -133,13 +133,6 @@ const UVIG_PAST = [
     photos: ["photo-finance-social-1.jpg", "photo-finance-social-2.jpg"]
   },
   {
-    title: "Women in Capital Markets",
-    dateDisplay: "November 8",
-    venue: "DSB C128",
-    tag: "Partner event",
-    blurb: "Co-hosted with YWiB (Young Women in Business) — guest speakers on careers in capital markets."
-  },
-  {
     title: "Asset Management Panel",
     dateDisplay: "November 24",
     venue: "David Strong Building C118",
