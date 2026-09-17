@@ -36,26 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
-  /* ---- UVIG App modal (Coming Soon preview) ---- */
-  const appBtns = document.querySelectorAll('.use-as-app-trigger');
-  const overlay = document.getElementById('appModalOverlay');
-  const closeBtn = document.getElementById('appModalClose');
-
-  if (appBtns.length && overlay) {
-    appBtns.forEach(btn => btn.addEventListener('click', () => {
-      overlay.classList.add('open');
-      // Close the mobile nav if it was open
-      if (nav) nav.classList.remove('open');
-      if (menuBtn) { menuBtn.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }
-    }));
-  }
-  if (closeBtn && overlay) {
-    closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) overlay.classList.remove('open');
-    });
-  }
-
   /* ---- Add to Calendar (minimal dropdown, event delegation) ---- */
   document.addEventListener('click', (e) => {
     const trigger = e.target.closest('.cal-trigger');
