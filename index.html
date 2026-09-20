@@ -54,32 +54,28 @@
     </div>
   </header>
 
-  <!-- Hero Carousel -->
+  <!-- Hero Carousel — 3 landscape slides -->
   <section class="hero-carousel" id="heroCarousel">
     <div class="hero-slide active" style="background-image:url('photo-vancouver-shore.jpg');" data-slide="0"></div>
-    <div class="hero-slide" style="background-image:url('photo-laptop-chart.jpg');" data-slide="1"></div>
-    <div class="hero-slide" style="background-image:url('photo-bc-lake-sunset.jpg');" data-slide="2"></div>
-    <div class="hero-slide" style="background-image:url('photo-vancouver-dusk.jpg');" data-slide="3"></div>
+    <div class="hero-slide" style="background-image:url('photo-forest-dusk.jpg');" data-slide="1"></div>
+    <div class="hero-slide" style="background-image:url('photo-vancouver-dusk.jpg');" data-slide="2"></div>
 
     <div class="hero-carousel-content">
       <span class="hero-eyebrow-white">THE UNIVERSITY OF VICTORIA INVESTMENT GROUP</span>
-      <h1>Think like an investor.</h1>
-      <p class="lede">Student research. Industry's connections. Real opportunities.</p>
+      <h1>Think like<br>an investor.</h1>
+      <p class="lede">Bridging the gap between academics and industry.</p>
       <div class="hero-actions">
         <a href="index.html#reports" class="btn btn-primary">Explore Research</a>
         <a href="join.html" class="btn btn-ghost">Join UVIG</a>
       </div>
     </div>
 
-    <div class="hero-quote-card">Better investors build a brighter tomorrow.</div>
-
     <div class="carousel-controls">
-      <span class="carousel-counter" id="carouselCounter">01 / 04</span>
+      <span class="carousel-counter" id="carouselCounter">01 / 03</span>
       <div class="carousel-dots" id="carouselDots">
         <button class="carousel-dot active" data-goto="0" aria-label="Slide 1"></button>
         <button class="carousel-dot" data-goto="1" aria-label="Slide 2"></button>
         <button class="carousel-dot" data-goto="2" aria-label="Slide 3"></button>
-        <button class="carousel-dot" data-goto="3" aria-label="Slide 4"></button>
       </div>
       <div class="carousel-arrows">
         <button class="carousel-arrow" id="carouselPrev" aria-label="Previous slide">
@@ -95,47 +91,36 @@
   <!-- Upcoming Events + Featured Research -->
   <section>
     <div class="wrap home-split">
-      <div>
+      <div class="reveal">
         <div class="section-head">
           <h2>Upcoming Events</h2>
-          <span class="section-note"><a href="events.html" style="color:inherit; text-decoration:none;">VIEW ALL →</a></span>
+          <span class="section-note"><a href="events.html" style="color:inherit; text-decoration:none;">View all →</a></span>
         </div>
         <div class="mini-events-list" id="miniEventsList"></div>
       </div>
-      <div>
+      <div class="reveal" id="reports">
         <div class="section-head">
           <h2>Featured Research</h2>
-          <span class="section-note"><a href="index.html#reports" style="color:inherit; text-decoration:none;">VIEW ALL →</a></span>
+          <span class="section-note"><a href="newsletter.html" style="color:inherit; text-decoration:none;">Subscribe →</a></span>
         </div>
-        <div class="featured-research-card">
-          <div class="fr-image" style="background-image:url('photo-laptop-chart.jpg');"></div>
+        <div class="featured-research-card research-coming-soon">
+          <div class="fr-image" style="background-image:url('photo-bc-lake-sunset.jpg');"></div>
           <div class="fr-body">
-            <span class="research-tag">BUY</span>
-            <h3>NVIDIA — Initiation of Coverage</h3>
-            <p>We initiate coverage on NVIDIA with a BUY rating, driven by accelerating data centre growth and strong competitive positioning.</p>
-            <a href="#" class="read-link">Read Report</a>
+            <span class="coming-soon-tag">Coming soon</span>
+            <h3>Equity research reports launching this semester</h3>
+            <p>Our Internal team is building coverage — student-led equity research, sector notes, and valuation work reviewed before release. Subscribe to the newsletter to be first to read them.</p>
+            <a href="newsletter.html" class="read-link">Get notified →</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Latest coverage (kept for #reports anchor + pending list) -->
-  <section id="reports" style="padding-top:0;">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>Latest coverage</h2>
-        <span class="section-note">EQUITY REPORTS &amp; CLUB NEWS</span>
-      </div>
-      <div class="coverage-list" id="reportsList"></div>
-    </div>
-  </section>
-
-  <!-- Banner 1: More than a club -->
+  <!-- Banner: More than a club -->
   <section style="padding:0;">
     <div class="split-banner" style="background-image:url('photo-forest-dusk.jpg');">
       <div class="split-banner-inner">
-        <div class="split-banner-text">
+        <div class="split-banner-text reveal">
           <span class="tag">UVIG</span>
           <h2>More than a club. A launchpad for what's next.</h2>
           <p>Research. People. Opportunity. At the University of Victoria.</p>
@@ -144,7 +129,7 @@
             <a href="join.html" class="btn btn-ghost">Join the Group</a>
           </div>
         </div>
-        <div class="banner-word-list">
+        <div class="banner-word-list reveal">
           PEOPLE<br>IDEAS<br>OPPORTUNITIES<br>A STRONGER TOMORROW
         </div>
       </div>
@@ -154,7 +139,7 @@
   <!-- What is UVIG -->
   <section id="about">
     <div class="wrap">
-      <div class="about-wrap">
+      <div class="about-wrap reveal">
         <div class="about-text">
           <span class="hero-eyebrow">EST. 2015</span>
           <h2>What is UVIG?</h2>
@@ -176,29 +161,29 @@
         </div>
       </div>
 
-      <div class="feature-photo-grid">
+      <div class="feature-photo-grid reveal">
         <div class="feature-photo-card">
-          <div class="fp-image" style="background-image:url('photo-laptop-chart.jpg');"></div>
+          <div class="fp-image" style="background-image:url('photo-css-lunch-1.jpg');"></div>
           <div class="fp-body">
-            <span class="fp-label">RESEARCH</span>
+            <span class="fp-label">Research</span>
             <h3>Think like an analyst.</h3>
             <p>Student-led equity research, valuation, and investment ideas.</p>
             <a href="index.html#reports" class="read-link">Explore Research →</a>
           </div>
         </div>
         <div class="feature-photo-card">
-          <div class="fp-image" style="background-image:url('photo-vancouver-shore.jpg');"></div>
+          <div class="fp-image" style="background-image:url('photo-longship-1.jpg');"></div>
           <div class="fp-body">
-            <span class="fp-label">EVENTS</span>
+            <span class="fp-label">Events</span>
             <h3>Meet the industry.</h3>
             <p>Speaker events, workshops, socials and networking opportunities.</p>
             <a href="events.html" class="read-link">View Events →</a>
           </div>
         </div>
         <div class="feature-photo-card">
-          <div class="fp-image" style="background-image:url('photo-bc-lake-sunset.jpg');"></div>
+          <div class="fp-image" style="background-image:url('photo-finance-social-1.jpg');"></div>
           <div class="fp-body">
-            <span class="fp-label">DEVELOPMENT</span>
+            <span class="fp-label">Development</span>
             <h3>Build your career.</h3>
             <p>Financial modelling, case competitions, and real-world experience.</p>
             <a href="team.html" class="read-link">Learn About UVIG →</a>
@@ -211,22 +196,22 @@
   <!-- Three Ways to Get Involved -->
   <section style="padding-top:0;">
     <div class="wrap">
-      <div class="section-head" style="border-bottom:none; margin-bottom:0;">
+      <div class="section-head reveal" style="border-bottom:none; margin-bottom:0;">
         <h2>Three Ways to Get Involved</h2>
       </div>
-      <div class="involved-grid">
+      <div class="involved-grid reveal">
         <a href="events.html" class="involved-card">
-          <div class="ic-image" style="background-image:url('photo-vancouver-shore.jpg');"></div>
+          <div class="ic-image" style="background-image:url('photo-longship-2.jpg');"></div>
           <h3>Attend an Event</h3>
           <p>Speaker series, workshops, and networking.</p>
         </a>
         <a href="index.html#reports" class="involved-card">
-          <div class="ic-image" style="background-image:url('photo-laptop-chart.jpg');"></div>
+          <div class="ic-image" style="background-image:url('photo-css-lunch-2.jpg');"></div>
           <h3>Read Our Research</h3>
           <p>Equity research, sector reports, and market insights.</p>
         </a>
         <a href="newsletter.html" class="involved-card">
-          <div class="ic-image" style="background-image:url('photo-bc-lake-sunset.jpg');"></div>
+          <div class="ic-image" style="background-image:url('photo-finance-social-2.jpg');"></div>
           <h3>Join the Newsletter</h3>
           <p>Be part of a driven and supportive network.</p>
         </a>
@@ -234,16 +219,35 @@
     </div>
   </section>
 
-  <!-- Banner 2: A stronger financial tomorrow -->
-  <section style="padding:0;">
-    <div class="split-banner" style="background-image:url('photo-vancouver-dusk.jpg');">
-      <div class="split-banner-inner">
-        <div class="split-banner-text">
-          <span class="tag">STUDENTS TODAY.</span>
-          <h2>A stronger financial tomorrow.</h2>
-          <p>Develop your skills. Build your network. Make an impact.</p>
-          <div class="split-banner-actions">
-            <a href="join.html" class="btn btn-primary">Join UVIG</a>
+  <!-- Newsletter promotion (replaces "stronger financial tomorrow" banner) -->
+  <section class="newsletter-promo reveal">
+    <div class="wrap">
+      <div class="nl-promo-inner">
+        <div class="nl-promo-text">
+          <span class="hero-eyebrow">Stay in the loop</span>
+          <h2>The UVIG Market Brief</h2>
+          <p>A bi-weekly email with economic trend analysis, our latest equity research, recruitment timelines, and upcoming events. Built for students, not portfolio managers.</p>
+          <div class="nl-promo-actions">
+            <a href="join.html" class="btn btn-primary">Subscribe now</a>
+            <a href="newsletter.html" class="btn btn-ghost">See what's inside</a>
+          </div>
+        </div>
+        <div class="nl-promo-preview">
+          <div class="nl-preview-card">
+            <div class="nl-preview-dot"></div>
+            <span class="nl-preview-label">What's in each issue</span>
+          </div>
+          <div class="nl-preview-item">
+            <span class="nl-num">01</span>
+            <span>Market Pulse — rates, indices, data that moved them</span>
+          </div>
+          <div class="nl-preview-item">
+            <span class="nl-num">02</span>
+            <span>Sector Spotlight — key takeaway from our latest report</span>
+          </div>
+          <div class="nl-preview-item">
+            <span class="nl-num">03</span>
+            <span>Club Digest — events, recruitment, partnerships</span>
           </div>
         </div>
       </div>
@@ -251,7 +255,7 @@
   </section>
 
   <!-- Footer -->
-  <footer id="join">
+  <footer>
     <div class="wrap">
       <div class="footer-grid">
         <div>
@@ -290,14 +294,15 @@
       </div>
       <div class="footer-bottom wrap" style="padding-left:0;padding-right:0;">
         <span>© 2026 UVic Investment Group. Student-run, not affiliated with UVic's official investment funds.</span>
-        <span>University of Victoria</span>
+        <span>Built by students, for a brighter tomorrow.</span>
       </div>
     </div>
   </footer>
+
 <script src="data.js"></script>
 <script src="script.js"></script>
 <script>
-  // ---- Hero carousel ----
+  // ---- Hero carousel (3 slides) ----
   (function(){
     const slides = document.querySelectorAll('.hero-slide');
     const dots = document.querySelectorAll('.carousel-dot');
@@ -319,11 +324,10 @@
     document.getElementById('carouselNext').addEventListener('click', () => { next(); restart(); });
     document.getElementById('carouselPrev').addEventListener('click', () => { prev(); restart(); });
     dots.forEach(d => d.addEventListener('click', () => { show(parseInt(d.dataset.goto,10)); restart(); }));
-
     restart();
   })();
 
-  // ---- Upcoming events (mini list, real data — confirmed first, then planned) ----
+  // ---- Upcoming events (mini list from data.js) ----
   (function(){
     const sorted = [...UVIG_UPCOMING].sort((a,b) => {
       if (a.status === 'confirmed' && b.status !== 'confirmed') return -1;
@@ -335,14 +339,13 @@
       const d = new Date(ev.isoDate + 'T00:00:00');
       const day = d.getDate();
       const month = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
-      const notConfirmed = ev.status !== 'confirmed' ? ' <span class="planned-badge" style="margin-left:4px;">NOT YET CONFIRMED</span>' : '';
       return `
         <a href="events.html#${ev.id}" class="mini-event">
           <div class="mini-event-date"><div class="day">${day}</div><div class="month">${month}</div></div>
           <div class="mini-event-body">
-            <div class="title-row"><h4>${ev.title}</h4></div>
-            <div class="meta">${ev.venue}${notConfirmed}</div>
-            <p>${ev.blurb.length > 90 ? ev.blurb.slice(0,90) + '…' : ev.blurb}</p>
+            <h4>${ev.title}</h4>
+            <div class="meta">${ev.time !== 'TBD' ? ev.time + ' · ' : ''}${ev.venue}</div>
+            <p>${ev.blurb.length > 100 ? ev.blurb.slice(0,100) + '…' : ev.blurb}</p>
           </div>
           <div class="mini-event-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
         </a>
@@ -350,15 +353,19 @@
     }).join('');
   })();
 
-  // Render pending equity reports into "Latest coverage"
+  // ---- Scroll reveal animations ----
   (function(){
-    document.getElementById('reportsList').innerHTML = UVIG_REPORTS.map(r => `
-      <span class="coverage-item pending">
-        <span class="cov-date">${r.comingSoon ? 'SOON' : 'PENDING'}</span>
-        <span class="cov-title">${r.title}<span class="sector">${r.sector}</span></span>
-        <span class="cov-arrow">READ →</span>
-      </span>
-    `).join('');
+    const reveals = document.querySelectorAll('.reveal');
+    if (!reveals.length) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
   })();
 </script>
 </body>

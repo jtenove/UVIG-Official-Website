@@ -14,12 +14,13 @@ const UVIG_UPCOMING = [
     title: "Kickoff Event With Longship Investment Club",
     dateDisplay: "September 23",
     isoDate: "2026-09-23",
-    time: "TBD",
-    venue: "TBD",
+    time: "6:00 PM",
+    venue: "McKinnon Building, Room 150",
     partner: "Longship Investment Club",
     speakers: "UVIG & Longship Exec(s)",
-    blurb: "An evening of mentorship, guidance and career exploration in finance — co-hosted with Longship Investment Club. Everyone welcome.",
-    status: "confirmed"
+    blurb: "An evening of mentorship, guidance and career exploration in finance — co-hosted with Longship Investment Club. Open to all students, no experience necessary.",
+    status: "confirmed",
+    cardStyle: "flyer"
   },
   {
     id: "girls-that-invest",
@@ -196,11 +197,6 @@ const UVIG_PAST = [
 // archive are dropped in here. Each needs: title, sector, and optionally
 // a link once reports have a real destination.
 const UVIG_REPORTS = [
-  {
-    title: "Last year's equity reports — updating shortly",
-    sector: "Pulling titles from the Brightspace archive",
-    pending: true
-  },
   {
     title: "Consumer Staples sector coverage",
     sector: "Coming soon",

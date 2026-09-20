@@ -742,3 +742,119 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
   .involved-grid{grid-template-columns:1fr; gap:32px;}
   .mini-event{grid-template-columns:44px 1fr 16px; padding:14px 16px;}
 }
+
+/* ============================================================
+   VISUAL REFRESH — scroll reveals, newsletter promo,
+   polished card treatments, coming-soon research
+   ============================================================ */
+
+/* ---------- Scroll reveal ---------- */
+.reveal{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
+}
+.reveal.revealed{opacity:1; transform:translateY(0);}
+/* Stagger children inside grids */
+.reveal.revealed .feature-photo-card:nth-child(2),
+.reveal.revealed .involved-card:nth-child(2){ transition-delay:.12s; }
+.reveal.revealed .feature-photo-card:nth-child(3),
+.reveal.revealed .involved-card:nth-child(3){ transition-delay:.24s; }
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1; transform:none; transition:none;}
+}
+
+/* ---------- Feature photo card hover lift ---------- */
+.feature-photo-card{transition:transform .3s var(--ease), box-shadow .3s var(--ease);}
+.feature-photo-card:hover{transform:translateY(-6px); box-shadow:0 16px 40px rgba(10,31,61,0.13);}
+.feature-photo-card .fp-image{transition:transform .5s var(--ease); overflow:hidden;}
+.feature-photo-card:hover .fp-image{transform:scale(1.04);}
+
+/* ---------- Involved card lift ---------- */
+.involved-card{transition:transform .3s var(--ease);}
+.involved-card:hover{transform:translateY(-5px);}
+.involved-card .ic-image{transition:transform .5s var(--ease), filter .4s ease;}
+.involved-card:hover .ic-image{transform:scale(1.06); filter:brightness(0.92);}
+
+/* ---------- Mini event hover ---------- */
+.mini-event{transition:background .15s ease, transform .2s var(--ease);}
+.mini-event:hover{transform:translateX(4px);}
+
+/* ---------- Research coming-soon card ---------- */
+.research-coming-soon .fr-image{position:relative; overflow:hidden;}
+.research-coming-soon .fr-image::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(10,31,61,0.55), rgba(22,56,98,0.4));
+}
+
+/* ---------- Newsletter promo section ---------- */
+.newsletter-promo{
+  background:var(--navy-900);
+  color:var(--white);
+  position:relative;
+  overflow:hidden;
+}
+.newsletter-promo::before{
+  content:""; position:absolute; top:-120px; right:-80px;
+  width:420px; height:420px; border-radius:50%;
+  background:radial-gradient(circle, rgba(185,154,91,0.12), transparent 70%);
+  pointer-events:none;
+}
+.nl-promo-inner{
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:56px;
+  align-items:center;
+}
+.nl-promo-text .hero-eyebrow{color:var(--brass);}
+.nl-promo-text h2{color:var(--white); font-size:32px; margin-top:10px;}
+.nl-promo-text p{color:#C9D2E0; margin-top:14px; max-width:46ch; font-size:15px; line-height:1.65;}
+.nl-promo-actions{display:flex; gap:12px; margin-top:28px; flex-wrap:wrap;}
+.nl-promo-actions .btn-primary{background:var(--white); color:var(--navy-900);}
+.nl-promo-actions .btn-primary:hover{background:#e8e8e8;}
+.nl-promo-actions .btn-ghost{border-color:rgba(255,255,255,0.5); color:var(--white);}
+.nl-promo-actions .btn-ghost:hover{background:rgba(255,255,255,0.1);}
+
+.nl-promo-preview{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:6px;
+  padding:28px;
+  backdrop-filter:blur(6px);
+}
+.nl-preview-card{display:flex; align-items:center; gap:10px; margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid rgba(255,255,255,0.1);}
+.nl-preview-dot{width:8px; height:8px; border-radius:50%; background:var(--brass);}
+.nl-preview-label{font-family:var(--mono); font-size:12px; color:#B7C2D6; letter-spacing:0.03em;}
+.nl-preview-item{
+  display:flex; align-items:flex-start; gap:14px; padding:12px 0;
+  font-size:14px; color:#D7DEE8; line-height:1.5;
+}
+.nl-preview-item + .nl-preview-item{border-top:1px solid rgba(255,255,255,0.06);}
+.nl-num{
+  font-family:var(--serif); font-size:18px; color:var(--brass); font-weight:600;
+  flex-shrink:0; width:24px;
+}
+
+/* ---------- Button micro-interaction ---------- */
+.btn{position:relative; overflow:hidden;}
+.btn::after{
+  content:""; position:absolute; inset:0; background:rgba(255,255,255,0.12);
+  transform:translateX(-102%); transition:transform .35s var(--ease);
+}
+.btn:hover::after{transform:translateX(0);}
+
+/* ---------- Section head subtle accent ---------- */
+.section-head{position:relative;}
+.section-head::after{
+  content:""; position:absolute; bottom:-1px; left:0; width:48px; height:2px;
+  background:var(--brass);
+}
+
+/* ---------- Feature photo card image wrapper fix ---------- */
+.feature-photo-card .fp-image{overflow:hidden; position:relative;}
+
+/* ---------- Mobile newsletter promo ---------- */
+@media (max-width: 860px){
+  .nl-promo-inner{grid-template-columns:1fr; gap:32px;}
+  .nl-promo-preview{margin-top:8px;}
+}
