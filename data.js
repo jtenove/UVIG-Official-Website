@@ -121,7 +121,7 @@ const UVIG_PAST = [
     venue: "Michele Pujol Room, SUB",
     tag: "Partner event",
     blurb: "A recurring sandwich-buffet networking lunch run with the Commerce Students' Society, featuring finance professionals as speakers.",
-    speakers: ["Shaun Rosson — Certified Financial Planner, VP Wealth Management"],
+    speakers: ["Shaun Rosson, CFP — IG Wealth Management"],
     photos: ["photo-css-lunch-1.jpg", "photo-css-lunch-2.jpg"]
   },
   {
@@ -224,23 +224,55 @@ const UVIG_INTERESTS = [
 
 // ---------- FIRMS & PARTNERS represented at past events ----------
 const UVIG_FIRMS = [
-  "BCI", "TD", "RBC", "Scotiabank", "CIBC Capital Markets",
+  "BCI", "TD", "RBC Dominion Securities", "Scotiabank", "CIBC Capital Markets",
   "Connor, Clark & Lunn Private Capital", "Westerkirk Capital",
-  "Wall Street Oasis", "CVCA", "Victoria Foundation", "Dominion Securities"
+  "Wall Street Oasis", "CVCA", "Victoria Foundation",
+  "Raymond James", "IG Wealth Management", "Vancity Investment Management",
+  "Island Savings", "FWCU", "Emend", "inBC", "Emmertech"
 ];
 
 // ---------- SPEAKERS who have joined past events ----------
+// Grouped by category, sorted alphabetically by first name within each —
+// full list supplied by George Murray (Co-President), replacing the
+// shorter earlier version.
 const UVIG_SPEAKERS = [
-  { name: "James Alder, CFA", role: "Portfolio Manager, Westerkirk Capital" },
-  { name: "Ian Johnson, CFA", role: "Director of Investments, Victoria Foundation" },
-  { name: "Mac Costigan", role: "Analyst, Alternative Investments, Westerkirk Capital" },
-  { name: "Hayden Ford, CFA", role: "Senior Associate, Derivatives, BCI" },
-  { name: "Alicia Armstrong, CFA", role: "Associate Portfolio Manager, Canadian Large Cap, BCI" },
-  { name: "Amy McTavish", role: "Senior Analyst, ESG, BCI" },
-  { name: "Lauren Minogue, CFA, CFP", role: "Wealth Advisor, Connor, Clark & Lunn Private Capital" },
-  { name: "Valery Heckel", role: "Equity Research Associate, CIBC Capital Markets" },
-  { name: "Patrick Curtis", role: "CEO, Wall Street Oasis" },
-  { name: "Shaun Rosson", role: "Certified Financial Planner, VP Wealth Management" }
+  {
+    category: "Asset Management & Institutional Investing",
+    people: [
+      { name: "Alicia Armstrong, CFA", role: "Associate Portfolio Manager, Global, BCI" },
+      { name: "Amy McTavish", role: "ESG, BCI" },
+      { name: "Hayden Ford, CFA", role: "Senior Associate, Derivatives, BCI" },
+      { name: "Ian Johnson, CFA", role: "Director of Investments, Victoria Foundation" },
+      { name: "Jade Prezeau", role: "Senior Analyst, Private Debt, BCI" },
+      { name: "James Alder, CFA", role: "Portfolio Manager, Westerkirk Capital" },
+      { name: "Mac Costigan", role: "Analyst, Alternative Investments, Westerkirk Capital" }
+    ]
+  },
+  {
+    category: "Wealth Management & Banking",
+    people: [
+      { name: "Chelsey Rossner", role: "Branch Manager, RBC Dominion Securities" },
+      { name: "Cristina Fazio, BA, CFP, CIM", role: "Associate Advisor, RBC Dominion Securities" },
+      { name: "Graydon McQuibban", role: "Senior Wealth Advisor, Raymond James" },
+      { name: "Harld Seleman", role: "Public Equities, Vancity Investment Management" },
+      { name: "James Anderton", role: "Senior Manager, Business Performance, FWCU" },
+      { name: "Jermey Hendrix", role: "Branch Manager, Island Savings" },
+      { name: "Larry Wheeler", role: "Retired Associate Director, Scotiabank" },
+      { name: "Lauren Minogue, CFA, CFP", role: "Wealth Advisor, Connor, Clark & Lunn Private Capital" },
+      { name: "Loerna Milkert", role: "Director, Retail Banking, Island Savings" },
+      { name: "Shaun Rosson, CFP", role: "IG Wealth Management" },
+      { name: "Valery Heckel", role: "Equity Research Associate, CIBC Capital Markets" }
+    ]
+  },
+  {
+    category: "Venture Capital & Fintech",
+    people: [
+      { name: "Evan Machin", role: "inBC" },
+      { name: "Patrick Curtis", role: "CEO, Wall Street Oasis" },
+      { name: "Rob Russell", role: "Emmertech" },
+      { name: "Todd Tessier", role: "Emend" }
+    ]
+  }
 ];
 
 // ---------- TEAM (2026-2027) ----------

@@ -316,7 +316,13 @@ section{padding:72px 0;}
 }
 
 /* ---------- Speakers grid ---------- */
-.speakers-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--hairline); border:1px solid var(--hairline); margin-top:28px;}
+.speaker-group{margin-top:36px;}
+.speaker-group:first-child{margin-top:0;}
+.speaker-group-title{
+  font-family:var(--mono); font-size:12px; letter-spacing:0.03em; color:var(--brass);
+  text-transform:uppercase; margin-bottom:0;
+}
+.speakers-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--hairline); border:1px solid var(--hairline); margin-top:16px;}
 .speaker-card{background:var(--white); padding:24px; display:flex; gap:14px; align-items:flex-start;}
 .speaker-avatar{
   width:44px; height:44px; border-radius:50%; background:var(--navy-900); color:var(--white);

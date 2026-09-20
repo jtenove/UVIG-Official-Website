@@ -92,7 +92,7 @@
       <div class="firms-track" id="firmsTrack"></div>
     </div>
     <div class="wrap">
-      <div class="speakers-grid" id="speakersGrid"></div>
+      <div id="speakersGrid"></div>
     </div>
   </section>
 
@@ -200,9 +200,9 @@
   const firmSpans = UVIG_FIRMS.map(f => `<span>${f}</span>`).join('<span style="color:#5B6472;">/</span>');
   firmsTrack.innerHTML = firmSpans + '<span style="color:#5B6472;">/</span>' + firmSpans;
 
-  // ---- Speakers grid ----
+  // ---- Speakers grid (grouped by category) ----
   const speakersGrid = document.getElementById('speakersGrid');
-  speakersGrid.innerHTML = UVIG_SPEAKERS.map(sp => {
+  function speakerCard(sp) {
     const initials = sp.name.split(',')[0].split(' ').filter(Boolean).slice(0,2).map(w => w[0]).join('');
     return `
       <div class="speaker-card">
@@ -213,7 +213,15 @@
         </div>
       </div>
     `;
-  }).join('');
+  }
+  speakersGrid.innerHTML = UVIG_SPEAKERS.map(group => `
+    <div class="speaker-group">
+      <h4 class="speaker-group-title">${group.category}</h4>
+      <div class="speakers-grid">
+        ${group.people.map(speakerCard).join('')}
+      </div>
+    </div>
+  `).join('');
 
   // ---- Deep-link support: index.html links to events.html#event-id ----
   if (location.hash) {
