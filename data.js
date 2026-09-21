@@ -198,6 +198,30 @@ const UVIG_PAST = [
 // a link once reports have a real destination.
 const UVIG_REPORTS = [
   {
+    title: "Sector Report: Healthcare",
+    sector: "Healthcare",
+    authors: "Kavin Bawa, Émilie Doyon, Jonathan Khoo & Peter Mikulash",
+    date: "October 2025",
+    blurb: "A look at the healthcare sector's growth drivers — AI in clinical care, an aging population, and coverage of Johnson & Johnson, Roche, UnitedHealth, and Medtronic.",
+    pdf: "report-healthcare-2025.pdf"
+  },
+  {
+    title: "Sector Report: Transportation",
+    sector: "Transportation",
+    authors: "Kavin Bawa, Émilie Doyon, Jonathan Khoo & Peter Mikulash",
+    date: "November 2025",
+    blurb: "An analysis of the $8.54T global transportation sector — freight modes, sustainability and digitization trends, and coverage of Delta, Maersk, and Canadian National Railway.",
+    pdf: "report-transportation-2025.pdf"
+  },
+  {
+    title: "Sector Report: Consumer Discretionary",
+    sector: "Consumer Discretionary",
+    authors: "Kavin Bawa, Émilie Doyon, Jonathan Khoo & Peter Mikulash",
+    date: "September 2025",
+    blurb: "Covering the $13.66T consumer discretionary market — digitization and sustainability trends, and analysis of Amazon, McDonald's, Nike, and Tesla.",
+    pdf: "report-consumer-discretionary-2025.pdf"
+  },
+  {
     title: "Consumer Staples sector coverage",
     sector: "Coming soon",
     pending: true,

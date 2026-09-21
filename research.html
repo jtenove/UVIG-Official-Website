@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Events — UVic Investment Group</title>
+<title>Research — UVic Investment Group</title>
 <meta name="theme-color" content="#0A1F3D">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -20,16 +20,14 @@
     <div class="ticker-track">
       <span>TSX <b>22,481</b> <span class="up">▲ 0.42%</span></span>
       <span>S&amp;P 500 <b>6,112</b> <span class="up">▲ 0.18%</span></span>
-      <span>UVIG PORTFOLIO WATCH <b>NEXT REPORT: WK 3</b></span>
       <span>CAD/USD <b>0.735</b> <span class="down">▼ 0.06%</span></span>
-      <span>10Y GoC YIELD <b>3.21%</b></span>
-      <span>NEXT SPEAKER SESSION <b>THU 5:30PM</b></span>
+      <span>10Y GoC YIELD <b>3.82%</b></span>
+      <span>MARKETS DRIVE OPPORTUNITY</span>
       <span>TSX <b>22,481</b> <span class="up">▲ 0.42%</span></span>
       <span>S&amp;P 500 <b>6,112</b> <span class="up">▲ 0.18%</span></span>
-      <span>UVIG PORTFOLIO WATCH <b>NEXT REPORT: WK 3</b></span>
       <span>CAD/USD <b>0.735</b> <span class="down">▼ 0.06%</span></span>
-      <span>10Y GoC YIELD <b>3.21%</b></span>
-      <span>NEXT SPEAKER SESSION <b>THU 5:30PM</b></span>
+      <span>10Y GoC YIELD <b>3.82%</b></span>
+      <span>MARKETS DRIVE OPPORTUNITY</span>
     </div>
   </div>
 
@@ -42,8 +40,8 @@
         </button>
       </div>
       <nav class="primary-nav" id="primaryNav">
-        <a href="events.html" class="nav-link current">Events</a>
-        <a href="research.html" class="nav-link">Research</a>
+        <a href="events.html" class="nav-link">Events</a>
+        <a href="research.html" class="nav-link current">Research</a>
         <a href="team.html" class="nav-link">Team</a>
         <a href="newsletter.html" class="nav-link">Newsletter</a>
         <div class="nav-actions">
@@ -55,48 +53,23 @@
 
   <section class="page-hero">
     <div class="wrap">
-      <span class="hero-eyebrow">SPEAKERS, PANELS &amp; SOCIALS</span>
-      <h1>Events</h1>
-      <p class="lede">Everything happening this season, plus a look back at the panels, workshops and socials that came before it.</p>
+      <span class="hero-eyebrow">EQUITY RESEARCH &amp; SECTOR COVERAGE</span>
+      <h1>Research</h1>
+      <p class="lede">UVIG's Internal team publishes sector reports covering market size, competitive landscape, and public equity coverage — reviewed before release, written by students.</p>
     </div>
   </section>
 
-  <section id="upcoming">
+  <section>
     <div class="wrap">
-      <div class="section-head">
-        <h2>This season</h2>
-        <span class="section-note">2026 / 27</span>
+      <div class="section-head reveal">
+        <h2>Sector Reports</h2>
+        <span class="section-note">2025 SEASON</span>
       </div>
-      <div id="upcomingList"></div>
+      <div class="report-grid reveal" id="reportGrid"></div>
     </div>
   </section>
 
-  <section id="past" style="padding-top:0;">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>Past events</h2>
-        <span class="section-note">A LOOK BACK</span>
-      </div>
-      <div class="past-grid" id="pastGrid"></div>
-    </div>
-  </section>
-
-  <section id="firms" style="padding-top:0;">
-    <div class="wrap">
-      <div class="section-head">
-        <h2>Who we've hosted</h2>
-        <span class="section-note">FIRMS &amp; SPEAKERS FROM PAST EVENTS</span>
-      </div>
-    </div>
-    <div class="firms-marquee" aria-hidden="true">
-      <div class="firms-track" id="firmsTrack"></div>
-    </div>
-    <div class="wrap">
-      <div id="speakersGrid"></div>
-    </div>
-  </section>
-
-  <footer id="join">
+  <footer>
     <div class="wrap">
       <div class="footer-grid">
         <div>
@@ -135,99 +108,59 @@
       </div>
       <div class="footer-bottom wrap" style="padding-left:0;padding-right:0;">
         <span>© 2026 UVic Investment Group. Student-run, not affiliated with UVic's official investment funds.</span>
-        <span>University of Victoria</span>
+        <span>Built by students, for a brighter tomorrow.</span>
       </div>
     </div>
   </footer>
+
 <script src="data.js"></script>
 <script src="script.js"></script>
 <script>
-  // ---- Upcoming events (confirmed only) ----
-  const upcomingList = document.getElementById('upcomingList');
-  const confirmed = UVIG_UPCOMING.filter(ev => ev.status === 'confirmed');
-
-  function dateBits(ev) {
-    const d = new Date(ev.isoDate + 'T00:00:00');
-    return { day: d.getDate(), month: d.toLocaleString('en-US', { month: 'short' }).toUpperCase() };
-  }
-
-  upcomingList.innerHTML = [...confirmed].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate)).map(ev => {
-    const { day, month } = dateBits(ev);
-    return `
-      <div class="event-banner" id="${ev.id}">
-        <div class="event-date-block"><div class="day">${day}</div><div class="month">${month}</div></div>
-        <div class="event-body">
-          <span class="partner-tag">${ev.partner !== 'TBD' ? 'WITH ' + ev.partner.toUpperCase() : 'UVIG EVENT'}</span>
-          <h3>${ev.title}</h3>
-          <p>${ev.blurb}</p>
-          <div class="event-meta-row">
-            <span><strong>Venue:</strong>&nbsp;${ev.venue}</span>
-            <span><strong>Time:</strong>&nbsp;${ev.time}</span>
-            <span><strong>Speakers:</strong>&nbsp;${ev.speakers}</span>
+  // ---- Report preview cards ----
+  const reportGrid = document.getElementById('reportGrid');
+  reportGrid.innerHTML = UVIG_REPORTS.map(r => {
+    if (r.pending) {
+      return `
+        <div class="report-card is-pending">
+          <div class="report-card-top">
+            <span class="sector-tag muted">${r.sector}</span>
           </div>
-          ${renderCalDropdown(ev.id)}
+          <h3>${r.title}</h3>
+          <p class="report-blurb">Our Internal team is building coverage for this sector — check back soon.</p>
         </div>
-      </div>
+      `;
+    }
+    return `
+      <a href="${r.pdf}" target="_blank" class="report-card">
+        <div class="report-card-top">
+          <span class="sector-tag">${r.sector}</span>
+          <span class="report-date">${r.date}</span>
+        </div>
+        <h3>${r.title}</h3>
+        <p class="report-blurb">${r.blurb}</p>
+        <div class="report-authors">${r.authors}</div>
+        <div class="report-cta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+          View full report (PDF)
+        </div>
+      </a>
     `;
   }).join('');
 
-  // ---- Past events (always shown, no toggle) ----
-  const pastGrid = document.getElementById('pastGrid');
-  pastGrid.innerHTML = UVIG_PAST.map(ev => {
-    const photoBlock = ev.photos ? `
-      <div class="photo-row">
-        ${ev.photos.map(p => `<img src="${p}" alt="Photo from ${ev.title}" loading="lazy">`).join('')}
-      </div>
-    ` : '';
-    const bodyOpen = ev.photos ? '<div class="photo-card-body">' : '';
-    const bodyClose = ev.photos ? '</div>' : '';
-    return `
-      <div class="past-card ${ev.highlight ? 'highlight' : ''} ${ev.photos ? 'has-photo' : ''}">
-        ${photoBlock}
-        ${bodyOpen}
-        <span class="tag">${ev.tag}</span>
-        <h4>${ev.title}</h4>
-        <div class="meta">${ev.dateDisplay} · ${ev.venue}</div>
-        <p>${ev.blurb}</p>
-        ${ev.speakers ? `<div class="speaker-line">${ev.speakers.join(' · ')}</div>` : ''}
-        ${bodyClose}
-      </div>
-    `;
-  }).join('');
-
-  // ---- Firms marquee (duplicated for seamless loop) ----
-  const firmsTrack = document.getElementById('firmsTrack');
-  const firmSpans = UVIG_FIRMS.map(f => `<span>${f}</span>`).join('<span style="color:#5B6472;">/</span>');
-  firmsTrack.innerHTML = firmSpans + '<span style="color:#5B6472;">/</span>' + firmSpans;
-
-  // ---- Speakers grid (grouped by category) ----
-  const speakersGrid = document.getElementById('speakersGrid');
-  function speakerCard(sp) {
-    const initials = sp.name.split(',')[0].split(' ').filter(Boolean).slice(0,2).map(w => w[0]).join('');
-    return `
-      <div class="speaker-card">
-        <div class="speaker-avatar">${initials}</div>
-        <div>
-          <div class="name">${sp.name}</div>
-          <div class="role">${sp.role}</div>
-        </div>
-      </div>
-    `;
-  }
-  speakersGrid.innerHTML = UVIG_SPEAKERS.map(group => `
-    <div class="speaker-group">
-      <h4 class="speaker-group-title">${group.category}</h4>
-      <div class="speakers-grid">
-        ${group.people.map(speakerCard).join('')}
-      </div>
-    </div>
-  `).join('');
-
-  // ---- Deep-link support: index.html links to events.html#event-id ----
-  if (location.hash) {
-    const target = document.getElementById(location.hash.slice(1));
-    if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'center' }), 150);
-  }
+  // ---- Scroll reveal ----
+  (function(){
+    const reveals = document.querySelectorAll('.reveal');
+    if (!reveals.length) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  })();
 </script>
 </body>
 </html>
