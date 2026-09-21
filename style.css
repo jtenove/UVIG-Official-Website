@@ -675,6 +675,28 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 .mini-event-chevron{color:var(--brass); flex-shrink:0;}
 .mini-event-chevron svg{width:16px; height:16px;}
 
+/* ---------- Event poster banner (home page) ---------- */
+.event-poster-banner{
+  display:flex; gap:40px; align-items:center; background:var(--white);
+  border:1px solid var(--hairline); padding:32px; margin-top:32px;
+}
+.event-poster-img{
+  max-width:280px; width:40%; height:auto; border-radius:4px; flex-shrink:0;
+  box-shadow:0 16px 40px rgba(10,31,61,0.18);
+}
+.event-poster-body{flex:1;}
+.event-poster-body .tag{
+  font-family:var(--sans); font-size:12px; font-weight:600; color:var(--brass); letter-spacing:0.06em; display:block; margin-bottom:12px;
+}
+.event-poster-body h3{font-size:26px; margin-bottom:12px; line-height:1.25;}
+.event-poster-body p{color:var(--graphite); font-size:15px; max-width:52ch; line-height:1.6;}
+.event-poster-meta{display:flex; gap:20px; flex-wrap:wrap; margin-top:16px; margin-bottom:24px; font-size:13.5px; color:var(--navy-700);}
+
+@media (max-width: 860px){
+  .event-poster-banner{flex-direction:column; align-items:flex-start; padding:24px;}
+  .event-poster-img{width:100%; max-width:260px; margin:0 auto;}
+}
+
 .featured-research-card{border:1px solid var(--hairline); background:var(--white); overflow:hidden; height:100%; display:flex; flex-direction:column;}
 .featured-research-card .fr-image{height:190px; background-size:cover; background-position:center;}
 .featured-research-card .fr-body{padding:24px; flex:1; display:flex; flex-direction:column;}

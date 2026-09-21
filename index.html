@@ -88,29 +88,31 @@
     </div>
   </section>
 
-  <!-- Upcoming Events + Featured Research -->
+  <!-- Upcoming Events: single poster banner -->
   <section>
-    <div class="wrap home-split">
-      <div class="reveal">
-        <div class="section-head">
-          <h2>Upcoming Events</h2>
-          <span class="section-note"><a href="events.html" style="color:inherit; text-decoration:none;">View all →</a></span>
-        </div>
-        <div class="mini-events-list" id="miniEventsList"></div>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Upcoming Events</h2>
+        <span class="section-note"><a href="events.html" style="color:inherit; text-decoration:none;">View all →</a></span>
       </div>
-      <div class="reveal" id="reports">
-        <div class="section-head">
-          <h2>Featured Research</h2>
-          <span class="section-note"><a href="research.html" style="color:inherit; text-decoration:none;">View all →</a></span>
-        </div>
-        <div class="featured-research-card">
-          <div class="fr-image" style="background-image:url('photo-bc-lake-sunset.jpg');"></div>
-          <div class="fr-body">
-            <span class="sector-tag">Healthcare</span>
-            <h3>Sector Report: Healthcare</h3>
-            <p>A look at the healthcare sector's growth drivers — AI in clinical care, an aging population, and coverage of Johnson &amp; Johnson, Roche, UnitedHealth, and Medtronic.</p>
-            <a href="report-healthcare-2025.pdf" target="_blank" class="read-link">Read the full report (PDF) →</a>
-          </div>
+      <div class="event-poster-banner reveal" id="eventPosterBanner"></div>
+    </div>
+  </section>
+
+  <!-- Featured Research -->
+  <section id="reports">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <h2>Featured Research</h2>
+        <span class="section-note"><a href="research.html" style="color:inherit; text-decoration:none;">View all →</a></span>
+      </div>
+      <div class="featured-research-card reveal">
+        <div class="fr-image" style="background-image:url('photo-bc-lake-sunset.jpg');"></div>
+        <div class="fr-body">
+          <span class="sector-tag">Healthcare</span>
+          <h3>Sector Report: Healthcare</h3>
+          <p>A look at the healthcare sector's growth drivers — AI in clinical care, an aging population, and coverage of Johnson &amp; Johnson, Roche, UnitedHealth, and Medtronic.</p>
+          <a href="report-healthcare-2025.pdf" target="_blank" class="read-link">Read the full report (PDF) →</a>
         </div>
       </div>
     </div>
@@ -118,7 +120,7 @@
 
   <!-- Banner: More than a club -->
   <section style="padding:0;">
-    <div class="split-banner" style="background-image:url('photo-forest-dusk.jpg');">
+    <div class="split-banner" style="background-image:url('photo-uvic-aerial.jpg');">
       <div class="split-banner-inner">
         <div class="split-banner-text reveal">
           <span class="tag">UVIG</span>
@@ -201,17 +203,17 @@
       </div>
       <div class="involved-grid reveal">
         <a href="events.html" class="involved-card">
-          <div class="ic-image" style="background-image:url('photo-longship-2.jpg');"></div>
+          <div class="ic-image" style="background-image:url('photo-mckinnon-building.jpg');"></div>
           <h3>Attend an Event</h3>
           <p>Speaker series, workshops, and networking.</p>
         </a>
         <a href="research.html" class="involved-card">
-          <div class="ic-image" style="background-image:url('photo-laptop-chart.jpg');"></div>
+          <div class="ic-image" style="background-image:url('report-cover-transportation.jpg'); background-size:contain; background-repeat:no-repeat; background-color:var(--navy-900);"></div>
           <h3>Read Our Research</h3>
           <p>Equity research, sector reports, and market insights.</p>
         </a>
         <a href="newsletter.html" class="involved-card">
-          <div class="ic-image" style="background-image:url('photo-bc-lake-sunset.jpg');"></div>
+          <div class="ic-image" style="background-image:url('photo-newspaper-business.jpg');"></div>
           <h3>Join the Newsletter</h3>
           <p>Be part of a driven and supportive network.</p>
         </a>
@@ -309,30 +311,24 @@
     restart();
   })();
 
-  // ---- Upcoming events (mini list from data.js) ----
+  // ---- Upcoming events: single poster banner (Kickoff flyer) ----
   (function(){
-    const sorted = [...UVIG_UPCOMING].sort((a,b) => {
-      if (a.status === 'confirmed' && b.status !== 'confirmed') return -1;
-      if (b.status === 'confirmed' && a.status !== 'confirmed') return 1;
-      return new Date(a.isoDate) - new Date(b.isoDate);
-    }).slice(0, 3);
-
-    document.getElementById('miniEventsList').innerHTML = sorted.map(ev => {
-      const d = new Date(ev.isoDate + 'T00:00:00');
-      const day = d.getDate();
-      const month = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
-      return `
-        <a href="events.html#${ev.id}" class="mini-event">
-          <div class="mini-event-date"><div class="day">${day}</div><div class="month">${month}</div></div>
-          <div class="mini-event-body">
-            <h4>${ev.title}</h4>
-            <div class="meta">${ev.time !== 'TBD' ? ev.time + ' · ' : ''}${ev.venue}</div>
-            <p>${ev.blurb.length > 100 ? ev.blurb.slice(0,100) + '…' : ev.blurb}</p>
-          </div>
-          <div class="mini-event-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>
-        </a>
-      `;
-    }).join('');
+    const confirmed = UVIG_UPCOMING.find(ev => ev.status === 'confirmed');
+    if (!confirmed) return;
+    document.getElementById('eventPosterBanner').innerHTML = `
+      <img src="flyer-kickoff-2026.jpg" alt="${confirmed.title} — event flyer" class="event-poster-img">
+      <div class="event-poster-body">
+        <span class="tag">NEXT UP</span>
+        <h3>${confirmed.title}</h3>
+        <p>${confirmed.blurb}</p>
+        <div class="event-poster-meta">
+          <span><strong>${confirmed.dateDisplay}, 2026</strong></span>
+          <span>${confirmed.time}</span>
+          <span>${confirmed.venue}</span>
+        </div>
+        <a href="events.html" class="btn btn-primary">View Events</a>
+      </div>
+    `;
   })();
 
   // ---- Scroll reveal animations ----
