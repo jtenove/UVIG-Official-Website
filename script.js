@@ -92,7 +92,7 @@ function toICSDate(d) {
 function eventDescription(ev) {
   let desc = ev.blurb || '';
   if (!/\d{1,2}:\d{2}\s*(AM|PM)/i.test(ev.time || '')) {
-    desc += ' (Time TBD — check the website closer to the date for the confirmed time.)';
+    desc += ' (Time TBD. Check the website closer to the date for the confirmed time.)';
   }
   return desc;
 }

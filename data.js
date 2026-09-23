@@ -18,7 +18,7 @@ const UVIG_UPCOMING = [
     venue: "McKinnon Building, Room 150",
     partner: "Longship Investment Club",
     speakers: "UVIG & Longship Exec(s)",
-    blurb: "An evening of mentorship, guidance and career exploration in finance — co-hosted with Longship Investment Club. Open to all students, no experience necessary.",
+    blurb: "An evening of mentorship, guidance and career exploration in finance, co-hosted with Longship Investment Club. Open to all students, no experience necessary.",
     status: "confirmed",
     cardStyle: "flyer"
   },
@@ -31,7 +31,7 @@ const UVIG_UPCOMING = [
     venue: "TBD",
     partner: "UVic Girls That Invest",
     speakers: "TBD",
-    blurb: "A joint session with UVic Girls That Invest — details on speakers and format to follow.",
+    blurb: "A joint session with UVic Girls That Invest. Details on speakers and format to follow.",
     status: "planned"
   },
   {
@@ -55,7 +55,7 @@ const UVIG_UPCOMING = [
     venue: "Maude Hunter's",
     partner: "TBD",
     speakers: "N/A",
-    blurb: "A casual social to meet other students interested in finance — no agenda, just conversation and networking.",
+    blurb: "A casual social to meet other students interested in finance. No agenda, just conversation and networking.",
     status: "planned"
   },
   {
@@ -85,7 +85,7 @@ const UVIG_PAST = [
     dateDisplay: "September 15",
     venue: "McKinnon 150",
     tag: "Kickoff",
-    blurb: "Season kickoff co-hosted with Longship Investment Club — mentorship, guidance and career exploration in finance.",
+    blurb: "Season kickoff co-hosted with Longship Investment Club: mentorship, guidance and career exploration in finance.",
     photos: ["photo-longship-1.jpg", "photo-longship-2.jpg"]
   },
   {
@@ -107,7 +107,7 @@ const UVIG_PAST = [
     dateDisplay: "October 23",
     venue: "David Strong Building C118",
     tag: "Networking",
-    blurb: "Doors, panelist Q&A, networking and close — a full evening connecting students with finance professionals in Victoria."
+    blurb: "Doors, panelist Q&A, networking and close: a full evening connecting students with finance professionals in Victoria."
   },
   {
     title: "Professional Development Workshop",
@@ -122,7 +122,7 @@ const UVIG_PAST = [
     venue: "Michele Pujol Room, SUB",
     tag: "Partner event",
     blurb: "A recurring sandwich-buffet networking lunch run with the Commerce Students' Society, featuring finance professionals as speakers.",
-    speakers: ["Shaun Rosson, CFP — IG Wealth Management"],
+    speakers: ["Shaun Rosson, CFP: IG Wealth Management"],
     photos: ["photo-css-lunch-1.jpg", "photo-css-lunch-2.jpg"]
   },
   {
@@ -140,10 +140,10 @@ const UVIG_PAST = [
     tag: "Panel",
     blurb: "Four professionals working in asset management and investment roles shared their stories. Open to everyone.",
     speakers: [
-      "James Alder, CFA — Portfolio Manager, Westerkirk Capital",
-      "Ian Johnson, CFA — Director of Investments, Victoria Foundation",
-      "Mac Costigan — Analyst, Alternative Investments, Westerkirk Capital",
-      "Hayden Ford, CFA — Senior Associate, Derivatives, BCI"
+      "James Alder, CFA: Portfolio Manager, Westerkirk Capital",
+      "Ian Johnson, CFA: Director of Investments, Victoria Foundation",
+      "Mac Costigan: Analyst, Alternative Investments, Westerkirk Capital",
+      "Hayden Ford, CFA: Senior Associate, Derivatives, BCI"
     ]
   },
   {
@@ -181,7 +181,7 @@ const UVIG_PAST = [
     venue: "Virtual",
     tag: "Partner event",
     blurb: "Q&A with the CEO of Wall Street Oasis, announcing UVIG's member partnership: bootcamps, Bloomberg access and course discounts.",
-    speakers: ["Patrick Curtis — CEO, Wall Street Oasis"]
+    speakers: ["Patrick Curtis: CEO, Wall Street Oasis"]
   },
   {
     title: "Wealth Management Panel",
@@ -202,7 +202,7 @@ const UVIG_REPORTS = [
     sector: "Healthcare",
     authors: "Kavin Bawa, Émilie Doyon, Jonathan Khoo & Peter Mikulash",
     date: "October 2025",
-    blurb: "A look at the healthcare sector's growth drivers — AI in clinical care, an aging population, and coverage of Johnson & Johnson, Roche, UnitedHealth, and Medtronic.",
+    blurb: "A look at the healthcare sector's growth drivers: AI in clinical care, an aging population, and coverage of Johnson & Johnson, Roche, UnitedHealth, and Medtronic.",
     pdf: "report-healthcare-2025.pdf"
   },
   {
@@ -210,7 +210,7 @@ const UVIG_REPORTS = [
     sector: "Transportation",
     authors: "Kavin Bawa, Émilie Doyon, Jonathan Khoo & Peter Mikulash",
     date: "November 2025",
-    blurb: "An analysis of the $8.54T global transportation sector — freight modes, sustainability and digitization trends, and coverage of Delta, Maersk, and Canadian National Railway.",
+    blurb: "An analysis of the $8.54T global transportation sector: freight modes, sustainability and digitization trends, and coverage of Delta, Maersk, and Canadian National Railway.",
     pdf: "report-transportation-2025.pdf"
   },
   {
@@ -218,7 +218,7 @@ const UVIG_REPORTS = [
     sector: "Consumer Discretionary",
     authors: "Kavin Bawa, Émilie Doyon, Jonathan Khoo & Peter Mikulash",
     date: "September 2025",
-    blurb: "Covering the $13.66T consumer discretionary market — digitization and sustainability trends, and analysis of Amazon, McDonald's, Nike, and Tesla.",
+    blurb: "Covering the $13.66T consumer discretionary market: digitization and sustainability trends, and analysis of Amazon, McDonald's, Nike, and Tesla.",
     pdf: "report-consumer-discretionary-2025.pdf"
   },
   {
@@ -313,7 +313,7 @@ const UVIG_TEAM = {
     { name: "Jayce Tenove", role: "Director of External" },
     { name: "Manuel Donelly", role: "VP of Marketing" },
     { name: "Quinn Bragagnolo", role: "VP of Events" },
-    { name: "Aliyah Minter", role: "Director of Club Relations — Partnership lead with UVic Girls That Invest" }
+    { name: "Aliyah Minter", role: "Director of Club Relations: Partnership lead with UVic Girls That Invest" }
   ],
   internal: [
     { name: "Cohen Einarson", role: "Director of Internal" },

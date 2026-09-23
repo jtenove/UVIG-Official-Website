@@ -520,9 +520,26 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 .success-icon{
   width:60px; height:60px; border-radius:50%; background:var(--navy-900); color:var(--white);
   display:flex; align-items:center; justify-content:center; margin:0 auto 22px; font-size:26px;
+  animation:successPop .55s cubic-bezier(.34,1.56,.64,1) both;
 }
-.success-screen h2{font-size:26px;}
-.success-screen p{color:var(--graphite); margin-top:12px; max-width:40ch; margin-left:auto; margin-right:auto;}
+@keyframes successPop{
+  0%{transform:scale(0.35); opacity:0;}
+  65%{transform:scale(1.08); opacity:1;}
+  100%{transform:scale(1); opacity:1;}
+}
+.success-screen h2{font-size:26px; animation:fadeUpSmall .45s var(--ease) both; animation-delay:.15s;}
+.success-screen p{color:var(--graphite); margin-top:12px; max-width:40ch; margin-left:auto; margin-right:auto; animation:fadeUpSmall .45s var(--ease) both; animation-delay:.22s;}
+.success-screen .btn{animation:fadeUpSmall .45s var(--ease) both; animation-delay:.3s;}
+@keyframes fadeUpSmall{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+
+/* ---------- Button loading state ---------- */
+.btn-loading{position:relative; color:transparent !important; pointer-events:none;}
+.btn.btn-loading::after{
+  content:""; position:absolute; inset:auto; top:50%; left:50%; width:16px; height:16px;
+  margin:-8px 0 0 -8px; border:2px solid rgba(255,255,255,0.35); border-top-color:#fff;
+  border-radius:50%; background:none; transform:none; animation:btnSpin .6s linear infinite;
+}
+@keyframes btnSpin{to{transform:rotate(360deg);}}
 
 /* ---------- Newsletter detail page ---------- */
 .brief-block{display:grid; grid-template-columns:44px 1fr; gap:18px; padding:26px 0; border-bottom:1px solid var(--hairline);}

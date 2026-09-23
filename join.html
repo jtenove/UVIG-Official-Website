@@ -35,13 +35,13 @@
     <div class="quiz-step active" data-step="0">
       <span class="hero-eyebrow">MEMBERSHIP</span>
       <h2>Join UVic Investment Group</h2>
-      <p class="step-note">Bridging the gap between academics and industry — UVIG exposes UVic students to the finance industry through equity research, speaker events, and case competitions. Membership takes two minutes to set up.</p>
+      <p class="step-note">Bridging the gap between academics and industry. UVIG exposes UVic students to the finance industry through equity research, speaker events, and case competitions. Membership takes two minutes to set up.</p>
       <div class="quiz-perks">
         <h4>What you get as a member</h4>
         <ul>
           <li>The bi-weekly newsletter and a heads-up on every upcoming event</li>
           <li>Event invites and sign-up links as soon as they're posted</li>
-          <li>Eligibility for trading competitions and stock pitch challenges</li>
+          <li>Full access to our Brightspace resource library: equity reports, modeling guides, and interview prep</li>
           <li>Access to the speaker series, panels, and workshops</li>
         </ul>
       </div>
@@ -65,7 +65,7 @@
       <div class="field">
         <label for="fEmail">Main email address</label>
         <input type="email" id="fEmail" placeholder="you@example.com" required>
-        <div class="field-note" style="font-size:12px; color:var(--graphite); margin-top:6px;">The email you actually check — this is where we'll send the newsletter and updates.</div>
+        <div class="field-note" style="font-size:12px; color:var(--graphite); margin-top:6px;">The email you actually check. This is where we'll send the newsletter and updates.</div>
       </div>
       <div class="field">
         <label for="fYear">Year of study</label>
@@ -90,7 +90,7 @@
     <!-- Step 2: Interests -->
     <div class="quiz-step" data-step="2">
       <h2>What areas of finance interest you?</h2>
-      <p class="step-note">Step 2 of 3 — pick as many as you like. (Draft categories — let us know if you'd frame these differently.)</p>
+      <p class="step-note">Step 2 of 3. Pick as many as you like.</p>
       <div class="choice-grid" id="interestGrid"></div>
       <div class="quiz-nav">
         <button class="btn btn-ghost" data-back>Back</button>
@@ -127,7 +127,7 @@
       <div class="success-screen">
         <div class="success-icon">✓</div>
         <h2>You're in.</h2>
-        <p>Welcome to UVIG. Keep an eye on your inbox — you'll get the next newsletter and hear about upcoming events as they're posted.</p>
+        <p>Welcome to UVIG. Keep an eye on your inbox. You'll get the next newsletter and hear about upcoming events as they're posted.</p>
         <a href="events.html" class="btn btn-primary" style="margin-top:22px;">See upcoming events</a>
       </div>
     </div>
@@ -191,7 +191,10 @@
     sync();
   });
 
-  document.getElementById('submitBtn').addEventListener('click', async () => {
+  document.getElementById('submitBtn').addEventListener('click', (e) => {
+    const btn = e.currentTarget;
+    if (btn.classList.contains('btn-loading')) return;
+
     const interests = [...document.querySelectorAll('#interestGrid input:checked')].map(i => i.value);
     const payload = {
       name: document.getElementById('fName').value.trim(),
@@ -204,21 +207,26 @@
       newsletterOptIn: document.getElementById('fNewsletter').checked
     };
 
+    // Fire the submission in the background — it's a no-cors request so we
+    // can't read its result anyway, and the Apps Script round trip can take
+    // several seconds. Don't make the person wait on it; the UI moves on
+    // immediately with its own short, deliberate animation instead.
     if (SHEET_ENDPOINT.startsWith('REPLACE_WITH')) {
       console.warn('UVIG join form: SHEET_ENDPOINT is still a placeholder — response was not saved. See GOOGLE_SHEETS_SETUP.md.', payload);
     } else {
-      try {
-        await fetch(SHEET_ENDPOINT, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain' },
-          body: JSON.stringify(payload)
-        });
-      } catch (err) {
-        console.error('UVIG join form: submission failed', err);
-      }
+      fetch(SHEET_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      }).catch(err => console.error('UVIG join form: submission failed', err));
     }
-    showStep(4);
+
+    btn.classList.add('btn-loading');
+    setTimeout(() => {
+      btn.classList.remove('btn-loading');
+      showStep(4);
+    }, 450);
   });
 </script>
 </body>
