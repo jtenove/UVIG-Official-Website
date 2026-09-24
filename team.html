@@ -66,22 +66,29 @@
       <div class="leadership-band" id="presidentsBand"></div>
 
       <div class="team-tabs" id="teamTabs">
-        <button class="team-tab" data-panel="board">Board of Directors</button>
+        <button class="team-tab active" data-panel="board">Board of Directors</button>
         <button class="team-tab" data-panel="external">External Team</button>
         <button class="team-tab" data-panel="internal">Internal Team</button>
         <button class="team-tab" data-panel="members">Members</button>
+        <div class="team-tab-indicator" id="teamTabIndicator"></div>
       </div>
 
-      <div class="team-panel" data-panel="board" id="board">
-        <div class="team-grid" id="boardGrid"></div>
+      <div class="team-panel active" data-panel="board" id="board">
+        <p class="team-desc">UVIG's Board of Directors provides governance, mentorship, and continuity for the club, drawing on the experience of alumni and industry professionals to guide long-term strategy.</p>
+        <div class="team-grid team-grid-board" id="boardGrid"></div>
       </div>
       <div class="team-panel" data-panel="external" id="external">
+        <p class="team-desc">The External team runs UVIG's public-facing programming: speaker events, partnerships, marketing, and club relations, connecting members directly with industry professionals.</p>
+        <div id="externalFeatured"></div>
         <div class="team-grid" id="externalGrid"></div>
       </div>
       <div class="team-panel" data-panel="internal" id="internal">
+        <p class="team-desc">The Internal team leads UVIG's research function: publishing sector reports, training analysts, and maintaining the club's equity research pipeline.</p>
+        <div id="internalFeatured"></div>
         <div class="team-grid" id="internalGrid"></div>
       </div>
       <div class="team-panel" data-panel="members" id="members">
+        <p class="team-desc">UVIG's members are the club itself: a broad, active community across every year and faculty.</p>
         <div class="members-copy">
           <p>Beyond the executive team, UVIG is 130+ members strong across every year and faculty: analysts contributing to equity reports, delegates preparing for case competitions, and students who come out for the speaker series and socials.</p>
           <p>There's no prerequisite finance background to join. Members choose their level of involvement, from attending events to publishing research.</p>
@@ -138,22 +145,32 @@
 <script src="script.js"></script>
 <script>
   function initials(name){
-    return name.split(' ').filter(Boolean).slice(0,2).map(w => w[0]).join('');
+    return name.split(',')[0].split(' ').filter(Boolean).slice(0,2).map(w => w[0]).join('');
   }
-  function renderGrid(id, people){
-    document.getElementById(id).innerHTML = people.map(p => `
-      <div class="team-card">
+
+  function memberCard(p, metaLine, featured){
+    return `
+      <div class="team-card${featured ? ' team-card-featured' : ''}">
         <div class="speaker-avatar">${initials(p.name)}</div>
         <div>
           <div class="name">${p.name}</div>
           <div class="role">${p.role}</div>
+          ${metaLine ? `<div class="team-meta">${metaLine}</div>` : ''}
         </div>
       </div>
-    `).join('');
+    `;
   }
-  renderGrid('boardGrid', UVIG_TEAM.board);
-  renderGrid('externalGrid', UVIG_TEAM.external);
-  renderGrid('internalGrid', UVIG_TEAM.internal);
+
+  function renderOperational(featuredId, gridId, people){
+    const featured = people.filter(p => p.featured);
+    const rest = people.filter(p => !p.featured);
+    document.getElementById(featuredId).innerHTML = featured.map(p => memberCard(p, `${p.major} · ${p.year}`, true)).join('');
+    document.getElementById(gridId).innerHTML = rest.map(p => memberCard(p, `${p.major} · ${p.year}`, false)).join('');
+  }
+
+  document.getElementById('boardGrid').innerHTML = UVIG_TEAM.board.map(p => memberCard(p, p.firm, false)).join('');
+  renderOperational('externalFeatured', 'externalGrid', UVIG_TEAM.external);
+  renderOperational('internalFeatured', 'internalGrid', UVIG_TEAM.internal);
 
   document.getElementById('presidentsBand').innerHTML = `
     <div>
@@ -162,20 +179,47 @@
     </div>
   `;
 
-  // ---- Tabs ----
+  // ---- Tabs: clean crossfade swap + sliding underline indicator ----
   const tabs = document.querySelectorAll('.team-tab');
   const panels = document.querySelectorAll('.team-panel');
-  function activate(panelName){
-    tabs.forEach(t => t.classList.toggle('active', t.dataset.panel === panelName));
-    panels.forEach(p => p.classList.toggle('active', p.dataset.panel === panelName));
+  const indicator = document.getElementById('teamTabIndicator');
+  const tabsContainer = document.getElementById('teamTabs');
+
+  function moveIndicator(tab){
+    indicator.style.width = tab.offsetWidth + 'px';
+    indicator.style.left = tab.offsetLeft + 'px';
+    indicator.style.top = (tab.offsetTop + tab.offsetHeight - 2) + 'px';
   }
+
+  function activate(panelName){
+    const activeTab = [...tabs].find(t => t.dataset.panel === panelName);
+    if (!activeTab) return;
+    tabs.forEach(t => t.classList.toggle('active', t === activeTab));
+    moveIndicator(activeTab);
+
+    const nextPanel = [...panels].find(p => p.dataset.panel === panelName);
+    const currentPanel = [...panels].find(p => p.classList.contains('active'));
+    if (currentPanel === nextPanel) return;
+
+    if (currentPanel) {
+      currentPanel.classList.add('leaving');
+      currentPanel.classList.remove('active');
+      setTimeout(() => currentPanel.classList.remove('leaving'), 200);
+    }
+    nextPanel.classList.add('active');
+  }
+
   tabs.forEach(tab => tab.addEventListener('click', () => {
     activate(tab.dataset.panel);
     history.replaceState(null, '', '#' + tab.dataset.panel);
   }));
 
   const initialPanel = location.hash ? location.hash.slice(1) : 'board';
-  activate(['board','external','internal','members'].includes(initialPanel) ? initialPanel : 'board');
+  const validPanel = ['board','external','internal','members'].includes(initialPanel) ? initialPanel : 'board';
+  panels.forEach(p => p.classList.toggle('active', p.dataset.panel === validPanel));
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.panel === validPanel));
+  requestAnimationFrame(() => moveIndicator([...tabs].find(t => t.dataset.panel === validPanel)));
+  window.addEventListener('resize', () => moveIndicator([...tabs].find(t => t.classList.contains('active'))));
 </script>
 </body>
 </html>

@@ -551,13 +551,29 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 .leadership-band{background:var(--navy-900); color:var(--white); padding:34px 40px; display:flex; align-items:center; gap:28px; flex-wrap:wrap;}
 .leadership-band .lb-label{font-family:var(--sans); font-size:12px; font-weight:600; color:var(--brass); letter-spacing:0.06em;}
 .leadership-band .lb-names{font-family:var(--serif); font-size:22px; margin-top:6px;}
-.team-tabs{display:flex; gap:4px; border-bottom:1px solid var(--hairline); margin:36px 0 32px; flex-wrap:wrap;}
-.team-tab{background:none; border:none; padding:12px 18px; font-size:14.5px; color:var(--graphite); cursor:pointer; border-bottom:2px solid transparent;}
-.team-tab.active{color:var(--navy-900); border-color:var(--brass); font-weight:500;}
+.team-tabs{position:relative; display:flex; gap:4px; border-bottom:1px solid var(--hairline); margin:36px 0 32px; flex-wrap:wrap;}
+.team-tab{background:none; border:none; padding:12px 18px; font-size:14.5px; color:var(--graphite); cursor:pointer; border-bottom:2px solid transparent; transition:color .2s ease;}
+.team-tab.active{color:var(--navy-900); font-weight:500;}
+.team-tab-indicator{position:absolute; top:0; height:2px; background:var(--brass); transition:left .32s cubic-bezier(.65,0,.35,1), width .32s cubic-bezier(.65,0,.35,1), top .32s cubic-bezier(.65,0,.35,1);}
+.team-desc{color:var(--graphite); font-size:15px; max-width:66ch; margin-bottom:28px; line-height:1.6;}
 .team-panel{display:none;}
-.team-panel.active{display:block; animation:stepIn .3s var(--ease);}
+.team-panel.active{display:block; animation:teamPanelIn .4s cubic-bezier(.22,1,.36,1);}
+.team-panel.leaving{display:block; animation:teamPanelOut .2s ease forwards;}
+@keyframes teamPanelIn{from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);}}
+@keyframes teamPanelOut{from{opacity:1; transform:translateY(0);} to{opacity:0; transform:translateY(-8px);}}
 .team-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--hairline); border:1px solid var(--hairline);}
-.team-card{background:var(--white); padding:24px; display:flex; gap:14px; align-items:flex-start;}
+.team-grid-board{grid-template-columns:repeat(2,1fr);}
+.team-card{background:var(--white); padding:28px 26px; display:flex; gap:16px; align-items:flex-start;}
+.team-meta{font-family:var(--sans); font-size:12.5px; color:var(--graphite); margin-top:5px; line-height:1.5;}
+.team-card-featured{
+  display:flex; gap:22px; align-items:flex-start; background:var(--white);
+  border:1px solid var(--hairline); border-left:4px solid var(--brass);
+  padding:32px; margin-bottom:24px;
+}
+.team-card-featured .speaker-avatar{width:60px; height:60px; font-size:19px; flex-shrink:0;}
+.team-card-featured .name{font-size:19px;}
+.team-card-featured .role{font-size:14.5px; margin-top:2px;}
+.team-card-featured .team-meta{font-size:13px; margin-top:6px;}
 .team-card .name{font-weight:600; font-size:15px; color:var(--navy-900);}
 .team-card .role{font-size:12.5px; color:var(--graphite); margin-top:4px;}
 .members-copy{max-width:64ch;}
@@ -599,11 +615,13 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
   .past-grid{grid-template-columns:1fr;}
   .speakers-grid{grid-template-columns:1fr 1fr;}
   .team-grid{grid-template-columns:1fr 1fr;}
+  .team-grid-board{grid-template-columns:1fr;}
   .choice-grid{grid-template-columns:1fr;}
   .leadership-band{padding:26px 24px;}
   .split-two{grid-template-columns:1fr;}
   .past-card.has-photo .photo-row{grid-template-columns:1fr 1fr;}
   .app-preview-compact{flex-direction:column; align-items:flex-start; text-align:left;}
+  .team-card-featured{flex-direction:column; text-align:left; padding:26px 22px;}
 }
 @media (max-width: 480px){
   .footer-grid{grid-template-columns:1fr;}
@@ -754,7 +772,7 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 
 /* ---------- Split banners (full-bleed image + text) ---------- */
 .split-banner{position:relative; min-height:420px; display:flex; align-items:center; overflow:hidden; background-size:cover; background-position:center;}
-.split-banner::after{content:""; position:absolute; inset:0; background:linear-gradient(100deg, rgba(6,14,28,0.88) 0%, rgba(6,14,28,0.6) 48%, rgba(6,14,28,0.25) 100%);}
+.split-banner::after{content:""; position:absolute; inset:0; background:linear-gradient(100deg, rgba(6,14,28,0.6) 0%, rgba(6,14,28,0.38) 48%, rgba(6,14,28,0.12) 100%);}
 .split-banner-inner{position:relative; z-index:2; max-width:var(--maxw); margin:0 auto; padding:56px 24px; width:100%; display:flex; justify-content:space-between; align-items:center; gap:40px;}
 .split-banner-text .tag{font-family:var(--sans); font-size:12px; font-weight:600; color:var(--brass); letter-spacing:0.06em; display:block; margin-bottom:16px;}
 .split-banner-text h2{color:var(--white); font-size:36px; max-width:14ch; line-height:1.15;}
@@ -765,6 +783,15 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 .split-banner .btn-primary{background:var(--white); color:var(--navy-900);}
 .split-banner .btn-primary:hover{background:#e8e8e8;}
 .banner-word-list{font-family:var(--sans); font-size:12px; font-weight:600; color:#B7C2D6; text-align:right; line-height:2.1; letter-spacing:0.08em; flex-shrink:0;}
+
+/* ---------- Partnership badges (More than a club banner) ---------- */
+.banner-partners{display:flex; flex-direction:column; gap:14px; flex-shrink:0;}
+.partners-label{font-family:var(--sans); font-size:12px; font-weight:600; color:#C9D2E0; letter-spacing:0.06em; margin-bottom:2px;}
+.partner-badge{
+  display:flex; align-items:center; background:rgba(255,255,255,0.96);
+  border-radius:4px; padding:14px 20px; min-width:210px;
+}
+.partner-logo{height:32px; width:auto; max-width:100%; display:block;}
 
 /* ---------- What is UVIG (about + inline stats) ---------- */
 .about-wrap{display:flex; justify-content:space-between; align-items:flex-end; gap:40px; flex-wrap:wrap;}
@@ -802,6 +829,8 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
   .home-split{grid-template-columns:1fr; gap:24px;}
   .split-banner-inner{flex-direction:column; align-items:flex-start; text-align:left; padding:44px 24px;}
   .banner-word-list{text-align:left;}
+  .banner-partners{margin-top:16px;}
+  .partner-badge{min-width:0;}
   .about-wrap{flex-direction:column; align-items:flex-start;}
   .about-stats-inline{gap:24px;}
   .feature-photo-grid{grid-template-columns:1fr;}

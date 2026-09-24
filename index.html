@@ -70,22 +70,6 @@
       </div>
     </div>
 
-    <div class="carousel-controls">
-      <span class="carousel-counter" id="carouselCounter">01 / 03</span>
-      <div class="carousel-dots" id="carouselDots">
-        <button class="carousel-dot active" data-goto="0" aria-label="Slide 1"></button>
-        <button class="carousel-dot" data-goto="1" aria-label="Slide 2"></button>
-        <button class="carousel-dot" data-goto="2" aria-label="Slide 3"></button>
-      </div>
-      <div class="carousel-arrows">
-        <button class="carousel-arrow" id="carouselPrev" aria-label="Previous slide">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <button class="carousel-arrow" id="carouselNext" aria-label="Next slide">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
-      </div>
-    </div>
   </section>
 
   <!-- Upcoming Events: single poster banner -->
@@ -124,15 +108,21 @@
       <div class="split-banner-inner">
         <div class="split-banner-text reveal">
           <span class="tag">UVIG</span>
-          <h2>More than a club. A launchpad for what's next.</h2>
-          <p>Research. People. Opportunity. At the University of Victoria.</p>
+          <h2>Bridging the gap between academics and industry.</h2>
+          <p>Connecting UVic students to a community through direct relationships with industry professionals.</p>
           <div class="split-banner-actions">
             <a href="team.html" class="btn btn-primary">Explore UVIG</a>
             <a href="join.html" class="btn btn-ghost">Join the Group</a>
           </div>
         </div>
-        <div class="banner-word-list reveal">
-          PEOPLE<br>IDEAS<br>OPPORTUNITIES<br>A STRONGER TOMORROW
+        <div class="banner-partners reveal">
+          <span class="partners-label">Our Partnerships</span>
+          <div class="partner-badge">
+            <img src="logo-cfa-society.png" alt="CFA Society Victoria" class="partner-logo">
+          </div>
+          <div class="partner-badge">
+            <img src="logo-wso.png" alt="Wall Street Oasis" class="partner-logo">
+          </div>
         </div>
       </div>
     </div>
@@ -286,29 +276,19 @@
 <script src="data.js"></script>
 <script src="script.js"></script>
 <script>
-  // ---- Hero carousel (3 slides) ----
+  // ---- Hero carousel (3 slides, auto-cycles only, no manual controls) ----
   (function(){
     const slides = document.querySelectorAll('.hero-slide');
-    const dots = document.querySelectorAll('.carousel-dot');
-    const counter = document.getElementById('carouselCounter');
     const total = slides.length;
     let current = 0;
-    let timer;
 
     function show(i){
       current = (i + total) % total;
       slides.forEach((s, idx) => s.classList.toggle('active', idx === current));
-      dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
-      counter.textContent = String(current + 1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
     }
     function next(){ show(current + 1); }
-    function prev(){ show(current - 1); }
-    function restart(){ clearInterval(timer); timer = setInterval(next, 6000); }
 
-    document.getElementById('carouselNext').addEventListener('click', () => { next(); restart(); });
-    document.getElementById('carouselPrev').addEventListener('click', () => { prev(); restart(); });
-    dots.forEach(d => d.addEventListener('click', () => { show(parseInt(d.dataset.goto,10)); restart(); }));
-    restart();
+    setInterval(next, 7000);
   })();
 
   // ---- Upcoming events: single poster banner (Kickoff flyer) ----

@@ -298,29 +298,29 @@ const UVIG_SPEAKERS = [
 // ---------- TEAM (2026-2027) ----------
 const UVIG_TEAM = {
   presidents: [
-    { name: "George Murray", role: "Co-President" },
-    { name: "Will Hansen", role: "Co-President" }
+    { name: "Will Hansen", role: "Co-President", major: "BA Economics", year: "'28" },
+    { name: "George Murray", role: "Co-President", major: "BCom", year: "'28" }
   ],
   board: [
-    { name: "Alicia Armstrong", role: "Board Chair" },
-    { name: "Alicia Voss", role: "Board Member" },
-    { name: "Samantha Toms", role: "Board Member" },
-    { name: "Sascha Jansen-Rudan", role: "Board Member" },
-    { name: "Sheri Love", role: "Board Member" },
-    { name: "Steven Fan", role: "Board Member" }
+    { name: "Alicia Armstrong, CFA", role: "Board Chair", firm: "Associate Portfolio Manager, BCI" },
+    { name: "Sheri Love", role: "Director", firm: "UVic BCom Co-op Coordinator" },
+    { name: "Alicia Voss, CFA", role: "Director", firm: "Associate, Derivatives, Collateral & Engineering, BCI" },
+    { name: "Steven Fan, CFA", role: "Director", firm: "Investment Analyst, UVic Treasury" },
+    { name: "Samantha Toms", role: "Director", firm: "Board Member" },
+    { name: "Sascha Jansen-Rudan", role: "Director", firm: "Former UVIG President" }
   ],
   external: [
-    { name: "Jayce Tenove", role: "Director of External" },
-    { name: "Manuel Donelly", role: "VP of Marketing" },
-    { name: "Quinn Bragagnolo", role: "VP of Events" },
-    { name: "Aliyah Minter", role: "Director of Club Relations: Partnership lead with UVic Girls That Invest" }
+    { name: "Jayce Tenove", role: "Director of External", major: "BCom", year: "'28", featured: true },
+    { name: "Manuel Donelly", role: "VP of Marketing", major: "BCom", year: "'27" },
+    { name: "Quinn Bragagnolo", role: "VP of Events", major: "BCom", year: "'28" },
+    { name: "Aliyah Minter", role: "Director of Club Relations", major: "BCom", year: "'28" }
   ],
   internal: [
-    { name: "Cohen Einarson", role: "Director of Internal" },
-    { name: "Kamren Shah", role: "VP of Internal" },
-    { name: "Mariah Luzon", role: "Analyst" },
-    { name: "Carter Guerin", role: "Analyst" },
-    { name: "Owen Harrington", role: "Analyst" },
-    { name: "Maia Bell", role: "Analyst" }
+    { name: "Cohen Einarson", role: "Director of Internal", major: "BCom", year: "'28", featured: true },
+    { name: "Kamren Shah", role: "VP of Internal", major: "BA Economics", year: "'28" },
+    { name: "Maia Bell", role: "Analyst", major: "BCom", year: "'27" },
+    { name: "Mariah Luzon", role: "Analyst", major: "BA Economics", year: "'27" },
+    { name: "Carter Guerin", role: "Analyst", major: "BA Economics", year: "'28" },
+    { name: "Owen Harrington", role: "Analyst", major: "BSc Economics", year: "'29" }
   ]
 };
