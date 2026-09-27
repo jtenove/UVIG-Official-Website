@@ -147,3 +147,123 @@ function downloadICS(ev) {
   a.remove();
   URL.revokeObjectURL(url);
 }
+
+/* ============================================================
+   SITE-WIDE MOTION SYSTEM
+   Runs once the page (including any inline scripts that render
+   cards from data.js) has finished loading, so dynamically drawn
+   cards get the same effects. Each piece is a no-op on pages
+   without matching elements.
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', function () {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- 1. Reveal on scroll. Elements with .stagger animate their children one by one. ----
+  (function () {
+    const reveals = document.querySelectorAll('.reveal');
+    if (!reveals.length) return;
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      reveals.forEach(el => el.classList.add('revealed'));
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        if (el.classList.contains('stagger')) {
+          [...el.children].forEach((child, i) => { child.style.animationDelay = Math.min(i * 0.08, 0.64) + 's'; });
+        }
+        el.classList.add('revealed');
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  })();
+
+  // ---- 2. Animated number counters (elements with data-counter="130") ----
+  (function () {
+    const counters = document.querySelectorAll('[data-counter]');
+    if (!counters.length) return;
+    const finalText = el => el.dataset.counter + (el.dataset.counterSuffix || '');
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      counters.forEach(el => { el.textContent = finalText(el); });
+      return;
+    }
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.counter, 10);
+      const suffix = el.dataset.counterSuffix || '';
+      const duration = 1100;
+      const start = performance.now();
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(el => observer.observe(el));
+  })();
+
+  // ---- 3. Subtle 3D tilt on card hover (elements with .tilt-card), desktop only ----
+  (function () {
+    const cards = document.querySelectorAll('.tilt-card');
+    if (!cards.length || reduceMotion) return;
+    if (window.matchMedia('(hover: none)').matches) return;
+    cards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(800px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg) translateY(-6px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+  })();
+
+  // ---- 4. Gentle parallax on background images (elements with .parallax-bg) ----
+  // The shift is capped by how much extra photo exists beyond the box ("slack"),
+  // so the image edge is never exposed, e.g. on tall, narrow phone layouts.
+  (function () {
+    const layers = [...document.querySelectorAll('.parallax-bg')];
+    if (!layers.length || reduceMotion) return;
+    const sizes = new Map();
+    let ticking = false;
+    function slack(el) {
+      const s = sizes.get(el);
+      if (!s) return 0;
+      const W = el.clientWidth, H = el.clientHeight;
+      const scale = Math.max(W / s.w, H / s.h);
+      return Math.max(0, s.h * scale - H);
+    }
+    function updateParallax() {
+      layers.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+        const max = slack(el) / 2;
+        const raw = (rect.top - window.innerHeight / 2) * 0.08;
+        const offset = Math.max(-max, Math.min(max, raw));
+        el.style.backgroundPosition = `center calc(50% + ${offset.toFixed(1)}px)`;
+      });
+      ticking = false;
+    }
+    const request = () => { if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; } };
+    layers.forEach(el => {
+      const m = getComputedStyle(el).backgroundImage.match(/url\(["']?(.*?)["']?\)/);
+      if (!m) return;
+      const img = new Image();
+      img.onload = () => { sizes.set(el, { w: img.naturalWidth, h: img.naturalHeight }); request(); };
+      img.src = m[1];
+    });
+    window.addEventListener('scroll', request, { passive: true });
+    window.addEventListener('resize', request);
+  })();
+});

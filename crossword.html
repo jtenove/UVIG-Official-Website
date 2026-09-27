@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Puzzles | UVic Investment Group</title>
+<meta name="theme-color" content="#0A1F3D">
+<meta name="description" content="UVIG's weekly investment crossword and market trivia.">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<style>
+  .pz-shell{position:relative; z-index:1; max-width:1040px; margin:0 auto; padding:44px 24px 80px;}
+  .pz-intro{text-align:center; margin-bottom:28px;}
+  .pz-intro h1{font-size:44px; letter-spacing:-0.01em; animation:heroFadeUp .7s var(--ease) both .12s;}
+  .pz-intro .hero-eyebrow{animation:heroFadeUp .7s var(--ease) both .04s;}
+  .pz-intro p{color:var(--graphite); font-size:16px; max-width:46ch; margin:12px auto 0; animation:heroFadeUp .7s var(--ease) both .2s;}
+  .pz-mode{display:flex; justify-content:center; margin-bottom:34px; animation:heroFadeUp .7s var(--ease) both .28s;}
+  .pz-panel{display:none;}
+  .pz-panel.active{display:block; animation:teamPanelIn .45s cubic-bezier(.22,1,.36,1);}
+
+  .cw-toolbar{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:18px;}
+  .cw-toolbar-right{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .cw-timer{
+    display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:16px; font-weight:500;
+    color:var(--navy-900); background:var(--white); padding:9px 16px; border-radius:999px; box-shadow:var(--shadow-soft);
+  }
+  .cw-timer svg{width:15px; height:15px; color:var(--brass);}
+  .cw-tool-btn{
+    font-family:var(--sans); font-size:13.5px; font-weight:600; color:var(--navy-900); background:var(--white);
+    border:none; padding:10px 16px; border-radius:999px; cursor:pointer; box-shadow:var(--shadow-soft);
+    transition:transform .15s ease, box-shadow .2s ease;
+  }
+  .cw-tool-btn:hover{transform:translateY(-1px); box-shadow:var(--shadow-lift);}
+  .cw-tool-btn:active{transform:scale(.97);}
+
+  .cw-toast{
+    position:fixed; left:50%; bottom:28px; transform:translate(-50%, 20px); opacity:0; pointer-events:none; z-index:100;
+    background:var(--navy-900); color:var(--white); font-size:14px; padding:12px 20px; border-radius:999px;
+    box-shadow:0 12px 30px rgba(10,31,61,.25); transition:opacity .25s ease, transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  .cw-toast.show{opacity:1; transform:translate(-50%, 0);}
+
+  .cw-board{display:grid; grid-template-columns:minmax(0, 1.3fr) minmax(260px, 1fr); gap:24px; align-items:start;}
+  .cw-grid-card{
+    background:linear-gradient(160deg, #F2EEE4 0%, #E8ECF2 100%); border-radius:28px; padding:22px;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.6);
+  }
+  .cw-current-clue{
+    display:flex; gap:12px; align-items:center; background:var(--white); border-radius:16px;
+    padding:12px 16px; margin-bottom:18px; min-height:50px; box-shadow:var(--shadow-soft);
+  }
+  .cw-current-clue .num{
+    flex-shrink:0; font-family:var(--sans); font-size:12px; font-weight:600; color:var(--white); background:var(--navy-900);
+    border-radius:999px; padding:4px 10px; letter-spacing:.02em;
+  }
+  .cw-current-clue .txt{font-size:14.5px; color:var(--ink); line-height:1.4;}
+  .cw-grid-area{width:100%; min-width:0; display:flex; justify-content:center;}
+  .cw-grid{display:grid; gap:var(--gap, 5px); grid-template-columns:repeat(var(--cols, 11), var(--cell, 40px));}
+  .cw-cell{
+    position:relative; width:var(--cell, 40px); height:var(--cell, 40px); border-radius:calc(var(--cell, 40px) * .24);
+    background:var(--white); box-shadow:0 1px 2px rgba(10,31,61,.10), inset 0 0 0 1px rgba(10,31,61,.07);
+    transition:background .2s ease, box-shadow .2s ease, transform .15s ease;
+  }
+  .cw-cell.cw-black{background:transparent; box-shadow:none;}
+  .cw-cell.cw-active{background:#F6ECD6;}
+  .cw-cell.cw-current{background:#E6CE98; box-shadow:0 4px 12px rgba(185,154,91,.35);}
+  .cw-cell.cw-wrong{background:#F7D9D4; animation:cwShake .4s;}
+  .cw-cell.cw-pop{animation:cwPop .22s ease;}
+  .cw-number{
+    position:absolute; top:calc(var(--cell, 40px) * .07); left:calc(var(--cell, 40px) * .12);
+    font-family:var(--sans); font-size:max(8px, calc(var(--cell, 40px) * .22)); font-weight:600; color:var(--graphite);
+    line-height:1; pointer-events:none;
+  }
+  .cw-input{
+    width:100%; height:100%; border:none; background:transparent; text-align:center; padding:0;
+    padding-top:calc(var(--cell, 40px) * .08);
+    font-family:var(--sans); font-weight:600; font-size:max(16px, calc(var(--cell, 40px) * .46)); color:var(--navy-900);
+    text-transform:uppercase; outline:none; caret-color:transparent; cursor:pointer; border-radius:inherit;
+  }
+  .cw-grid.solved .cw-cell:not(.cw-black){animation:cwWave .7s cubic-bezier(.22,1,.36,1) both; animation-delay:calc(var(--i) * 18ms);}
+  .cw-grid.solved .cw-input{color:var(--white);}
+  .cw-grid.solved .cw-number{color:rgba(255,255,255,.6);}
+  @keyframes cwPop{50%{transform:scale(1.1);}}
+  @keyframes cwShake{25%{transform:translateX(-3px);} 75%{transform:translateX(3px);}}
+  @keyframes cwWave{
+    0%{transform:scale(1); background:var(--white);}
+    40%{transform:scale(1.14);}
+    100%{transform:scale(1); background:var(--navy-900); box-shadow:0 4px 10px rgba(10,31,61,.25);}
+  }
+
+  .cw-clues{background:var(--white); border-radius:28px; padding:26px 22px; box-shadow:var(--shadow-soft);}
+  .cw-clue-group + .cw-clue-group{margin-top:22px;}
+  .cw-clue-group h3{font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:.08em; color:var(--brass); margin:0 0 10px 8px;}
+  .cw-clue-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px;}
+  .cw-clue-item{
+    display:flex; gap:10px; font-size:14px; line-height:1.45; color:var(--graphite); cursor:pointer;
+    padding:8px 10px; border-radius:12px; transition:background .2s ease, color .2s ease;
+  }
+  .cw-clue-item:hover{background:#F6F5F1;}
+  .cw-clue-item.active{background:#F6ECD6; color:var(--navy-900);}
+  .cw-clue-item.done{color:#9AA3B0; text-decoration:line-through; text-decoration-color:rgba(154,163,176,.6);}
+  .cw-clue-num{flex-shrink:0; width:20px; font-family:var(--sans); font-weight:600; color:var(--navy-700);}
+
+  .cw-banner{
+    display:none; position:relative; overflow:hidden; background:var(--navy-900); color:var(--white);
+    border-radius:28px; padding:30px 32px; margin-bottom:22px; text-align:center;
+  }
+  .cw-banner::before{
+    content:""; position:absolute; width:340px; height:340px; border-radius:50%; top:-170px; right:-80px;
+    background:radial-gradient(circle, rgba(185,154,91,.35), transparent 70%);
+  }
+  .cw-banner.show{display:block; animation:successPop .6s cubic-bezier(.34,1.56,.64,1) both;}
+  .cw-banner h2{color:var(--white); font-size:26px; position:relative;}
+  .cw-banner p{color:#C9D2E0; margin-top:6px; position:relative;}
+  .cw-banner-actions{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:18px; position:relative;}
+  .cw-banner .btn-primary{background:var(--white); color:var(--navy-900);}
+  .cw-banner .btn-ghost{border-color:rgba(255,255,255,.5); color:var(--white);}
+  .cw-banner .btn-ghost:hover{background:rgba(255,255,255,.1);}
+
+  .tv-card{
+    max-width:660px; margin:0 auto; background:var(--white); border-radius:32px; padding:36px 36px 32px;
+    box-shadow:var(--shadow-soft); position:relative; overflow:hidden;
+  }
+  .tv-top{display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--graphite); margin-bottom:12px;}
+  .tv-top strong{color:var(--navy-900); font-weight:600;}
+  .tv-progress{height:6px; background:#ECEEF2; border-radius:999px; overflow:hidden; margin-bottom:28px;}
+  .tv-progress .fill{height:100%; width:0; border-radius:999px; background:linear-gradient(90deg, var(--brass), #D9C28F); transition:width .5s cubic-bezier(.22,1,.36,1);}
+  .tv-body.enter{animation:tvIn .4s cubic-bezier(.22,1,.36,1) both;}
+  .tv-body.leave{animation:tvOut .18s ease both;}
+  @keyframes tvIn{from{opacity:0; transform:translateX(18px);} to{opacity:1; transform:none;}}
+  @keyframes tvOut{to{opacity:0; transform:translateX(-14px);}}
+  .tv-q{font-family:var(--serif); font-size:24px; line-height:1.3; color:var(--navy-900); margin-bottom:22px;}
+  .tv-options{display:grid; gap:10px;}
+  .tv-opt{
+    display:flex; align-items:center; gap:14px; width:100%; text-align:left; font-family:var(--sans); font-size:15px;
+    color:var(--ink); background:#F6F5F1; border:1.5px solid transparent; border-radius:18px; padding:13px 16px;
+    cursor:pointer; transition:background .2s ease, border-color .2s ease, transform .15s ease, opacity .2s ease;
+  }
+  .tv-opt:hover:not(:disabled){background:#EEEBE3; transform:translateX(3px);}
+  .tv-opt:disabled{cursor:default;}
+  .tv-opt .key{
+    flex-shrink:0; width:30px; height:30px; border-radius:50%; background:var(--white); display:flex; align-items:center;
+    justify-content:center; font-size:13px; font-weight:600; color:var(--navy-700); transition:background .2s, color .2s;
+  }
+  .tv-opt.correct{background:#E3F1E8; border-color:var(--green);}
+  .tv-opt.correct .key{background:var(--green); color:var(--white);}
+  .tv-opt.wrong{background:#F8E2DE; border-color:var(--red); animation:cwShake .4s;}
+  .tv-opt.wrong .key{background:var(--red); color:var(--white);}
+  .tv-opt.dim{opacity:.55;}
+  .tv-explain{margin-top:18px; padding:14px 18px; border-radius:18px; background:#F6ECD6; font-size:14px; color:var(--ink); line-height:1.5; animation:fadeUpSmall .35s var(--ease) both;}
+  .tv-explain strong{color:var(--navy-900);}
+  .tv-next{display:flex; justify-content:flex-end; margin-top:20px;}
+  .tv-hint{font-size:12px; color:#9AA3B0; margin-top:16px; text-align:center;}
+
+  .tv-result{text-align:center; padding:10px 0 4px;}
+  .tv-ring{position:relative; width:150px; height:150px; margin:0 auto 18px;}
+  .tv-ring svg{width:150px; height:150px; transform:rotate(-90deg);}
+  .tv-ring .track{fill:none; stroke:#ECEEF2; stroke-width:10;}
+  .tv-ring .bar{fill:none; stroke:var(--brass); stroke-width:10; stroke-linecap:round; transition:stroke-dashoffset 1.2s cubic-bezier(.22,1,.36,1);}
+  .tv-ring .score{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .tv-ring .score b{font-family:var(--serif); font-size:40px; color:var(--navy-900); line-height:1;}
+  .tv-ring .score span{font-size:13px; color:var(--graphite); margin-top:4px;}
+  .tv-result h2{font-size:26px;}
+  .tv-result p{color:var(--graphite); margin-top:8px;}
+  .tv-result .actions{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:24px;}
+
+  .pz-foot{text-align:center; font-size:12.5px; color:#9AA3B0; margin-top:48px;}
+  .pz-foot a{color:var(--navy-700);}
+
+  @media (max-width: 860px){
+    .cw-board{grid-template-columns:minmax(0, 1fr);}
+    .pz-intro h1{font-size:34px;}
+    .cw-grid-card{padding:14px; border-radius:22px;}
+    .tv-card{padding:26px 20px 24px; border-radius:26px;}
+    .tv-q{font-size:20px;}
+  }
+</style>
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-inner wrap">
+      <a href="/" class="wordmark">UVic Investment Group <small>EST. 2015</small></a>
+      <a href="/" class="nav-link" style="font-size:14px;">← Back to site</a>
+    </div>
+  </header>
+
+  <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <main class="pz-shell">
+    <div class="pz-intro">
+      <span class="hero-eyebrow">FROM THE UVIG MARKET BRIEF</span>
+      <h1>Weekly Puzzles</h1>
+      <p>An investment crossword and a quick round of market trivia. New every week.</p>
+    </div>
+
+    <div class="pz-mode">
+      <div class="seg" id="modeSeg">
+        <button class="active" data-mode="crossword">Crossword</button>
+        <button data-mode="trivia">Trivia</button>
+        <span class="seg-ind"></span>
+      </div>
+    </div>
+
+    <section class="pz-panel active" data-panel="crossword" style="padding:0;">
+      <div class="cw-banner" id="cwBanner">
+        <h2 id="cwBannerTitle">Solved!</h2>
+        <p id="cwBannerText"></p>
+        <div class="cw-banner-actions">
+          <button class="btn btn-primary" id="cwBannerSwitch"></button>
+          <button class="btn btn-ghost" id="cwBannerTrivia">Play the trivia</button>
+        </div>
+      </div>
+
+      <div class="cw-toolbar">
+        <div class="seg seg-sm" id="diffSeg">
+          <button class="active" data-diff="easy">Easy</button>
+          <button data-diff="hard">Hard</button>
+          <span class="seg-ind"></span>
+        </div>
+        <div class="cw-toolbar-right">
+          <span class="cw-timer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>
+            <span id="cwTimer">0:00</span>
+          </span>
+          <button class="cw-tool-btn" id="cwCheck">Check</button>
+          <button class="cw-tool-btn" id="cwClear">Clear</button>
+        </div>
+      </div>
+
+      <div class="cw-board">
+        <div class="cw-grid-card">
+          <div class="cw-current-clue"><span class="num" id="cwCurNum">1A</span><span class="txt" id="cwCurTxt"></span></div>
+          <div class="cw-grid-area" id="cwGridArea"><div class="cw-grid" id="cwGrid"></div></div>
+        </div>
+        <div class="cw-clues">
+          <div class="cw-clue-group">
+            <h3>ACROSS</h3>
+            <ul class="cw-clue-list" id="cwAcross"></ul>
+          </div>
+          <div class="cw-clue-group">
+            <h3>DOWN</h3>
+            <ul class="cw-clue-list" id="cwDown"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pz-panel" data-panel="trivia" style="padding:0;">
+      <div class="tv-card" id="tvCard"></div>
+    </section>
+
+    <p class="pz-foot">UVic Investment Group · <a href="/join.html">Get the Market Brief every two weeks</a></p>
+  </main>
+
+  <div class="cw-toast" id="cwToast"></div>
+
+<script src="/puzzles-data.js"></script>
+<script>
+// ---------- Pill segmented controls with a sliding indicator ----------
+function initSeg(el, onChange){
+  const ind = el.querySelector('.seg-ind');
+  const btns = [...el.querySelectorAll('button')];
+  const active = () => btns.find(b => b.classList.contains('active'));
+  function move(btn){ ind.style.left = btn.offsetLeft + 'px'; ind.style.width = btn.offsetWidth + 'px'; }
+  function set(btn, fire){
+    btns.forEach(b => b.classList.toggle('active', b === btn));
+    move(btn);
+    if (fire) onChange(btn);
+  }
+  btns.forEach(b => b.addEventListener('click', () => { if (!b.classList.contains('active')) set(b, true); }));
+  window.addEventListener('resize', () => move(active()));
+  ind.style.transition = 'none'; move(active());
+  requestAnimationFrame(() => { move(active()); requestAnimationFrame(() => ind.style.transition = ''); });
+  if (document.fonts) document.fonts.ready.then(() => move(active()));
+  return { select: (pred) => { const b = btns.find(pred); if (b) set(b, false); } };
+}
+
+// <generator>
+// Crossword layout generator. Deterministic: the same word list and
+// seed always produce the same grid, for every visitor.
+function hashString(s){ let h = 2166136261; for (let i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function mulberry32(a){ return function(){ a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+function extractWords(rows){
+  const R = rows.length, C = rows[0].length, out = [];
+  const at = (r, c) => (r >= 0 && c >= 0 && r < R && c < C && rows[r][c] !== '.') ? rows[r][c] : null;
+  for (let r = 0; r < R; r++) for (let c = 0; c < C; c++){
+    if (at(r, c) && !at(r, c-1) && at(r, c+1)){ let w = '', cc = c; while (at(r, cc)) w += at(r, cc++); out.push(w); }
+    if (at(r, c) && !at(r-1, c) && at(r+1, c)){ let w = '', rr = r; while (at(rr, c)) w += at(rr++, c); out.push(w); }
+  }
+  return out;
+}
+
+function buildCrossword(entries, seed, maxSize){
+  maxSize = maxSize || 12;
+  const words = entries
+    .map(e => ({ answer: String(e.answer).toUpperCase().replace(/[^A-Z]/g, ''), clue: e.clue }))
+    .filter(w => w.answer.length >= 2 && w.answer.length <= maxSize);
+  const rng = mulberry32(hashString(seed));
+  const K = (r, c) => r + ',' + c;
+  const solutions = [];
+  let bestPartial = null;
+
+  // Fixed limits (not time-based) so every device produces the identical grid.
+  for (let attempt = 0; attempt < 40 && solutions.length < 2; attempt++){
+    const order = words.map(w => ({ w, k: w.answer.length + rng() * 2.5 })).sort((a, b) => b.k - a.k).map(o => o.w);
+    const cells = new Map(), used = new Map(), placed = [];
+    let b = { minR: 0, maxR: 0, minC: 0, maxC: 0 }, nodes = 0;
+
+    const fits = (word, r, c, dir) => {
+      const dr = dir === 'D' ? 1 : 0, dc = dir === 'A' ? 1 : 0;
+      if (cells.has(K(r - dr, c - dc)) || cells.has(K(r + dr * word.length, c + dc * word.length))) return -1;
+      let crossings = 0;
+      for (let i = 0; i < word.length; i++){
+        const rr = r + dr * i, cc = c + dc * i, k = K(rr, cc), ex = cells.get(k);
+        if (ex !== undefined){
+          if (ex !== word[i] || used.get(k).has(dir)) return -1;
+          crossings++;
+        } else if (cells.has(K(rr + dc, cc + dr)) || cells.has(K(rr - dc, cc - dr))){
+          return -1;
+        }
+      }
+      if (Math.max(b.maxR, r + dr * (word.length - 1)) - Math.min(b.minR, r) + 1 > maxSize) return -1;
+      if (Math.max(b.maxC, c + dc * (word.length - 1)) - Math.min(b.minC, c) + 1 > maxSize) return -1;
+      return crossings;
+    };
+    const put = (wo, r, c, dir) => {
+      const dr = dir === 'D' ? 1 : 0, dc = dir === 'A' ? 1 : 0;
+      const u = { added: [], touched: [], prevB: { ...b }, dir };
+      for (let i = 0; i < wo.answer.length; i++){
+        const rr = r + dr * i, cc = c + dc * i, k = K(rr, cc);
+        if (!cells.has(k)){ cells.set(k, wo.answer[i]); used.set(k, new Set()); u.added.push(k); }
+        used.get(k).add(dir); u.touched.push(k);
+        b.minR = Math.min(b.minR, rr); b.maxR = Math.max(b.maxR, rr); b.minC = Math.min(b.minC, cc); b.maxC = Math.max(b.maxC, cc);
+      }
+      placed.push(wo.answer);
+      return u;
+    };
+    const undo = u => {
+      placed.pop();
+      u.touched.forEach(k => used.get(k) && used.get(k).delete(u.dir));
+      u.added.forEach(k => { cells.delete(k); used.delete(k); });
+      b = u.prevB;
+    };
+    const snapshot = () => {
+      const rows = [];
+      for (let r = b.minR; r <= b.maxR; r++){ let s = ''; for (let c = b.minC; c <= b.maxC; c++) s += cells.get(K(r, c)) || '.'; rows.push(s); }
+      return rows;
+    };
+    const candidates = wo => {
+      const seen = new Set(), out = [];
+      for (const [k, letter] of cells){
+        const [cr, cc] = k.split(',').map(Number);
+        for (let i = 0; i < wo.answer.length; i++){
+          if (wo.answer[i] !== letter) continue;
+          for (const dir of ['A', 'D']){
+            const r = dir === 'D' ? cr - i : cr, c = dir === 'A' ? cc - i : cc;
+            const id = r + ',' + c + dir;
+            if (seen.has(id)) continue; seen.add(id);
+            const x = fits(wo.answer, r, c, dir);
+            if (x <= 0) continue;
+            const dr = dir === 'D' ? 1 : 0, dc = dir === 'A' ? 1 : 0;
+            const h = Math.max(b.maxR, r + dr * (wo.answer.length - 1)) - Math.min(b.minR, r) + 1;
+            const w = Math.max(b.maxC, c + dc * (wo.answer.length - 1)) - Math.min(b.minC, c) + 1;
+            out.push({ r, c, dir, x, score: x * 6 - h * w * 0.08 - Math.abs(h - w) * 0.6 + rng() * 3 });
+          }
+        }
+      }
+      return out.sort((a, b2) => b2.score - a.score).slice(0, 5);
+    };
+    const dfs = i => {
+      if (placed.length > (bestPartial ? bestPartial.count : 0)){
+        const rows = snapshot();
+        if (extractWords(rows).sort().join('|') === [...placed].sort().join('|')) bestPartial = { count: placed.length, rows, placed: [...placed] };
+      }
+      if (i === order.length){
+        const rows = snapshot();
+        if (extractWords(rows).sort().join('|') !== [...placed].sort().join('|')) return false;
+        solutions.push(rows);
+        return true;
+      }
+      if (++nodes > 1200) return false;
+      for (const cand of candidates(order[i])){
+        const u = put(order[i], cand.r, cand.c, cand.dir);
+        if (dfs(i + 1)) return true;
+        undo(u);
+      }
+      return false;
+    };
+
+    put(order[0], 0, 0, rng() < 0.5 ? 'A' : 'D');
+    dfs(1);
+  }
+
+  // Prefer complete, compact, square-ish grids.
+  const rank = rows => rows.length * rows[0].length + Math.abs(rows.length - rows[0].length) * 4;
+  let rows, placedAnswers;
+  if (solutions.length){
+    rows = solutions.sort((a, b2) => rank(a) - rank(b2))[0];
+    placedAnswers = new Set(words.map(w => w.answer));
+  } else {
+    rows = bestPartial.rows;
+    placedAnswers = new Set(bestPartial.placed);
+  }
+  const clueMap = {};
+  words.forEach(w => { clueMap[w.answer] = w.clue; });
+  const missing = words.filter(w => !placedAnswers.has(w.answer)).map(w => w.answer);
+  return { rows, clueMap, missing };
+}
+// </generator>
+
+// ---------- Crossword game ----------
+const cw = { diff: 'easy', R: 0, C: 0, cells: [], across: [], down: [], sel: null, dir: 'A', startTime: null, timer: null, solved: false };
+const $ = id => document.getElementById(id);
+
+function loadCrossword(diff){
+  cw.diff = diff;
+  const puzzle = PUZZLES.crossword[diff];
+  const layout = buildCrossword(puzzle.words, PUZZLES.week + '-' + diff);
+  if (layout.missing.length) console.warn('UVIG crossword: these words could not fit and were skipped:', layout.missing.join(', '));
+
+  const rows = layout.rows;
+  cw.R = rows.length; cw.C = rows[0].length;
+  cw.cells = rows.map(row => [...row].map(ch => ({ sol: ch === '.' ? null : ch, val: '', num: null })));
+  cw.across = []; cw.down = [];
+  let n = 1;
+  const open = (r, c) => r >= 0 && c >= 0 && r < cw.R && c < cw.C && !!cw.cells[r][c].sol;
+  for (let r = 0; r < cw.R; r++) for (let c = 0; c < cw.C; c++){
+    if (!open(r, c)) continue;
+    const a = !open(r, c-1) && open(r, c+1), d = !open(r-1, c) && open(r+1, c);
+    if (a || d) cw.cells[r][c].num = n++;
+    if (a){ const cellsRef = []; let cc = c; while (open(r, cc)) cellsRef.push([r, cc++]); cw.across.push({ num: cw.cells[r][c].num, dir: 'A', cellsRef }); }
+    if (d){ const cellsRef = []; let rr = r; while (open(rr, c)) cellsRef.push([rr++, c]); cw.down.push({ num: cw.cells[r][c].num, dir: 'D', cellsRef }); }
+  }
+  [...cw.across, ...cw.down].forEach(w => {
+    w.answer = w.cellsRef.map(([r, c]) => cw.cells[r][c].sol).join('');
+    w.clue = layout.clueMap[w.answer] || '';
+  });
+
+  clearInterval(cw.timer); cw.timer = null; cw.startTime = null; cw.solved = false;
+  $('cwTimer').textContent = '0:00';
+  $('cwBanner').classList.remove('show');
+  renderGrid(); renderClues(); sizeGrid();
+  const first = cw.across[0] || cw.down[0];
+  cw.dir = first.dir; select(first.cellsRef[0][0], first.cellsRef[0][1], false);
+}
+
+function renderGrid(){
+  const grid = $('cwGrid');
+  grid.classList.remove('solved');
+  grid.innerHTML = '';
+  let i = 0;
+  for (let r = 0; r < cw.R; r++) for (let c = 0; c < cw.C; c++){
+    const cell = cw.cells[r][c];
+    const el = document.createElement('div');
+    el.className = 'cw-cell' + (cell.sol ? '' : ' cw-black');
+    if (cell.sol){
+      el.dataset.r = r; el.dataset.c = c;
+      el.style.setProperty('--i', i++);
+      if (cell.num){ const s = document.createElement('span'); s.className = 'cw-number'; s.textContent = cell.num; el.appendChild(s); }
+      const inp = document.createElement('input');
+      inp.className = 'cw-input'; inp.maxLength = 2; inp.autocomplete = 'off'; inp.autocapitalize = 'characters';
+      inp.spellcheck = false; inp.setAttribute('aria-label', 'Row ' + (r+1) + ' column ' + (c+1));
+      inp.addEventListener('mousedown', e => { e.preventDefault(); onCellClick(r, c); });
+      inp.addEventListener('focus', () => { if (!cw.sel || cw.sel[0] !== r || cw.sel[1] !== c) select(r, c, false); inp.select(); });
+      inp.addEventListener('keydown', e => onKey(e, r, c));
+      inp.addEventListener('input', e => onInput(e, r, c));
+      el.appendChild(inp);
+      cell.el = el; cell.inp = inp;
+    }
+    grid.appendChild(el);
+  }
+  grid.style.setProperty('--cols', cw.C);
+}
+
+function sizeGrid(){
+  const area = $('cwGridArea');
+  const gap = cw.C >= 10 ? 4 : 5;
+  const avail = area.clientWidth;
+  if (!avail) return;
+  const cell = Math.max(22, Math.min(46, Math.floor((avail - gap * (cw.C - 1)) / cw.C)));
+  const grid = $('cwGrid');
+  grid.style.setProperty('--cell', cell + 'px');
+  grid.style.setProperty('--gap', gap + 'px');
+}
+window.addEventListener('resize', () => { if (cw.R) sizeGrid(); });
+
+function renderClues(){
+  const item = w => `<li class="cw-clue-item" data-dir="${w.dir}" data-num="${w.num}"><span class="cw-clue-num">${w.num}</span><span>${w.clue}</span></li>`;
+  $('cwAcross').innerHTML = cw.across.map(item).join('');
+  $('cwDown').innerHTML = cw.down.map(item).join('');
+  document.querySelectorAll('.cw-clue-item').forEach(li => li.addEventListener('click', () => {
+    const list = li.dataset.dir === 'A' ? cw.across : cw.down;
+    const w = list.find(x => String(x.num) === li.dataset.num);
+    cw.dir = w.dir;
+    const firstEmpty = w.cellsRef.find(([r, c]) => !cw.cells[r][c].val) || w.cellsRef[0];
+    select(firstEmpty[0], firstEmpty[1], true);
+  }));
+}
+
+const wordAt = (r, c, dir) => (dir === 'A' ? cw.across : cw.down).find(w => w.cellsRef.some(([rr, cc]) => rr === r && cc === c));
+const currentWord = () => cw.sel && wordAt(cw.sel[0], cw.sel[1], cw.dir);
+
+function select(r, c, focus = true){
+  if (!wordAt(r, c, cw.dir)) cw.dir = cw.dir === 'A' ? 'D' : 'A';
+  cw.sel = [r, c];
+  highlight();
+  if (focus) cw.cells[r][c].inp.focus({ preventScroll: true });
+}
+
+function onCellClick(r, c){
+  if (cw.solved) return;
+  if (cw.sel && cw.sel[0] === r && cw.sel[1] === c && wordAt(r, c, 'A') && wordAt(r, c, 'D')){
+    cw.dir = cw.dir === 'A' ? 'D' : 'A';
+  }
+  select(r, c, true);
+}
+
+function highlight(){
+  document.querySelectorAll('.cw-cell.cw-active, .cw-cell.cw-current').forEach(el => el.classList.remove('cw-active', 'cw-current'));
+  if (cw.solved){ document.querySelectorAll('.cw-clue-item.active').forEach(li => li.classList.remove('active')); return; }
+  const w = currentWord();
+  if (w) w.cellsRef.forEach(([r, c]) => cw.cells[r][c].el.classList.add('cw-active'));
+  const [r, c] = cw.sel;
+  cw.cells[r][c].el.classList.add('cw-current');
+  document.querySelectorAll('.cw-clue-item').forEach(li => li.classList.toggle('active', !!w && li.dataset.dir === w.dir && li.dataset.num === String(w.num)));
+  if (w){ $('cwCurNum').textContent = w.num + (w.dir === 'A' ? 'A' : 'D'); $('cwCurTxt').textContent = w.clue; }
+}
+
+function setLetter(r, c, L){
+  const cell = cw.cells[r][c];
+  cell.val = L; cell.inp.value = L;
+  if (L){ cell.el.classList.remove('cw-pop'); void cell.el.offsetWidth; cell.el.classList.add('cw-pop'); }
+  cell.el.classList.remove('cw-wrong');
+  updateDoneClues();
+}
+
+function step(delta){
+  const w = currentWord(); if (!w) return;
+  const idx = w.cellsRef.findIndex(([r, c]) => r === cw.sel[0] && c === cw.sel[1]);
+  const next = w.cellsRef[idx + delta];
+  if (next) select(next[0], next[1], true);
+  else if (delta > 0) jumpWord(1);
+}
+
+function jumpWord(delta){
+  const all = [...cw.across, ...cw.down];
+  let i = all.indexOf(currentWord());
+  for (let n = 0; n < all.length; n++){
+    i = (i + delta + all.length) % all.length;
+    const target = all[i];
+    const empty = target.cellsRef.find(([r, c]) => !cw.cells[r][c].val);
+    if (empty || n === all.length - 1){ cw.dir = target.dir; const [r, c] = empty || target.cellsRef[0]; select(r, c, true); return; }
+  }
+}
+
+function moveArrow(dr, dc){
+  const axis = dr ? 'D' : 'A';
+  if (cw.dir !== axis && wordAt(cw.sel[0], cw.sel[1], axis)){ cw.dir = axis; highlight(); return; }
+  let r = cw.sel[0] + dr, c = cw.sel[1] + dc;
+  while (r >= 0 && c >= 0 && r < cw.R && c < cw.C){
+    if (cw.cells[r][c].sol){ select(r, c, true); return; }
+    r += dr; c += dc;
+  }
+}
+
+function typeLetter(r, c, L){
+  if (cw.solved) return;
+  startTimer();
+  setLetter(r, c, L);
+  if (!checkSolved()) step(1);
+}
+
+function onKey(e, r, c){
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key;
+  if (/^[a-zA-Z]$/.test(k)){ e.preventDefault(); typeLetter(r, c, k.toUpperCase()); }
+  else if (k === 'Backspace'){
+    e.preventDefault(); if (cw.solved) return;
+    if (cw.cells[r][c].val) setLetter(r, c, '');
+    else { step(-1); setLetter(cw.sel[0], cw.sel[1], ''); }
+  }
+  else if (k === 'Delete'){ e.preventDefault(); if (!cw.solved) setLetter(r, c, ''); }
+  else if (k === 'ArrowRight'){ e.preventDefault(); moveArrow(0, 1); }
+  else if (k === 'ArrowLeft'){ e.preventDefault(); moveArrow(0, -1); }
+  else if (k === 'ArrowDown'){ e.preventDefault(); moveArrow(1, 0); }
+  else if (k === 'ArrowUp'){ e.preventDefault(); moveArrow(-1, 0); }
+  else if (k === 'Tab' || k === 'Enter'){ e.preventDefault(); jumpWord(e.shiftKey ? -1 : 1); }
+  else if (k === ' '){ e.preventDefault(); if (wordAt(r, c, cw.dir === 'A' ? 'D' : 'A')){ cw.dir = cw.dir === 'A' ? 'D' : 'A'; highlight(); } }
+}
+
+// Mobile keyboards often don't report the key on keydown, so fall back to the input event.
+function onInput(e, r, c){
+  const letters = e.target.value.toUpperCase().replace(/[^A-Z]/g, '');
+  if (letters) typeLetter(r, c, letters.slice(-1));
+  else setLetter(r, c, '');
+}
+
+function startTimer(){
+  if (cw.startTime || cw.solved) return;
+  cw.startTime = Date.now();
+  cw.timer = setInterval(() => { $('cwTimer').textContent = fmt(Date.now() - cw.startTime); }, 250);
+}
+const fmt = ms => { const s = Math.floor(ms / 1000); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+
+function updateDoneClues(){
+  [...cw.across, ...cw.down].forEach(w => {
+    const full = w.cellsRef.every(([r, c]) => cw.cells[r][c].val);
+    const li = document.querySelector(`.cw-clue-item[data-dir="${w.dir}"][data-num="${w.num}"]`);
+    if (li) li.classList.toggle('done', full);
+  });
+}
+
+function checkSolved(){
+  for (const row of cw.cells) for (const cell of row) if (cell.sol && cell.val !== cell.sol) return false;
+  cw.solved = true;
+  clearInterval(cw.timer);
+  const time = fmt(Date.now() - cw.startTime);
+  $('cwTimer').textContent = time;
+  if (document.activeElement) document.activeElement.blur();
+  highlight();
+  $('cwGrid').classList.add('solved');
+  const other = cw.diff === 'easy' ? 'hard' : 'easy';
+  setTimeout(() => {
+    $('cwBannerTitle').textContent = 'Solved in ' + time;
+    $('cwBannerText').textContent = `Nice work on the ${cw.diff} crossword.`;
+    $('cwBannerSwitch').textContent = `Try the ${other} one →`;
+    $('cwBanner').classList.add('show');
+    $('cwBanner').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 900);
+  return true;
+}
+
+let toastT;
+function toast(msg){
+  const t = $('cwToast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+$('cwCheck').addEventListener('click', () => {
+  if (cw.solved) return;
+  let wrong = 0, filled = 0;
+  for (const row of cw.cells) for (const cell of row){
+    if (!cell.sol || !cell.val) continue;
+    filled++;
+    if (cell.val !== cell.sol){ wrong++; cell.el.classList.remove('cw-wrong'); void cell.el.offsetWidth; cell.el.classList.add('cw-wrong'); }
+  }
+  if (!filled) toast('Fill in a few letters first');
+  else if (wrong) toast(wrong === 1 ? '1 letter needs another look' : wrong + ' letters need another look');
+  else toast('Everything so far is correct');
+});
+
+$('cwClear').addEventListener('click', () => loadCrossword(cw.diff));
+
+const diffSeg = initSeg($('diffSeg'), btn => loadCrossword(btn.dataset.diff));
+$('cwBannerSwitch').addEventListener('click', () => {
+  const other = cw.diff === 'easy' ? 'hard' : 'easy';
+  diffSeg.select(b => b.dataset.diff === other);
+  loadCrossword(other);
+  document.querySelector('.cw-toolbar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+$('cwBannerTrivia').addEventListener('click', () => setMode('trivia'));
+
+// ---------- Trivia ----------
+const tv = { i: 0, score: 0, answered: false };
+const TQ = PUZZLES.trivia.questions;
+const KEYS = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+function tvRender(animate){
+  if (tv.i >= TQ.length) return tvResult();
+  const q = TQ[tv.i];
+  $('tvCard').innerHTML = `
+    <div class="tv-top"><span>Question <strong>${tv.i + 1}</strong> of ${TQ.length}</span><span>Score <strong id="tvScore">${tv.score}</strong></span></div>
+    <div class="tv-progress"><div class="fill" id="tvFill" style="width:${(tv.i / TQ.length) * 100}%"></div></div>
+    <div class="tv-body ${animate ? 'enter' : ''}">
+      <div class="tv-q">${q.q}</div>
+      <div class="tv-options">
+        ${q.options.map((o, idx) => `<button class="tv-opt" data-idx="${idx}"><span class="key">${KEYS[idx]}</span><span>${o}</span></button>`).join('')}
+      </div>
+      <div id="tvAfter"></div>
+    </div>
+    <p class="tv-hint">Tip: press A–D to answer, Enter to continue</p>`;
+  tv.answered = false;
+  document.querySelectorAll('.tv-opt').forEach(b => b.addEventListener('click', () => tvAnswer(+b.dataset.idx)));
+}
+
+function tvAnswer(idx){
+  if (tv.answered) return;
+  tv.answered = true;
+  const q = TQ[tv.i];
+  const right = idx === q.answer;
+  if (right) tv.score++;
+  document.querySelectorAll('.tv-opt').forEach(b => {
+    const bi = +b.dataset.idx; b.disabled = true;
+    if (bi === q.answer) b.classList.add('correct');
+    else if (bi === idx) b.classList.add('wrong');
+    else b.classList.add('dim');
+  });
+  $('tvScore').textContent = tv.score;
+  $('tvFill').style.width = ((tv.i + 1) / TQ.length * 100) + '%';
+  const last = tv.i === TQ.length - 1;
+  $('tvAfter').innerHTML = `
+    <div class="tv-explain"><strong>${right ? 'Correct.' : 'Not quite.'}</strong> ${q.explain}</div>
+    <div class="tv-next"><button class="btn btn-primary" id="tvNext">${last ? 'See your score' : 'Next question →'}</button></div>`;
+  $('tvNext').addEventListener('click', tvNext);
+}
+
+function tvNext(){
+  const body = document.querySelector('.tv-body');
+  body.classList.remove('enter'); body.classList.add('leave');
+  setTimeout(() => { tv.i++; tvRender(true); }, 170);
+}
+
+function tvResult(){
+  const pct = tv.score / TQ.length;
+  const msg = pct === 1 ? ['Perfect score.', 'The trading desk is yours.']
+            : pct >= 0.8 ? ['Excellent.', 'You clearly know your markets.']
+            : pct >= 0.5 ? ['Solid round.', 'A few more issues of the Market Brief and you\'ll ace it.']
+            : ['Good start.', 'The Market Brief covers all of this. You\'ll get there.'];
+  const C = 2 * Math.PI * 64;
+  $('tvCard').innerHTML = `
+    <div class="tv-result tv-body enter">
+      <div class="tv-ring">
+        <svg viewBox="0 0 150 150"><circle class="track" cx="75" cy="75" r="64"/><circle class="bar" id="tvBar" cx="75" cy="75" r="64" stroke-dasharray="${C}" stroke-dashoffset="${C}"/></svg>
+        <div class="score"><b id="tvScoreNum">0</b><span>out of ${TQ.length}</span></div>
+      </div>
+      <h2>${msg[0]}</h2>
+      <p>${msg[1]}</p>
+      <div class="actions">
+        <button class="btn btn-primary" id="tvAgain">Play again</button>
+        <button class="btn btn-ghost" id="tvToCw">Try the crossword</button>
+      </div>
+    </div>`;
+  requestAnimationFrame(() => requestAnimationFrame(() => { $('tvBar').style.strokeDashoffset = C * (1 - pct); }));
+  let n = 0; const numEl = $('tvScoreNum');
+  const tick = setInterval(() => { if (n >= tv.score){ clearInterval(tick); return; } numEl.textContent = ++n; }, Math.max(60, 900 / Math.max(tv.score, 1)));
+  $('tvAgain').addEventListener('click', () => { tv.i = 0; tv.score = 0; tvRender(true); });
+  $('tvToCw').addEventListener('click', () => setMode('crossword'));
+}
+
+document.addEventListener('keydown', e => {
+  if (document.querySelector('.pz-panel.active').dataset.panel !== 'trivia') return;
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const k = e.key.toUpperCase();
+  const idx = KEYS.indexOf(k);
+  if (!tv.answered && idx > -1 && tv.i < TQ.length && idx < TQ[tv.i].options.length){ e.preventDefault(); tvAnswer(idx); }
+  else if (k === 'ENTER' && tv.answered && $('tvNext')){ e.preventDefault(); tvNext(); }
+});
+
+// ---------- Mode switching. /crossword#trivia opens straight to trivia ----------
+const modeSeg = initSeg($('modeSeg'), btn => setMode(btn.dataset.mode, true));
+function setMode(mode, fromSeg){
+  if (!fromSeg) modeSeg.select(b => b.dataset.mode === mode);
+  document.querySelectorAll('.pz-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === mode));
+  history.replaceState(null, '', mode === 'trivia' ? '#trivia' : location.pathname);
+  if (mode === 'crossword') sizeGrid();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+loadCrossword('easy');
+tvRender(false);
+if (location.hash === '#trivia') setMode('trivia');
+</script>
+</body>
+</html>

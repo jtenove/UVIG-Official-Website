@@ -20,7 +20,8 @@ const UVIG_UPCOMING = [
     speakers: "UVIG & Longship Exec(s)",
     blurb: "An evening of mentorship, guidance and career exploration in finance, co-hosted with Longship Investment Club. Open to all students, no experience necessary.",
     status: "confirmed",
-    cardStyle: "flyer"
+    cardStyle: "flyer",
+    flyer: "flyer-kickoff-2026.jpg"
   },
   {
     id: "girls-that-invest",

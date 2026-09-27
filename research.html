@@ -51,7 +51,8 @@
     </div>
   </header>
 
-  <section class="page-hero">
+  <section class="page-hero page-hero-photo">
+    <div class="page-hero-bg parallax-bg" style="background-image:url('photo-laptop-chart.jpg');"></div>
     <div class="wrap">
       <span class="hero-eyebrow">EQUITY RESEARCH &amp; SECTOR COVERAGE</span>
       <h1>Research</h1>
@@ -65,7 +66,7 @@
         <h2>Sector Reports</h2>
         <span class="section-note">2025 SEASON</span>
       </div>
-      <div class="report-grid reveal" id="reportGrid"></div>
+      <div class="report-grid reveal stagger" id="reportGrid"></div>
     </div>
   </section>
 
@@ -131,7 +132,7 @@
       `;
     }
     return `
-      <a href="${r.pdf}" target="_blank" class="report-card">
+      <a href="${r.pdf}" target="_blank" class="report-card tilt-card">
         <div class="report-card-top">
           <span class="sector-tag">${r.sector}</span>
           <span class="report-date">${r.date}</span>
@@ -146,21 +147,6 @@
       </a>
     `;
   }).join('');
-
-  // ---- Scroll reveal ----
-  (function(){
-    const reveals = document.querySelectorAll('.reveal');
-    if (!reveals.length) return;
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    reveals.forEach(el => observer.observe(el));
-  })();
 </script>
 </body>
 </html>

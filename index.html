@@ -56,9 +56,9 @@
 
   <!-- Hero Carousel — 3 landscape slides -->
   <section class="hero-carousel" id="heroCarousel">
-    <div class="hero-slide active" style="background-image:url('photo-vancouver-shore.jpg');" data-slide="0"></div>
-    <div class="hero-slide" style="background-image:url('photo-forest-dusk.jpg');" data-slide="1"></div>
-    <div class="hero-slide" style="background-image:url('photo-vancouver-dusk.jpg');" data-slide="2"></div>
+    <div class="hero-slide active parallax-bg" style="background-image:url('photo-vancouver-shore.jpg');" data-slide="0"></div>
+    <div class="hero-slide parallax-bg" style="background-image:url('photo-forest-dusk.jpg');" data-slide="1"></div>
+    <div class="hero-slide parallax-bg" style="background-image:url('photo-vancouver-dusk.jpg');" data-slide="2"></div>
 
     <div class="hero-carousel-content">
       <span class="hero-eyebrow-white">THE UNIVERSITY OF VICTORIA INVESTMENT GROUP</span>
@@ -104,7 +104,7 @@
 
   <!-- Banner: More than a club -->
   <section style="padding:0;">
-    <div class="split-banner" style="background-image:url('photo-uvic-aerial.jpg');">
+    <div class="split-banner parallax-bg" style="background-image:url('photo-uvic-aerial.jpg');">
       <div class="split-banner-inner">
         <div class="split-banner-text reveal">
           <span class="tag">UVIG</span>
@@ -139,23 +139,23 @@
         </div>
         <div class="about-stats-inline">
           <div class="stat">
-            <div class="num">130+</div>
+            <div class="num" data-counter="130" data-counter-suffix="+">0</div>
             <div class="label">Members</div>
           </div>
           <div class="stat">
-            <div class="num">14</div>
+            <div class="num" data-counter="14">0</div>
             <div class="label">Research Reports</div>
           </div>
           <div class="stat">
-            <div class="num">25+</div>
+            <div class="num" data-counter="25" data-counter-suffix="+">0</div>
             <div class="label">Industry Professionals Hosted</div>
           </div>
         </div>
       </div>
 
-      <div class="feature-photo-grid reveal">
-        <div class="feature-photo-card">
-          <div class="fp-image" style="background-image:url('photo-longship-1.jpg');"></div>
+      <div class="feature-photo-grid reveal stagger">
+        <div class="feature-photo-card tilt-card">
+          <div class="fp-frame"><div class="fp-image" style="background-image:url('photo-longship-1.jpg');"></div></div>
           <div class="fp-body">
             <span class="fp-label">Events &amp; Industry</span>
             <h3>Meet the industry.</h3>
@@ -163,8 +163,8 @@
             <a href="events.html" class="read-link">View events →</a>
           </div>
         </div>
-        <div class="feature-photo-card">
-          <div class="fp-image" style="background-image:url('photo-css-lunch-1.jpg');"></div>
+        <div class="feature-photo-card tilt-card">
+          <div class="fp-frame"><div class="fp-image" style="background-image:url('photo-css-lunch-1.jpg');"></div></div>
           <div class="fp-body">
             <span class="fp-label">Research Library</span>
             <h3>Think like an analyst.</h3>
@@ -172,8 +172,8 @@
             <a href="research.html" class="read-link">Explore research →</a>
           </div>
         </div>
-        <div class="feature-photo-card">
-          <div class="fp-image" style="background-image:url('photo-finance-social-1.jpg');"></div>
+        <div class="feature-photo-card tilt-card">
+          <div class="fp-frame"><div class="fp-image" style="background-image:url('photo-finance-social-1.jpg');"></div></div>
           <div class="fp-body">
             <span class="fp-label">Community &amp; Career Development</span>
             <h3>Build your career.</h3>
@@ -191,19 +191,19 @@
       <div class="section-head reveal" style="border-bottom:none; margin-bottom:0;">
         <h2>Three Ways to Get Involved</h2>
       </div>
-      <div class="involved-grid reveal">
-        <a href="events.html" class="involved-card">
-          <div class="ic-image" style="background-image:url('photo-mckinnon-building.jpg');"></div>
+      <div class="involved-grid reveal stagger">
+        <a href="events.html" class="involved-card tilt-card">
+          <div class="ic-frame"><div class="ic-image" style="background-image:url('photo-mckinnon-building.jpg');"></div></div>
           <h3>Attend an Event</h3>
           <p>Speaker series, workshops, and networking.</p>
         </a>
-        <a href="research.html" class="involved-card">
-          <div class="ic-image" style="background-image:url('report-cover-transportation.jpg'); background-size:contain; background-repeat:no-repeat; background-color:var(--navy-900);"></div>
+        <a href="research.html" class="involved-card tilt-card">
+          <div class="ic-frame"><div class="ic-image" style="background-image:url('report-cover-transportation.jpg'); background-size:contain; background-repeat:no-repeat; background-color:var(--navy-900);"></div></div>
           <h3>Read Our Research</h3>
           <p>Equity research, sector reports, and market insights.</p>
         </a>
-        <a href="newsletter.html" class="involved-card">
-          <div class="ic-image" style="background-image:url('photo-newspaper-business.jpg');"></div>
+        <a href="newsletter.html" class="involved-card tilt-card">
+          <div class="ic-frame"><div class="ic-image" style="background-image:url('photo-newspaper-business.jpg');"></div></div>
           <h3>Join the Newsletter</h3>
           <p>Be part of a driven and supportive network.</p>
         </a>
@@ -309,21 +309,6 @@
         <a href="events.html" class="btn btn-primary">View Events</a>
       </div>
     `;
-  })();
-
-  // ---- Scroll reveal animations ----
-  (function(){
-    const reveals = document.querySelectorAll('.reveal');
-    if (!reveals.length) return;
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    reveals.forEach(el => observer.observe(el));
   })();
 </script>
 </body>

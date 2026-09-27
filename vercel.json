@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/crossword", "destination": "/crossword.html" },
+    { "source": "/crossword/", "destination": "/crossword.html" }
+  ]
+}

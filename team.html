@@ -53,7 +53,8 @@
     </div>
   </header>
 
-  <section class="page-hero">
+  <section class="page-hero page-hero-photo">
+    <div class="page-hero-bg parallax-bg" style="background-image:url('photo-finance-social-2.jpg');"></div>
     <div class="wrap">
       <span class="hero-eyebrow">2026 / 27 LEADERSHIP</span>
       <h1>Our team</h1>
@@ -63,7 +64,7 @@
 
   <section>
     <div class="wrap">
-      <div class="leadership-band" id="presidentsBand"></div>
+      <div class="leadership-band reveal" id="presidentsBand"></div>
 
       <div class="team-tabs" id="teamTabs">
         <button class="team-tab active" data-panel="board">Board of Directors</button>
@@ -188,7 +189,8 @@
   function moveIndicator(tab){
     indicator.style.width = tab.offsetWidth + 'px';
     indicator.style.left = tab.offsetLeft + 'px';
-    indicator.style.top = (tab.offsetTop + tab.offsetHeight - 2) + 'px';
+    indicator.style.top = tab.offsetTop + 'px';
+    indicator.style.height = tab.offsetHeight + 'px';
   }
 
   function activate(panelName){
