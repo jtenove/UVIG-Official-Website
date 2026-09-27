@@ -1160,13 +1160,9 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
 .page-hero-photo .hero-eyebrow{color:#E8DCC0; animation:heroFadeUp .7s var(--ease) both .15s;}
 .page-hero-photo h1{color:var(--white); font-size:52px; line-height:1.08; letter-spacing:-0.01em; max-width:18ch; animation:heroFadeUp .7s var(--ease) both .25s;}
 .page-hero-photo p.lede{color:#D7DEE8; animation:heroFadeUp .7s var(--ease) both .37s;}
-/* Research hero: the photo itself already carries the title/copy, so show it
-   uncropped (container aspect matches the image) with no text overlay. */
-.page-hero-photo-clean{
-  padding:0; aspect-ratio:1672/941;
-  max-width:1132px; /* matches the content width inside .wrap (maxw 1180 minus its 24px side padding) */
-  margin:14px auto 0;
-}
+/* Research hero: the photo itself already carries the title/copy, so it has
+   no separate overlay text — sized to match the other pages' photo heroes. */
+.page-hero-photo-clean{min-height:391px;}
 .page-hero-photo-clean::after{display:none;}
 .page-hero-photo .wrap::after{
   content:""; display:block; width:56px; height:3px; border-radius:3px; background:var(--brass); margin-top:26px;
@@ -1222,7 +1218,8 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
   .firms-marquee{margin:32px 10px 0;}
   footer{border-radius:22px 22px 0 0;}
   .page-hero-photo{padding:84px 0 64px;}
-  .page-hero-photo-clean{padding:0;}
+  .page-hero-photo-clean{padding:0; min-height:337px;}
+  .page-hero-photo-clean .page-hero-bg{background-position:18% center;}
   .page-hero-photo h1{font-size:36px;}
   .event-date-block{width:fit-content; padding:10px 16px; border-radius:var(--r-pill);}
   .event-flyer-thumb{width:100px;}
