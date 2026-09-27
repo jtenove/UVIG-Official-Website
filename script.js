@@ -259,6 +259,12 @@ document.addEventListener('DOMContentLoaded', function () {
       const viewportWidth = carousel.getBoundingClientRect().width;
       return (viewportWidth - slideWidth) / 2 - i * (slideWidth + gap);
     }
+    // Nav arrows are centered on the image's actual rendered height (it scales
+    // with card width via aspect-ratio, so this is re-measured on every resize).
+    function positionNav() {
+      const img = slides[0].querySelector('.fr-image');
+      if (img) carousel.style.setProperty('--fr-image-h', img.getBoundingClientRect().height + 'px');
+    }
     function update(animate) {
       track.style.transition = animate === false ? 'none' : '';
       track.style.transform = `translateX(${offsetFor(index)}px)`;
@@ -266,6 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
       dots.forEach((d, i) => d.classList.toggle('active', i === index));
       prevBtn.disabled = index === 0;
       nextBtn.disabled = index === total - 1;
+      positionNav();
     }
     function goTo(i) { index = Math.max(0, Math.min(total - 1, i)); update(); }
 
