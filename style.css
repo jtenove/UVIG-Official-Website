@@ -650,14 +650,15 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 }
 .hero-carousel h1{
   color:var(--white); font-size:58px; line-height:1.05; max-width:15ch; letter-spacing:-0.01em;
-  animation:heroFadeUp .7s var(--ease) both; animation-delay:.2s;
+  animation:heroFadeIn 2.2s ease both; animation-delay:.2s;
 }
 .hero-carousel p.lede{
   color:#D7DEE8; font-size:17px; max-width:42ch; margin-top:18px;
-  animation:heroFadeUp .7s var(--ease) both; animation-delay:.32s;
+  animation:heroFadeIn 2.2s ease both; animation-delay:.5s;
 }
-.hero-carousel .hero-actions{margin-top:32px; animation:heroFadeUp .7s var(--ease) both; animation-delay:.44s;}
+.hero-carousel .hero-actions{margin-top:32px; animation:heroFadeIn 2.2s ease both; animation-delay:.8s;}
 @keyframes heroFadeUp{from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);}}
+@keyframes heroFadeIn{from{opacity:0;} to{opacity:1;}}
 @media (prefers-reduced-motion: reduce){
   .hero-carousel h1, .hero-carousel p.lede, .hero-carousel .hero-actions{animation:none;}
 }
