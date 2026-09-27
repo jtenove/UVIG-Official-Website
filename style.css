@@ -1193,13 +1193,15 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
   transition:left .4s cubic-bezier(.65,0,.35,1), width .4s cubic-bezier(.65,0,.35,1);
 }
 
-/* ---------- Staggered reveal for grids/lists (JS adds per-child delays) ---------- */
+/* ---------- Staggered reveal for grids/lists (JS adds per-child delays, fades both ways) ---------- */
 .reveal.stagger{opacity:1; transform:none; transition:none;}
-.reveal.stagger:not(.revealed) > *{opacity:0;}
-.reveal.stagger.revealed > *{animation:staggerIn .7s cubic-bezier(.22,1,.36,1) backwards;}
-@keyframes staggerIn{from{opacity:0; transform:translateY(22px) scale(.985);} to{opacity:1; transform:none;}}
+.reveal.stagger > *{
+  opacity:0; transform:translateY(22px) scale(.985);
+  transition:opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1);
+}
+.reveal.stagger.revealed > *{opacity:1; transform:none;}
 @media (prefers-reduced-motion: reduce){
-  .reveal.stagger:not(.revealed) > *{opacity:1;}
+  .reveal.stagger > *{opacity:1; transform:none; transition:none;}
   .page-hero-bg, .ambient span{animation:none;}
 }
 

@@ -158,7 +158,7 @@ function downloadICS(ev) {
 document.addEventListener('DOMContentLoaded', function () {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ---- 1. Reveal on scroll. Elements with .stagger animate their children one by one. ----
+  // ---- 1. Reveal on scroll, both directions. Elements with .stagger animate their children one by one. ----
   (function () {
     const reveals = document.querySelectorAll('.reveal');
     if (!reveals.length) return;
@@ -168,13 +168,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
         const el = entry.target;
-        if (el.classList.contains('stagger')) {
-          [...el.children].forEach((child, i) => { child.style.animationDelay = Math.min(i * 0.08, 0.64) + 's'; });
+        if (entry.isIntersecting) {
+          if (el.classList.contains('stagger')) {
+            [...el.children].forEach((child, i) => { child.style.transitionDelay = Math.min(i * 0.07, 0.56) + 's'; });
+          }
+          el.classList.add('revealed');
+        } else {
+          if (el.classList.contains('stagger')) {
+            [...el.children].forEach(child => { child.style.transitionDelay = '0s'; });
+          }
+          el.classList.remove('revealed');
         }
-        el.classList.add('revealed');
-        observer.unobserve(el);
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
     reveals.forEach(el => observer.observe(el));
