@@ -48,6 +48,15 @@ line), then repeat step 3 as **New deployment** (not "Manage deployments" →
 edit) so the change goes live — Apps Script web apps don't auto-update
 existing deployments.
 
+## Weekly Puzzles score submissions
+The same endpoint also handles "Submit your score" on `crossword.html`
+(shown only after a relatively good crossword time or trivia score). Those
+submissions carry `type: "puzzleScore"` and land in a separate **Puzzle
+Scores** tab, created automatically on first submission — no extra setup
+needed beyond the steps above. If you've already deployed the script from
+an earlier version of this file, redeploy it (**New deployment**, per
+"Updating the script later" above) so it picks up the puzzle-score handling.
+
 ## Newsletter signups
 These go through your Google Form, which already writes to a Sheet
 natively (Responses tab → the green Sheets icon). No extra setup needed there.

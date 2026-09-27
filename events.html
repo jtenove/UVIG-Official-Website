@@ -154,7 +154,7 @@
   }
 
   upcomingList.innerHTML = !confirmed.length
-    ? `<p class="step-note">No confirmed events right now — check back soon.</p>`
+    ? `<p class="step-note">Stay tuned - we will be releasing our schedule for the fall semester in the upcoming weeks.</p>`
     : [...confirmed].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate)).map(ev => {
     const { day, month } = dateBits(ev);
     return `

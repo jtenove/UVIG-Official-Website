@@ -135,7 +135,6 @@
         <div class="success-icon">✓</div>
         <h2 id="successHeading">Welcome to the club.</h2>
         <p id="successBody">Thanks for joining the Investment group. As a member, you'll join a community of students with similar interests and goals, gain access to our Brightspace resources and stay up to date with our newsletter. If you want to connect with other students and hear from industry professionals, attend our social events that will be held through the school year.</p>
-        <a href="events.html" class="btn btn-primary" style="margin-top:22px;">See upcoming events</a>
       </div>
     </div>
 
@@ -238,7 +237,7 @@
 
     const firstName = payload.name.split(' ')[0] || '';
     document.getElementById('successHeading').textContent = firstName ? `Welcome to the club, ${firstName}.` : 'Welcome to the club.';
-    document.getElementById('successBody').textContent = `Thanks for joining the Investment group, ${firstName}. As a member, you'll join a community of students with similar interests and goals, gain access to our Brightspace resources and stay up to date with our newsletter. If you want to connect with other students and hear from industry professionals, attend our social events that will be held through the school year.`;
+    document.getElementById('successBody').textContent = `Thanks for joining the Investment group. As a member, you'll join a community of students with similar interests and goals, gain access to our Brightspace resources and stay up to date with our newsletter. If you want to connect with other students and hear from industry professionals, attend our social events that will be held through the school year.`;
 
     btn.classList.add('btn-loading');
     setTimeout(() => {
