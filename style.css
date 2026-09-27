@@ -46,26 +46,6 @@ button{font-family:var(--sans);}
   body{opacity:1; transform:none;}
 }
 
-/* ---------- Ticker ---------- */
-.ticker-bar{
-  background:var(--navy-900);
-  color:#C9D2E0;
-  overflow:hidden;
-  white-space:nowrap;
-  border-bottom:1px solid rgba(255,255,255,0.08);
-}
-.ticker-track{
-  display:inline-flex;
-  gap:36px;
-  padding:7px 0;
-  animation:scrollTicker 38s linear infinite;
-  font-family:var(--mono);
-  font-size:12px;
-  letter-spacing:0.02em;
-}
-.ticker-track span{display:inline-flex;gap:8px;align-items:center;}
-.ticker-track .up{color:#5FBE8C;}
-.ticker-track .down{color:#E0897B;}
 @keyframes scrollTicker{
   from{transform:translateX(0);}
   to{transform:translateX(-50%);}
@@ -644,7 +624,7 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
    ============================================================ */
 
 /* ---------- Hero carousel ---------- */
-.hero-carousel{position:relative; height:calc(100vh - 96px); min-height:640px; overflow:hidden; background:var(--navy-900);}
+.hero-carousel{position:relative; height:calc(100vh - 68px); min-height:640px; overflow:hidden; background:var(--navy-900);}
 .hero-slide{
   position:absolute; inset:0; opacity:0; visibility:hidden;
   transition:opacity .7s var(--ease), visibility .7s;
