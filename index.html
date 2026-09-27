@@ -58,10 +58,8 @@
   <section class="hero-carousel" id="heroCarousel">
     <div class="hero-slide active parallax-bg" style="background-image:url('photo-vancouver-shore.jpg');" data-slide="0"></div>
     <div class="hero-slide parallax-bg" style="background-image:url('photo-forest-dusk.jpg');" data-slide="1"></div>
-    <div class="hero-slide parallax-bg" style="background-image:url('photo-vancouver-dusk.jpg');" data-slide="2"></div>
 
     <div class="hero-carousel-content">
-      <span class="hero-eyebrow-white">THE UNIVERSITY OF VICTORIA INVESTMENT GROUP</span>
       <h1>Think like<br>an investor.</h1>
       <p class="lede">Bridging the gap between academics and industry.</p>
       <div class="hero-actions">
@@ -291,10 +289,17 @@
     setInterval(next, 7000);
   })();
 
-  // ---- Upcoming events: single poster banner (Kickoff flyer) ----
+  // ---- Upcoming events: single poster banner (next confirmed, not-yet-happened event) ----
   (function(){
-    const confirmed = UVIG_UPCOMING.find(ev => ev.status === 'confirmed');
-    if (!confirmed) return;
+    const todayISO = new Date().toISOString().slice(0, 10);
+    const upcoming = UVIG_UPCOMING
+      .filter(ev => ev.status === 'confirmed' && ev.isoDate >= todayISO)
+      .sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate));
+    const confirmed = upcoming[0];
+    if (!confirmed) {
+      document.getElementById('eventPosterBanner').closest('section').style.display = 'none';
+      return;
+    }
     document.getElementById('eventPosterBanner').innerHTML = `
       <img src="flyer-kickoff-2026.jpg" alt="${confirmed.title} flyer" class="event-poster-img">
       <div class="event-poster-body">

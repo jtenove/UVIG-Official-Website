@@ -143,16 +143,19 @@
 <script src="data.js"></script>
 <script src="script.js"></script>
 <script>
-  // ---- Upcoming events (confirmed only) ----
+  // ---- Upcoming events (confirmed and not yet happened) ----
   const upcomingList = document.getElementById('upcomingList');
-  const confirmed = UVIG_UPCOMING.filter(ev => ev.status === 'confirmed');
+  const todayISO = new Date().toISOString().slice(0, 10);
+  const confirmed = UVIG_UPCOMING.filter(ev => ev.status === 'confirmed' && ev.isoDate >= todayISO);
 
   function dateBits(ev) {
     const d = new Date(ev.isoDate + 'T00:00:00');
     return { day: d.getDate(), month: d.toLocaleString('en-US', { month: 'short' }).toUpperCase() };
   }
 
-  upcomingList.innerHTML = [...confirmed].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate)).map(ev => {
+  upcomingList.innerHTML = !confirmed.length
+    ? `<p class="step-note">No confirmed events right now — check back soon.</p>`
+    : [...confirmed].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate)).map(ev => {
     const { day, month } = dateBits(ev);
     return `
       <div class="event-banner" id="${ev.id}">
@@ -174,8 +177,22 @@
   }).join('');
 
   // ---- Past events (always shown, no toggle) ----
+  // Confirmed events that have already happened move here automatically,
+  // most recent first, ahead of the hand-curated history below.
   const pastGrid = document.getElementById('pastGrid');
-  pastGrid.innerHTML = UVIG_PAST.map(ev => {
+  const recentlyPast = UVIG_UPCOMING
+    .filter(ev => ev.status === 'confirmed' && ev.isoDate < todayISO)
+    .sort((a,b) => new Date(b.isoDate) - new Date(a.isoDate))
+    .map(ev => ({
+      title: ev.title,
+      dateDisplay: `${ev.dateDisplay}, 2026`,
+      venue: ev.venue,
+      tag: 'Recent',
+      blurb: ev.blurb,
+      photos: ev.flyer ? [ev.flyer] : undefined
+    }));
+  const pastEvents = [...recentlyPast, ...UVIG_PAST];
+  pastGrid.innerHTML = pastEvents.map(ev => {
     const photoBlock = ev.photos ? `
       <div class="photo-row">
         ${ev.photos.map(p => `<img src="${p}" alt="Photo from ${ev.title}" loading="lazy">`).join('')}

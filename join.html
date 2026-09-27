@@ -37,15 +37,15 @@
     <div class="quiz-step active" data-step="0">
       <span class="hero-eyebrow">MEMBERSHIP</span>
       <h2>Join UVic Investment Group</h2>
-      <p class="step-note">Bridging the gap between academics and industry. UVIG exposes UVic students to the finance industry through equity research, speaker events, and case competitions. Membership takes two minutes to set up.</p>
+      <p class="step-note">Welcome to any UVic student interested in learning more about careers in capital markets and investing. We provide events, workshops and resources to help build relevant skills and connect students with industry professionals. Our membership takes one minute to join and is zero commitment.</p>
       <div class="quiz-perks">
         <h4>What you get as a member</h4>
         <ul>
-          <li>The bi-weekly newsletter and a heads-up on every upcoming event</li>
-          <li>Event invites and sign-up links as soon as they're posted</li>
+          <li>The bi-weekly newsletter covering markets and events, internships and trivia.</li>
           <li>Full access to our Brightspace resource library: equity reports, modeling guides, and interview prep</li>
-          <li>Access to the speaker series, panels, and workshops</li>
+          <li>First access to speaker series, panels and social events.</li>
         </ul>
+        <p class="field-note" style="font-size:12px; color:var(--graphite); margin-top:10px;">Becoming a member is zero commitment.</p>
       </div>
       <div class="quiz-nav" style="justify-content:flex-end;">
         <button class="btn btn-primary" id="startBtn">Get started</button>
@@ -58,7 +58,7 @@
       <p class="step-note">Step 1 of 3</p>
       <div class="field">
         <label for="fName">Full name</label>
-        <input type="text" id="fName" placeholder="Jayce Tenove" required>
+        <input type="text" id="fName" placeholder="Your name" required>
       </div>
       <div class="field">
         <label for="fUvicEmail">UVic email</label>
@@ -67,7 +67,6 @@
       <div class="field">
         <label for="fEmail">Main email address</label>
         <input type="email" id="fEmail" placeholder="you@example.com" required>
-        <div class="field-note" style="font-size:12px; color:var(--graphite); margin-top:6px;">The email you actually check. This is where we'll send the newsletter and updates.</div>
       </div>
       <div class="field">
         <label for="fYear">Year of study</label>
@@ -81,7 +80,13 @@
       </div>
       <div class="field">
         <label for="fFaculty">Faculty / program</label>
-        <input type="text" id="fFaculty" placeholder="e.g. Gustavson BCom">
+        <select id="fFaculty">
+          <option value="BCom">BCom</option>
+          <option value="Econ BSc">Econ BSc</option>
+          <option value="Econ BA">Econ BA</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="text" id="fFacultyOther" placeholder="Tell us your faculty / program" style="margin-top:10px; display:none;">
       </div>
       <div class="quiz-nav">
         <button class="btn btn-ghost" data-back>Back</button>
@@ -128,8 +133,8 @@
     <div class="quiz-step" data-step="4">
       <div class="success-screen">
         <div class="success-icon">✓</div>
-        <h2>You're in.</h2>
-        <p>Welcome to UVIG. Keep an eye on your inbox. You'll get the next newsletter and hear about upcoming events as they're posted.</p>
+        <h2 id="successHeading">Welcome to the club.</h2>
+        <p id="successBody">Thanks for joining the Investment group. As a member, you'll join a community of students with similar interests and goals, gain access to our Brightspace resources and stay up to date with our newsletter. If you want to connect with other students and hear from industry professionals, attend our social events that will be held through the school year.</p>
         <a href="events.html" class="btn btn-primary" style="margin-top:22px;">See upcoming events</a>
       </div>
     </div>
@@ -169,6 +174,12 @@
 
   document.getElementById('startBtn').addEventListener('click', () => showStep(1));
 
+  const facultySelect = document.getElementById('fFaculty');
+  const facultyOther = document.getElementById('fFacultyOther');
+  facultySelect.addEventListener('change', () => {
+    facultyOther.style.display = facultySelect.value === 'Other' ? 'block' : 'none';
+  });
+
   document.querySelectorAll('[data-next]').forEach(btn => {
     btn.addEventListener('click', () => {
       const step = Number(btn.dataset.next);
@@ -198,12 +209,13 @@
     if (btn.classList.contains('btn-loading')) return;
 
     const interests = [...document.querySelectorAll('#interestGrid input:checked')].map(i => i.value);
+    const faculty = facultySelect.value === 'Other' ? facultyOther.value.trim() : facultySelect.value;
     const payload = {
       name: document.getElementById('fName').value.trim(),
       uvicEmail: document.getElementById('fUvicEmail').value.trim(),
       email: document.getElementById('fEmail').value.trim(),
       year: document.getElementById('fYear').value,
-      faculty: document.getElementById('fFaculty').value.trim(),
+      faculty,
       interests,
       heardFrom: document.getElementById('fHeard').value,
       newsletterOptIn: document.getElementById('fNewsletter').checked
@@ -223,6 +235,10 @@
         body: JSON.stringify(payload)
       }).catch(err => console.error('UVIG join form: submission failed', err));
     }
+
+    const firstName = payload.name.split(' ')[0] || '';
+    document.getElementById('successHeading').textContent = firstName ? `Welcome to the club, ${firstName}.` : 'Welcome to the club.';
+    document.getElementById('successBody').textContent = `Thanks for joining the Investment group, ${firstName}. As a member, you'll join a community of students with similar interests and goals, gain access to our Brightspace resources and stay up to date with our newsletter. If you want to connect with other students and hear from industry professionals, attend our social events that will be held through the school year.`;
 
     btn.classList.add('btn-loading');
     setTimeout(() => {
