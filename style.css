@@ -93,6 +93,32 @@ header.masthead.scrolled{box-shadow:0 6px 18px rgba(10,31,61,0.06);}
 }
 .masthead-home .wordmark{opacity:0; transition:opacity .3s ease; pointer-events:none;}
 .masthead-home.scrolled .wordmark{opacity:1; pointer-events:auto;}
+
+/* Homepage: header floats over the full-bleed hero, transparent until scrolled */
+body.page-home{padding-top:68px;}
+header.masthead.masthead-home{
+  position:fixed; top:0; left:0; right:0;
+  background:transparent; border-bottom-color:transparent;
+  backdrop-filter:none; -webkit-backdrop-filter:none;
+  transition:background .3s ease, border-color .3s ease, box-shadow .28s var(--ease), transform .28s var(--ease);
+}
+header.masthead.masthead-home.scrolled{
+  background:rgba(250,250,248,.82); border-bottom-color:var(--hairline);
+  backdrop-filter:saturate(1.4) blur(14px); -webkit-backdrop-filter:saturate(1.4) blur(14px);
+}
+.masthead-home nav.primary-nav a.nav-link{color:var(--white); transition:color .2s ease;}
+.masthead-home nav.primary-nav a.nav-link:hover{color:var(--white); opacity:.8;}
+.masthead-home .menu-btn{border-color:rgba(255,255,255,.5);}
+.masthead-home .menu-btn span{background:var(--white); transition:transform .2s ease, opacity .2s ease, background .2s ease;}
+.masthead-home.scrolled nav.primary-nav a.nav-link{color:var(--navy-700); opacity:1;}
+.masthead-home.scrolled nav.primary-nav a.nav-link:hover{color:var(--navy-900);}
+.masthead-home.scrolled .menu-btn{border-color:var(--hairline);}
+.masthead-home.scrolled .menu-btn span{background:var(--navy-900);}
+@media (max-width: 860px){
+  /* Mobile dropdown panel is always solid, regardless of scroll state */
+  .masthead-home nav.primary-nav a.nav-link{color:var(--navy-700);}
+  .masthead-home nav.primary-nav a.nav-link:hover{color:var(--navy-900); opacity:1;}
+}
 nav.primary-nav{display:flex;align-items:center;gap:26px;}
 nav.primary-nav a.nav-link{
   position:relative;
@@ -626,7 +652,7 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
    ============================================================ */
 
 /* ---------- Hero carousel ---------- */
-.hero-carousel{position:relative; height:calc(100vh - 68px); min-height:640px; overflow:hidden; background:var(--navy-900);}
+.hero-carousel{position:relative; height:100vh; margin-top:-68px; min-height:640px; overflow:hidden; background:var(--navy-900);}
 .hero-slide{
   position:absolute; inset:0; opacity:0; visibility:hidden;
   transition:opacity .7s var(--ease), visibility .7s;
@@ -1006,7 +1032,7 @@ header.masthead{
 .section-head::after{bottom:0; width:40px; height:3px; border-radius:3px;}
 
 /* ---------- Floating full-width panels ---------- */
-.hero-carousel{margin:0; border-radius:0; isolation:isolate;}
+.hero-carousel{margin:-68px 0 0; border-radius:0; isolation:isolate;}
 .split-banner{margin:0 16px; border-radius:var(--r-xl); isolation:isolate;}
 .newsletter-promo{margin:0 16px 16px; border-radius:var(--r-xl);}
 footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
@@ -1180,7 +1206,7 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
 /* ---------- Mobile ---------- */
 @media (max-width: 860px){
   .page-hero-photo{margin:10px 10px 0; border-radius:22px;}
-  .hero-carousel{margin:0; border-radius:0;}
+  .hero-carousel{margin:-68px 0 0; border-radius:0;}
   .split-banner{margin:0 10px; border-radius:22px;}
   .newsletter-promo{margin:0 10px 10px; border-radius:22px;}
   .firms-marquee{margin:32px 10px 0;}
