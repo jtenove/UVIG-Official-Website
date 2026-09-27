@@ -218,6 +218,80 @@ document.addEventListener('DOMContentLoaded', function () {
     counters.forEach(el => observer.observe(el));
   })();
 
+  // ---- 2b. Featured Research carousel (home page only): swipeable, arrows + dots ----
+  (function () {
+    const track = document.getElementById('frTrack');
+    if (!track || typeof UVIG_REPORTS === 'undefined') return;
+    const reports = UVIG_REPORTS.filter(r => !r.pending);
+    if (!reports.length) return;
+
+    track.innerHTML = reports.map(r => `
+      <div class="fr-slide">
+        <div class="featured-research-card">
+          <div class="fr-image" style="background-image:url('${r.cover}');"></div>
+          <div class="fr-body">
+            <span class="sector-tag">${r.sector}</span>
+            <h3>${r.title}</h3>
+            <p>${r.blurb}</p>
+            <a href="${r.pdf}" target="_blank" class="read-link">Read the full report (PDF) →</a>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    const carousel = track.closest('.fr-carousel');
+    const dotsEl = document.getElementById('frDots');
+    const prevBtn = document.getElementById('frPrev');
+    const nextBtn = document.getElementById('frNext');
+    if (reports.length < 2) { prevBtn.style.display = 'none'; nextBtn.style.display = 'none'; return; }
+
+    dotsEl.innerHTML = reports.map((_, i) => `<button class="fr-dot${i === 0 ? ' active' : ''}" aria-label="Go to report ${i + 1}"></button>`).join('');
+    const dots = [...dotsEl.children];
+    const total = reports.length;
+    let index = 0;
+    let dragging = false, startX = 0, startTranslate = 0, viewportWidth = 0;
+
+    function update(animate) {
+      viewportWidth = carousel.getBoundingClientRect().width;
+      track.style.transition = animate === false ? 'none' : '';
+      track.style.transform = `translateX(${-index * viewportWidth}px)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === total - 1;
+    }
+    function goTo(i) { index = Math.max(0, Math.min(total - 1, i)); update(); }
+
+    prevBtn.addEventListener('click', () => goTo(index - 1));
+    nextBtn.addEventListener('click', () => goTo(index + 1));
+    dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+    window.addEventListener('resize', () => update(false));
+
+    track.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      startX = e.clientX;
+      viewportWidth = carousel.getBoundingClientRect().width;
+      startTranslate = -index * viewportWidth;
+      track.style.transition = 'none';
+      track.setPointerCapture(e.pointerId);
+    });
+    track.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      track.style.transform = `translateX(${startTranslate + dx}px)`;
+    });
+    function endDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > viewportWidth * 0.18) goTo(index + (dx < 0 ? 1 : -1));
+      else update();
+    }
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+
+    update(false);
+  })();
+
   // ---- 3. Subtle 3D tilt on card hover (elements with .tilt-card), desktop only ----
   (function () {
     const cards = document.querySelectorAll('.tilt-card');

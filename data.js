@@ -204,7 +204,8 @@ const UVIG_REPORTS = [
     authors: "Kavin Bawa, Émilie Doyon, Jonathan Khoo & Peter Mikulash",
     date: "October 2025",
     blurb: "A look at the healthcare sector's growth drivers: AI in clinical care, an aging population, and coverage of Johnson & Johnson, Roche, UnitedHealth, and Medtronic.",
-    pdf: "report-healthcare-2025.pdf"
+    pdf: "report-healthcare-2025.pdf",
+    cover: "report-cover-healthcare-2025.jpg"
   },
   {
     title: "Sector Report: Transportation",
@@ -212,7 +213,8 @@ const UVIG_REPORTS = [
     authors: "Kavin Bawa, Émilie Doyon, Jonathan Khoo & Peter Mikulash",
     date: "November 2025",
     blurb: "An analysis of the $8.54T global transportation sector: freight modes, sustainability and digitization trends, and coverage of Delta, Maersk, and Canadian National Railway.",
-    pdf: "report-transportation-2025.pdf"
+    pdf: "report-transportation-2025.pdf",
+    cover: "report-cover-transportation-2025.jpg"
   },
   {
     title: "Sector Report: Consumer Discretionary",
@@ -220,7 +222,8 @@ const UVIG_REPORTS = [
     authors: "Kavin Bawa, Émilie Doyon, Jonathan Khoo & Peter Mikulash",
     date: "September 2025",
     blurb: "Covering the $13.66T consumer discretionary market: digitization and sustainability trends, and analysis of Amazon, McDonald's, Nike, and Tesla.",
-    pdf: "report-consumer-discretionary-2025.pdf"
+    pdf: "report-consumer-discretionary-2025.pdf",
+    cover: "report-cover-consumer-discretionary-2025.jpg"
   },
   {
     title: "Consumer Staples sector coverage",
