@@ -815,7 +815,6 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 .feature-photo-card{background:var(--white);}
 .feature-photo-card .fp-image{height:170px; background-size:cover; background-position:center;}
 .feature-photo-card .fp-body{padding:24px;}
-.feature-photo-card .fp-label{font-family:var(--sans); font-size:11px; font-weight:600; letter-spacing:0.06em; color:var(--brass); display:block; margin-bottom:10px;}
 .feature-photo-card h3{font-size:19px; margin-bottom:10px;}
 .feature-photo-card p{color:var(--graphite); font-size:14px; margin-bottom:16px;}
 .feature-photo-card .read-link{font-size:14px; color:var(--navy-900); border-bottom:1px solid var(--brass); text-decoration:none;}
