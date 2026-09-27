@@ -247,14 +247,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     dotsEl.innerHTML = reports.map((_, i) => `<button class="fr-dot${i === 0 ? ' active' : ''}" aria-label="Go to report ${i + 1}"></button>`).join('');
     const dots = [...dotsEl.children];
+    const slides = [...track.children];
     const total = reports.length;
     let index = 0;
-    let dragging = false, startX = 0, startTranslate = 0, viewportWidth = 0;
+    let dragging = false, startX = 0, startOffset = 0;
 
+    // Centers the active slide in the viewport, so its neighbors peek in on either side.
+    function offsetFor(i) {
+      const slideWidth = slides[0].getBoundingClientRect().width;
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      const viewportWidth = carousel.getBoundingClientRect().width;
+      return (viewportWidth - slideWidth) / 2 - i * (slideWidth + gap);
+    }
     function update(animate) {
-      viewportWidth = carousel.getBoundingClientRect().width;
       track.style.transition = animate === false ? 'none' : '';
-      track.style.transform = `translateX(${-index * viewportWidth}px)`;
+      track.style.transform = `translateX(${offsetFor(index)}px)`;
+      slides.forEach((s, i) => s.classList.toggle('active', i === index));
       dots.forEach((d, i) => d.classList.toggle('active', i === index));
       prevBtn.disabled = index === 0;
       nextBtn.disabled = index === total - 1;
@@ -264,26 +272,27 @@ document.addEventListener('DOMContentLoaded', function () {
     prevBtn.addEventListener('click', () => goTo(index - 1));
     nextBtn.addEventListener('click', () => goTo(index + 1));
     dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+    slides.forEach((s, i) => s.addEventListener('click', () => { if (i !== index) goTo(i); }));
     window.addEventListener('resize', () => update(false));
 
     track.addEventListener('pointerdown', (e) => {
       dragging = true;
       startX = e.clientX;
-      viewportWidth = carousel.getBoundingClientRect().width;
-      startTranslate = -index * viewportWidth;
+      startOffset = offsetFor(index);
       track.style.transition = 'none';
       track.setPointerCapture(e.pointerId);
     });
     track.addEventListener('pointermove', (e) => {
       if (!dragging) return;
       const dx = e.clientX - startX;
-      track.style.transform = `translateX(${startTranslate + dx}px)`;
+      track.style.transform = `translateX(${startOffset + dx}px)`;
     });
     function endDrag(e) {
       if (!dragging) return;
       dragging = false;
       const dx = e.clientX - startX;
-      if (Math.abs(dx) > viewportWidth * 0.18) goTo(index + (dx < 0 ? 1 : -1));
+      const slideWidth = slides[0].getBoundingClientRect().width;
+      if (Math.abs(dx) > slideWidth * 0.18) goTo(index + (dx < 0 ? 1 : -1));
       else update();
     }
     track.addEventListener('pointerup', endDrag);
