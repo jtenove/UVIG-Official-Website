@@ -644,7 +644,7 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
    ============================================================ */
 
 /* ---------- Hero carousel ---------- */
-.hero-carousel{position:relative; height:640px; overflow:hidden; background:var(--navy-900);}
+.hero-carousel{position:relative; height:calc(100vh - 96px); min-height:640px; overflow:hidden; background:var(--navy-900);}
 .hero-slide{
   position:absolute; inset:0; opacity:0; visibility:hidden;
   transition:opacity .7s var(--ease), visibility .7s;
@@ -659,10 +659,6 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
   position:relative; z-index:2; height:100%; display:flex; flex-direction:column; justify-content:center;
   max-width:var(--maxw); margin:0 auto; padding:0 24px;
 }
-.hero-eyebrow-white{
-  font-family:var(--sans); font-size:12px; font-weight:600; letter-spacing:0.08em; color:#E8DCC0; margin-bottom:20px; display:block;
-  animation:heroFadeUp .7s var(--ease) both; animation-delay:.1s;
-}
 .hero-carousel h1{
   color:var(--white); font-size:58px; line-height:1.05; max-width:15ch; letter-spacing:-0.01em;
   animation:heroFadeUp .7s var(--ease) both; animation-delay:.2s;
@@ -674,7 +670,7 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 .hero-carousel .hero-actions{margin-top:32px; animation:heroFadeUp .7s var(--ease) both; animation-delay:.44s;}
 @keyframes heroFadeUp{from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);}}
 @media (prefers-reduced-motion: reduce){
-  .hero-eyebrow-white, .hero-carousel h1, .hero-carousel p.lede, .hero-carousel .hero-actions{animation:none;}
+  .hero-carousel h1, .hero-carousel p.lede, .hero-carousel .hero-actions{animation:none;}
 }
 .hero-carousel .btn-ghost{border-color:rgba(255,255,255,0.6); color:var(--white);}
 .hero-carousel .btn-ghost:hover{background:var(--white); color:var(--navy-900);}
@@ -993,7 +989,7 @@ header.masthead{
 .section-head::after{bottom:0; width:40px; height:3px; border-radius:3px;}
 
 /* ---------- Floating full-width panels ---------- */
-.hero-carousel{margin:14px 16px 0; border-radius:var(--r-xl); isolation:isolate;}
+.hero-carousel{margin:0; border-radius:0; isolation:isolate;}
 .split-banner{margin:0 16px; border-radius:var(--r-xl); isolation:isolate;}
 .newsletter-promo{margin:0 16px 16px; border-radius:var(--r-xl);}
 footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
@@ -1164,7 +1160,8 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
 
 /* ---------- Mobile ---------- */
 @media (max-width: 860px){
-  .hero-carousel, .page-hero-photo{margin:10px 10px 0; border-radius:22px;}
+  .page-hero-photo{margin:10px 10px 0; border-radius:22px;}
+  .hero-carousel{margin:0; border-radius:0;}
   .split-banner{margin:0 10px; border-radius:22px;}
   .newsletter-promo{margin:0 10px 10px; border-radius:22px;}
   .firms-marquee{margin:32px 10px 0;}
