@@ -780,7 +780,6 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 .split-banner{position:relative; min-height:420px; display:flex; align-items:center; overflow:hidden; background-size:cover; background-position:center;}
 .split-banner::after{content:""; position:absolute; inset:0; background:linear-gradient(100deg, rgba(6,14,28,0.6) 0%, rgba(6,14,28,0.38) 48%, rgba(6,14,28,0.12) 100%);}
 .split-banner-inner{position:relative; z-index:2; max-width:var(--maxw); margin:0 auto; padding:56px 24px; width:100%; display:flex; justify-content:space-between; align-items:center; gap:40px;}
-.split-banner-text .tag{font-family:var(--sans); font-size:12px; font-weight:600; color:var(--brass); letter-spacing:0.06em; display:block; margin-bottom:16px;}
 .split-banner-text h2{color:var(--white); font-size:36px; max-width:14ch; line-height:1.15;}
 .split-banner-text p{color:#D7DEE8; margin-top:14px; max-width:42ch; font-size:15px;}
 .split-banner-actions{display:flex; gap:12px; margin-top:26px; flex-wrap:wrap;}
@@ -790,12 +789,13 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 .split-banner .btn-primary:hover{background:#e8e8e8;}
 .banner-word-list{font-family:var(--sans); font-size:12px; font-weight:600; color:#B7C2D6; text-align:right; line-height:2.1; letter-spacing:0.08em; flex-shrink:0;}
 
-/* ---------- Partnership badges (More than a club banner) ---------- */
-.banner-partners{display:flex; flex-direction:column; gap:14px; flex-shrink:0;}
-.partners-label{font-family:var(--sans); font-size:12px; font-weight:600; color:#C9D2E0; letter-spacing:0.06em; margin-bottom:2px;}
-.partner-badge{
-  display:flex; align-items:center; background:rgba(255,255,255,0.96);
-  border-radius:4px; padding:14px 20px; min-width:210px;
+/* ---------- Partnership logos (More than a club banner) ---------- */
+.banner-partners{display:flex; flex-direction:column; gap:12px; flex-shrink:0;}
+.partners-label{font-family:var(--sans); font-size:12px; font-weight:600; color:#C9D2E0; letter-spacing:0.06em;}
+.partner-logos{
+  display:flex; align-items:center; gap:28px; flex-wrap:wrap;
+  background:rgba(255,255,255,0.85); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  border-radius:12px; padding:14px 22px;
 }
 .partner-logo{height:32px; width:auto; max-width:100%; display:block;}
 
@@ -838,7 +838,7 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
   .split-banner-inner{flex-direction:column; align-items:flex-start; text-align:left; padding:44px 24px;}
   .banner-word-list{text-align:left;}
   .banner-partners{margin-top:16px;}
-  .partner-badge{min-width:0;}
+  .partner-logos{flex-wrap:wrap; gap:18px;}
   .about-wrap{flex-direction:column; align-items:flex-start;}
   .about-stats-inline{gap:24px;}
   .feature-photo-grid{grid-template-columns:1fr;}
@@ -1009,7 +1009,7 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
 .event-poster-banner{border:none; border-radius:var(--r-xl); box-shadow:var(--shadow-soft); padding:36px;}
 .event-poster-img{border-radius:14px;}
 .featured-research-card{border:none; border-radius:var(--r-lg); box-shadow:var(--shadow-soft);}
-.partner-badge{border-radius:var(--r-md);}
+.partner-logos{border-radius:var(--r-md);}
 
 .feature-photo-grid{gap:20px; background:none; border:none;}
 .feature-photo-card{border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow-soft);}
