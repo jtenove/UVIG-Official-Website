@@ -1162,7 +1162,11 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
 .page-hero-photo p.lede{color:#D7DEE8; animation:heroFadeUp .7s var(--ease) both .37s;}
 /* Research hero: the photo itself already carries the title/copy, so show it
    uncropped (container aspect matches the image) with no text overlay. */
-.page-hero-photo-clean{padding:0; aspect-ratio:1672/941;}
+.page-hero-photo-clean{
+  padding:0; aspect-ratio:1672/941;
+  max-width:1132px; /* matches the content width inside .wrap (maxw 1180 minus its 24px side padding) */
+  margin:14px auto 0;
+}
 .page-hero-photo-clean::after{display:none;}
 .page-hero-photo .wrap::after{
   content:""; display:block; width:56px; height:3px; border-radius:3px; background:var(--brass); margin-top:26px;
