@@ -57,6 +57,27 @@ needed beyond the steps above. If you've already deployed the script from
 an earlier version of this file, redeploy it (**New deployment**, per
 "Updating the script later" above) so it picks up the puzzle-score handling.
 
+## Surveys + leaderboard
+The same endpoint also handles `surveys.html`. Two things happen there:
+
+- **Submitting a survey** sends `type: "surveyResponse"` and lands in a
+  **Survey Responses** tab (created automatically on first submission),
+  with one row per response: name, email, which survey, question count,
+  total time, and a "weighted" time (total time ÷ question count — this
+  is what the leaderboard ranks on, so a 5-question and an 8-question
+  survey are compared fairly).
+- **The leaderboard itself** is read live by the page with a plain `GET`
+  request to the same URL (`?type=leaderboard&survey=Newsletter+Survey`),
+  which reads the Survey Responses tab and returns the fastest 10 as
+  JSON. This only works if the deployment's "Who has access" is still
+  set to **Anyone** (step 3 above) — that's the default this guide uses,
+  so nothing extra to do there, but don't lock it down later or the
+  leaderboard will stop loading (submissions would still work).
+
+If you've already deployed the script from an earlier version of this
+file, redeploy it (**New deployment**, per "Updating the script later"
+above) so it picks up survey handling.
+
 ## Newsletter signups
 These go through your Google Form, which already writes to a Sheet
 natively (Responses tab → the green Sheets icon). No extra setup needed there.

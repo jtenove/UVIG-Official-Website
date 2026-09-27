@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surveys | UVic Investment Group</title>
+<meta name="theme-color" content="#0A1F3D">
+<meta name="description" content="Quick UVIG surveys on the newsletter and website — answer fast, climb the leaderboard.">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<style>
+  .sv-shell{position:relative; z-index:1; max-width:720px; margin:0 auto; padding:44px 24px 80px;}
+  .sv-intro{text-align:center; margin-bottom:28px;}
+  .sv-intro h1{font-size:40px; letter-spacing:-0.01em; animation:heroFadeUp .7s var(--ease) both .12s;}
+  .sv-intro .hero-eyebrow{animation:heroFadeUp .7s var(--ease) both .04s;}
+  .sv-intro p{color:var(--graphite); font-size:15.5px; max-width:48ch; margin:12px auto 0; animation:heroFadeUp .7s var(--ease) both .2s;}
+
+  .sv-mode{display:flex; justify-content:center; margin:0 0 34px; animation:heroFadeUp .7s var(--ease) both .28s;}
+
+  .sv-card{background:var(--white); border-radius:28px; padding:36px 36px 32px; box-shadow:var(--shadow-soft); position:relative; overflow:hidden;}
+  @media (max-width:620px){ .sv-card{padding:26px 20px 24px; border-radius:24px;} }
+
+  .sv-timer{
+    display:inline-flex; align-items:center; gap:8px; font-family:var(--mono); font-size:14px; font-weight:500;
+    color:var(--navy-900); background:var(--tint); padding:8px 14px; border-radius:999px;
+  }
+  .sv-timer svg{width:14px; height:14px; color:var(--brass);}
+  .sv-top{display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:20px; flex-wrap:wrap;}
+  .sv-top-label{font-family:var(--sans); font-size:13px; color:var(--graphite);}
+  .sv-top-label strong{color:var(--navy-900);}
+
+  .sv-q{font-family:var(--serif); font-size:23px; line-height:1.32; color:var(--navy-900); margin-bottom:22px;}
+  .sv-options{display:grid; gap:10px;}
+  .sv-opt{
+    display:block; width:100%; text-align:left; font-family:var(--sans); font-size:15px;
+    color:var(--ink); background:#F6F5F1; border:1.5px solid transparent; border-radius:16px; padding:14px 18px;
+    cursor:pointer; transition:background .18s ease, border-color .18s ease, transform .12s ease;
+  }
+  .sv-opt:hover{background:#EEEBE3; transform:translateX(3px);}
+  .sv-opt.selected{background:#F6ECD6; border-color:var(--brass); color:var(--navy-900); font-weight:500;}
+
+  .sv-result{text-align:center; padding:6px 0 4px;}
+  .sv-result-icon{
+    width:64px; height:64px; margin:0 auto 18px; border-radius:50%; background:var(--navy-900); color:var(--white);
+    display:flex; align-items:center; justify-content:center; font-size:26px; animation:successPop .6s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  .sv-result h2{font-size:26px;}
+  .sv-result-stats{display:flex; justify-content:center; gap:28px; margin:22px 0 6px;}
+  .sv-stat b{display:block; font-family:var(--serif); font-size:28px; color:var(--navy-900);}
+  .sv-stat span{font-size:12px; color:var(--graphite); text-transform:uppercase; letter-spacing:.04em;}
+  .sv-result p.sv-result-note{color:var(--graphite); margin-top:14px; font-size:14px;}
+
+  .sv-submit{margin-top:26px; padding-top:22px; border-top:1px solid var(--hairline);}
+  .sv-submit p{color:var(--graphite); font-size:13.5px; margin-bottom:12px;}
+  .sv-submit-form{display:flex; gap:10px; flex-wrap:wrap; justify-content:center;}
+  .sv-submit-form input{
+    font-family:var(--sans); font-size:14px; padding:10px 14px; border-radius:999px; border:1.5px solid var(--hairline);
+    background:var(--white); color:var(--ink); min-width:180px;
+  }
+  .sv-submit-form input:focus{outline:none; border-color:var(--navy-700);}
+  .sv-submit.sent p{color:var(--green);}
+  .sv-submit-status{font-size:13px; color:var(--graphite); margin-top:10px;}
+
+  .sv-actions{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:24px;}
+
+  /* ---------- Leaderboard ---------- */
+  .sv-board{margin-top:52px;}
+  .sv-board-head{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px; flex-wrap:wrap;}
+  .sv-board-head h2{font-size:22px;}
+  .sv-board-note{font-size:12.5px; color:var(--graphite); max-width:32ch;}
+  .sv-board-table{background:var(--white); border-radius:20px; box-shadow:var(--shadow-soft); overflow:hidden;}
+  .sv-row{display:flex; align-items:center; gap:14px; padding:13px 18px; font-size:14px;}
+  .sv-row + .sv-row{border-top:1px solid var(--hairline);}
+  .sv-row.sv-row-head{font-family:var(--sans); font-size:11.5px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--graphite); background:var(--tint);}
+  .sv-rank{width:26px; flex-shrink:0; font-family:var(--mono); font-weight:600; color:var(--brass);}
+  .sv-row-name{flex:1; min-width:0; font-weight:500; color:var(--navy-900); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .sv-row-metric{width:110px; flex-shrink:0; text-align:right; font-family:var(--mono); color:var(--navy-700);}
+  .sv-board-empty{padding:26px 18px; text-align:center; color:var(--graphite); font-size:14px;}
+
+  .sv-foot{text-align:center; font-size:12.5px; color:#9AA3B0; margin-top:48px;}
+  .sv-foot a{color:var(--navy-700);}
+</style>
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-inner wrap">
+      <a href="/" class="wordmark">UVic Investment Group <small>EST. 2015</small></a>
+      <a href="/" class="nav-link" style="font-size:14px;">← Back to site</a>
+    </div>
+  </header>
+
+  <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <main class="sv-shell">
+    <div class="sv-intro">
+      <span class="hero-eyebrow">TWO MINUTES, TOPS</span>
+      <h1>Surveys</h1>
+      <p>Quick, opinion-only surveys — there's no wrong answer, just a clock. Fastest average pace per question makes the leaderboard.</p>
+    </div>
+
+    <div class="sv-mode">
+      <div class="seg" id="svModeSeg">
+        <button class="active" data-survey="newsletter">Newsletter Survey</button>
+        <button data-survey="website">Website Survey</button>
+        <span class="seg-ind"></span>
+      </div>
+    </div>
+
+    <!-- Step 0: name + start -->
+    <div class="sv-card" id="svIntroCard">
+      <h2 id="svIntroTitle" style="margin-bottom:8px;"></h2>
+      <p class="step-note" id="svIntroSubtitle" style="margin-bottom:24px;"></p>
+      <div class="field">
+        <label for="svName">Your name</label>
+        <input type="text" id="svName" placeholder="Your name" required>
+      </div>
+      <div class="quiz-nav" style="justify-content:flex-end;">
+        <button class="btn btn-primary" id="svStartBtn">Start survey</button>
+      </div>
+    </div>
+
+    <!-- Step 1..N: one question at a time -->
+    <div class="sv-card" id="svQuestionCard" style="display:none;">
+      <div class="sv-top">
+        <span class="sv-top-label">Question <strong id="svQNum">1</strong> of <strong id="svQTotal">5</strong></span>
+        <span class="sv-timer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>
+          <span id="svTimer">0:00</span>
+        </span>
+      </div>
+      <div class="progress-track" id="svProgressTrack"></div>
+      <div class="sv-q" id="svQText"></div>
+      <div class="sv-options" id="svOptions"></div>
+    </div>
+
+    <!-- Result -->
+    <div class="sv-card" id="svResultCard" style="display:none;">
+      <div class="sv-result">
+        <div class="sv-result-icon">✓</div>
+        <h2>Done — nice pace.</h2>
+        <div class="sv-result-stats">
+          <div class="sv-stat"><b id="svStatTime">0:00</b><span>Total time</span></div>
+          <div class="sv-stat"><b id="svStatAvg">0.0s</b><span>Avg / question</span></div>
+        </div>
+        <p class="sv-result-note">Your answers help shape what UVIG builds next. Add your name below and you're on the leaderboard.</p>
+
+        <div class="sv-submit" id="svSubmit">
+          <p>Log your time on the leaderboard</p>
+          <div class="sv-submit-form">
+            <input type="text" id="svSubmitName" placeholder="Your name">
+            <input type="email" id="svSubmitEmail" placeholder="you@uvic.ca (optional)">
+            <button class="btn btn-primary" id="svSubmitBtn" type="button">Submit</button>
+          </div>
+          <p class="sv-submit-status" id="svSubmitStatus"></p>
+        </div>
+
+        <div class="sv-actions">
+          <button class="btn btn-ghost" id="svAgainBtn">Take it again</button>
+          <button class="btn btn-ghost" id="svSwitchBtn"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div class="sv-board">
+      <div class="sv-board-head">
+        <h2 id="svBoardTitle">Leaderboard</h2>
+        <span class="sv-board-note">Ranked by average seconds per question, so short and long surveys are compared fairly.</span>
+      </div>
+      <div class="sv-board-table">
+        <div class="sv-row sv-row-head">
+          <span class="sv-rank">#</span>
+          <span class="sv-row-name">Name</span>
+          <span class="sv-row-metric">Avg sec/q</span>
+        </div>
+        <div id="svBoardRows"></div>
+      </div>
+    </div>
+
+    <p class="sv-foot">UVic Investment Group · <a href="/join.html">Get the Market Brief every two weeks</a></p>
+  </main>
+
+<script src="/survey-data.js"></script>
+<script>
+// ---------- Pill segmented control with sliding indicator (same pattern as crossword.html) ----------
+function initSeg(el, onChange){
+  const ind = el.querySelector('.seg-ind');
+  const btns = [...el.querySelectorAll('button')];
+  const active = () => btns.find(b => b.classList.contains('active'));
+  function move(btn){ ind.style.left = btn.offsetLeft + 'px'; ind.style.width = btn.offsetWidth + 'px'; }
+  function set(btn, fire){
+    btns.forEach(b => b.classList.toggle('active', b === btn));
+    move(btn);
+    if (fire) onChange(btn);
+  }
+  btns.forEach(b => b.addEventListener('click', () => { if (!b.classList.contains('active')) set(b, true); }));
+  window.addEventListener('resize', () => move(active()));
+  ind.style.transition = 'none'; move(active());
+  requestAnimationFrame(() => { move(active()); requestAnimationFrame(() => ind.style.transition = ''); });
+  if (document.fonts) document.fonts.ready.then(() => move(active()));
+  return { select: (pred) => { const b = btns.find(pred); if (b) set(b, false); } };
+}
+
+const $ = id => document.getElementById(id);
+const fmtTime = ms => { const s = Math.floor(ms / 1000); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+
+// ---------- Score submission (reuses the same Apps Script endpoint as Join / Puzzles) ----------
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxsShfaG-0EgMWCaKdl08aEyKDpgh8jrq8of2TwnrKG2Js0qdV7LcVr4fc9U1cy36B7zg/exec";
+
+const sv = { surveyId: 'newsletter', name: '', i: 0, answers: [], startTime: null, timer: null };
+
+function loadIntro(){
+  const survey = SURVEYS[sv.surveyId];
+  $('svIntroTitle').textContent = survey.title;
+  $('svIntroSubtitle').textContent = survey.subtitle;
+  $('svQTotal').textContent = survey.questions.length;
+  $('svProgressTrack').innerHTML = survey.questions.map((_, i) => `<div class="progress-seg"><div class="fill" data-step="${i}"></div></div>`).join('');
+}
+
+function showCard(which){
+  ['svIntroCard', 'svQuestionCard', 'svResultCard'].forEach(id => { $(id).style.display = id === which ? '' : 'none'; });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function startTimer(){
+  clearInterval(sv.timer);
+  sv.startTime = Date.now();
+  $('svTimer').textContent = '0:00';
+  sv.timer = setInterval(() => { $('svTimer').textContent = fmtTime(Date.now() - sv.startTime); }, 250);
+}
+
+function renderQuestion(){
+  const survey = SURVEYS[sv.surveyId];
+  const q = survey.questions[sv.i];
+  $('svQNum').textContent = sv.i + 1;
+  $('svQText').textContent = q.q;
+  document.querySelectorAll('#svProgressTrack .fill').forEach(f => {
+    f.style.width = Number(f.dataset.step) < sv.i ? '100%' : Number(f.dataset.step) === sv.i ? '50%' : '0%';
+  });
+  $('svOptions').innerHTML = q.options.map((o, idx) => `<button class="sv-opt" data-idx="${idx}">${o}</button>`).join('');
+  document.querySelectorAll('.sv-opt').forEach(b => b.addEventListener('click', () => selectOption(+b.dataset.idx, q.options[+b.dataset.idx])));
+}
+
+function selectOption(idx, label){
+  sv.answers[sv.i] = label;
+  document.querySelectorAll('#svProgressTrack .fill')[sv.i].style.width = '100%';
+  setTimeout(() => {
+    sv.i++;
+    if (sv.i >= SURVEYS[sv.surveyId].questions.length) finishSurvey();
+    else renderQuestion();
+  }, 180);
+}
+
+function finishSurvey(){
+  clearInterval(sv.timer);
+  const totalMs = Date.now() - sv.startTime;
+  const totalSec = totalMs / 1000;
+  const qCount = SURVEYS[sv.surveyId].questions.length;
+  const avg = totalSec / qCount;
+  $('svStatTime').textContent = fmtTime(totalMs);
+  $('svStatAvg').textContent = avg.toFixed(1) + 's';
+  $('svSubmitName').value = sv.name;
+  $('svSubmit').classList.remove('sent');
+  $('svSubmitStatus').textContent = '';
+  $('svSubmit').style.display = '';
+  $('svSubmitBtn').disabled = false;
+  const otherId = sv.surveyId === 'newsletter' ? 'website' : 'newsletter';
+  $('svSwitchBtn').textContent = `Try the ${SURVEYS[otherId].title} →`;
+  sv._pending = { survey: sv.surveyId, surveyTitle: SURVEYS[sv.surveyId].title, questionCount: qCount, totalSec, avg, answers: sv.answers.slice() };
+  showCard('svResultCard');
+}
+
+$('svSubmitBtn').addEventListener('click', () => {
+  const name = $('svSubmitName').value.trim();
+  const email = $('svSubmitEmail').value.trim();
+  if (!name) { $('svSubmitStatus').textContent = 'Add your name to submit.'; return; }
+  const payload = sv._pending;
+  const body = {
+    type: 'surveyResponse',
+    name, email,
+    survey: payload.surveyTitle,
+    questionCount: payload.questionCount,
+    totalTime: Math.round(payload.totalSec),
+    weightedTime: Number(payload.avg.toFixed(2)),
+    answers: payload.answers
+  };
+  if (SHEET_ENDPOINT.startsWith('REPLACE_WITH')) {
+    console.warn('UVIG surveys: SHEET_ENDPOINT is still a placeholder — response was not saved.', body);
+  } else {
+    fetch(SHEET_ENDPOINT, {
+      method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(body)
+    }).catch(err => console.error('UVIG surveys: submission failed', err));
+  }
+  $('svSubmit').classList.add('sent');
+  $('svSubmitBtn').disabled = true;
+  $('svSubmitStatus').textContent = 'Submitted — thanks! Refresh the leaderboard below in a moment to see it.';
+});
+
+$('svStartBtn').addEventListener('click', () => {
+  const name = $('svName').value.trim();
+  if (!name) { $('svName').focus(); return; }
+  sv.name = name;
+  sv.i = 0;
+  sv.answers = [];
+  renderQuestion();
+  startTimer();
+  showCard('svQuestionCard');
+});
+$('svAgainBtn').addEventListener('click', () => { loadIntro(); showCard('svIntroCard'); });
+$('svSwitchBtn').addEventListener('click', () => {
+  const otherId = sv.surveyId === 'newsletter' ? 'website' : 'newsletter';
+  svModeSeg.select(b => b.dataset.survey === otherId);
+});
+
+const svModeSeg = initSeg($('svModeSeg'), (btn) => {
+  sv.surveyId = btn.dataset.survey;
+  loadIntro();
+  showCard('svIntroCard');
+  loadLeaderboard();
+});
+
+// ---------- Leaderboard (reads back from the same Apps Script, via a GET request) ----------
+function loadLeaderboard(){
+  const survey = SURVEYS[sv.surveyId];
+  $('svBoardTitle').textContent = survey.title + ' Leaderboard';
+  const rowsEl = $('svBoardRows');
+  rowsEl.innerHTML = `<div class="sv-board-empty">Loading…</div>`;
+
+  if (SHEET_ENDPOINT.startsWith('REPLACE_WITH')) {
+    rowsEl.innerHTML = `<div class="sv-board-empty">Leaderboard isn't connected yet.</div>`;
+    return;
+  }
+
+  fetch(`${SHEET_ENDPOINT}?type=leaderboard&survey=${encodeURIComponent(survey.title)}`)
+    .then(r => r.json())
+    .then(data => {
+      const rows = (data && data.leaderboard) || [];
+      if (!rows.length) { rowsEl.innerHTML = `<div class="sv-board-empty">No times submitted yet — be the first.</div>`; return; }
+      rowsEl.innerHTML = rows.map((r, i) => `
+        <div class="sv-row">
+          <span class="sv-rank">${i + 1}</span>
+          <span class="sv-row-name">${r.name || 'Anonymous'}</span>
+          <span class="sv-row-metric">${Number(r.weighted).toFixed(1)}s</span>
+        </div>
+      `).join('');
+    })
+    .catch(() => {
+      rowsEl.innerHTML = `<div class="sv-board-empty">Leaderboard is temporarily unavailable — check back soon.</div>`;
+    });
+}
+
+loadIntro();
+loadLeaderboard();
+</script>
+</body>
+</html>
