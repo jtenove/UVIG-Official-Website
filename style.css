@@ -645,7 +645,7 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
   background:linear-gradient(100deg, rgba(6,14,28,0.82) 0%, rgba(6,14,28,0.55) 42%, rgba(6,14,28,0.15) 75%);
 }
 .hero-carousel-content{
-  position:relative; z-index:2; height:100%; display:flex; flex-direction:column; justify-content:center;
+  position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:center;
   max-width:var(--maxw); margin:0 auto; padding:0 24px;
 }
 .hero-carousel h1{
@@ -829,6 +829,8 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 @media (max-width: 860px){
   .hero-carousel{height:auto; min-height:560px;}
   .hero-carousel h1{font-size:38px;}
+  .hero-carousel .hero-actions{flex-direction:column; align-items:stretch;}
+  .hero-carousel .hero-actions .btn{text-align:center;}
   .hero-quote-card{display:none;}
   .home-split{grid-template-columns:1fr; gap:24px;}
   .split-banner-inner{flex-direction:column; align-items:flex-start; text-align:left; padding:44px 24px;}
