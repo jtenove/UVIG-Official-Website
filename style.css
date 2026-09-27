@@ -772,10 +772,12 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 }
 
 .featured-research-card{border:1px solid var(--hairline); background:var(--white); overflow:hidden; height:100%; display:flex; flex-direction:column;}
-.featured-research-card .fr-image{height:200px; background-size:contain; background-repeat:no-repeat; background-position:center; background-color:var(--navy-900);}
+.featured-research-card .fr-image{aspect-ratio:1672/941; background-size:cover; background-position:center; background-color:var(--navy-900);}
 .featured-research-card .fr-body{padding:18px 20px; flex:1; display:flex; flex-direction:column;}
 
-/* ---------- Featured Research carousel: slim cards, peek preview of neighbors ---------- */
+/* ---------- Featured Research carousel: taller cards (image shows at its native
+   aspect ratio, so it fills the frame with no crop or letterboxing), peek
+   preview of neighbors ---------- */
 .fr-carousel{position:relative; overflow:hidden;}
 .fr-track{display:flex; gap:18px; padding:4px 4px 0; transition:transform .5s cubic-bezier(.22,1,.36,1); cursor:grab; touch-action:pan-y; user-select:none;}
 .fr-track:active{cursor:grabbing;}
@@ -783,7 +785,7 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 .fr-slide.active{opacity:1; filter:none;}
 .fr-slide .featured-research-card{border-radius:var(--r-lg); box-shadow:var(--shadow-soft); border:none;}
 .fr-nav{
-  position:absolute; top:100px; transform:translateY(-50%); z-index:3;
+  position:absolute; top:calc(var(--fr-image-h, 220px) / 2); transform:translateY(-50%); z-index:3;
   width:44px; height:44px; border-radius:50%; border:none; cursor:pointer;
   background:rgba(255,255,255,.92); color:var(--navy-900); box-shadow:var(--shadow-soft);
   display:flex; align-items:center; justify-content:center;
@@ -799,8 +801,7 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 .fr-dot.active{background:var(--brass); width:22px; border-radius:4px;}
 @media (max-width: 860px){
   .fr-slide{flex:0 0 88%;}
-  .featured-research-card .fr-image{height:160px;}
-  .fr-nav{top:64px; width:38px; height:38px;}
+  .fr-nav{width:38px; height:38px;}
   .fr-nav svg{width:17px; height:17px;}
   .fr-prev{left:10px;}
   .fr-next{right:10px;}
