@@ -1160,6 +1160,10 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
 .page-hero-photo .hero-eyebrow{color:#E8DCC0; animation:heroFadeUp .7s var(--ease) both .15s;}
 .page-hero-photo h1{color:var(--white); font-size:52px; line-height:1.08; letter-spacing:-0.01em; max-width:18ch; animation:heroFadeUp .7s var(--ease) both .25s;}
 .page-hero-photo p.lede{color:#D7DEE8; animation:heroFadeUp .7s var(--ease) both .37s;}
+/* Research hero: the photo itself already carries the title/copy, so show it
+   uncropped (container aspect matches the image) with no text overlay. */
+.page-hero-photo-clean{padding:0; aspect-ratio:1672/941;}
+.page-hero-photo-clean::after{display:none;}
 .page-hero-photo .wrap::after{
   content:""; display:block; width:56px; height:3px; border-radius:3px; background:var(--brass); margin-top:26px;
   transform-origin:left; animation:growX .9s cubic-bezier(.22,1,.36,1) both .6s;
@@ -1214,6 +1218,7 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
   .firms-marquee{margin:32px 10px 0;}
   footer{border-radius:22px 22px 0 0;}
   .page-hero-photo{padding:84px 0 64px;}
+  .page-hero-photo-clean{padding:0;}
   .page-hero-photo h1{font-size:36px;}
   .event-date-block{width:fit-content; padding:10px 16px; border-radius:var(--r-pill);}
   .event-flyer-thumb{width:100px;}
