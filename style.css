@@ -772,8 +772,37 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 }
 
 .featured-research-card{border:1px solid var(--hairline); background:var(--white); overflow:hidden; height:100%; display:flex; flex-direction:column;}
-.featured-research-card .fr-image{height:190px; background-size:cover; background-position:center;}
+.featured-research-card .fr-image{height:340px; background-size:cover; background-position:center;}
 .featured-research-card .fr-body{padding:24px; flex:1; display:flex; flex-direction:column;}
+
+/* ---------- Featured Research carousel ---------- */
+.fr-carousel{position:relative; border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow-soft);}
+.fr-track{display:flex; transition:transform .5s cubic-bezier(.22,1,.36,1); cursor:grab; touch-action:pan-y; user-select:none;}
+.fr-track:active{cursor:grabbing;}
+.fr-slide{flex:0 0 100%; min-width:0;}
+.fr-slide .featured-research-card{border-radius:0; box-shadow:none;}
+.fr-nav{
+  position:absolute; top:170px; transform:translateY(-50%); z-index:3;
+  width:44px; height:44px; border-radius:50%; border:none; cursor:pointer;
+  background:rgba(255,255,255,.92); color:var(--navy-900); box-shadow:var(--shadow-soft);
+  display:flex; align-items:center; justify-content:center;
+  transition:background .2s ease, transform .15s ease, opacity .2s ease;
+}
+.fr-nav:hover{background:var(--white); transform:translateY(-50%) scale(1.06);}
+.fr-nav:disabled{opacity:.3; cursor:default; pointer-events:none;}
+.fr-nav svg{width:20px; height:20px;}
+.fr-prev{left:16px;}
+.fr-next{right:16px;}
+.fr-dots{display:flex; justify-content:center; gap:8px; margin-top:18px;}
+.fr-dot{width:8px; height:8px; border-radius:50%; background:var(--hairline); border:none; padding:0; cursor:pointer; transition:background .25s ease, width .25s ease, border-radius .25s ease;}
+.fr-dot.active{background:var(--brass); width:22px; border-radius:4px;}
+@media (max-width: 860px){
+  .featured-research-card .fr-image{height:220px;}
+  .fr-nav{top:110px; width:38px; height:38px;}
+  .fr-nav svg{width:17px; height:17px;}
+  .fr-prev{left:10px;}
+  .fr-next{right:10px;}
+}
 .research-tag{
   display:inline-block; font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:0.03em;
   padding:3px 10px; border-radius:2px; background:#E4F2E9; color:var(--green); width:fit-content; margin-bottom:12px;

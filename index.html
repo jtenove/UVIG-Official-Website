@@ -72,14 +72,15 @@
         <h2>Featured Research</h2>
         <span class="section-note"><a href="research.html" style="color:inherit; text-decoration:none;">View all →</a></span>
       </div>
-      <div class="featured-research-card reveal">
-        <div class="fr-image" style="background-image:url('report-cover-healthcare-2025.jpg');"></div>
-        <div class="fr-body">
-          <span class="sector-tag">Healthcare</span>
-          <h3>Sector Report: Healthcare</h3>
-          <p>A look at the healthcare sector's growth drivers: AI in clinical care, an aging population, and coverage of Johnson &amp; Johnson, Roche, UnitedHealth, and Medtronic.</p>
-          <a href="report-healthcare-2025.pdf" target="_blank" class="read-link">Read the full report (PDF) →</a>
-        </div>
+      <div class="fr-carousel reveal">
+        <div class="fr-track" id="frTrack"></div>
+        <button class="fr-nav fr-prev" id="frPrev" aria-label="Previous report">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button class="fr-nav fr-next" id="frNext" aria-label="Next report">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+        <div class="fr-dots" id="frDots"></div>
       </div>
     </div>
   </section>
