@@ -649,8 +649,17 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
   position:absolute; inset:0; opacity:0; visibility:hidden;
   transition:opacity .7s var(--ease), visibility .7s;
   background-size:cover; background-position:center;
+  animation:heroDrift 22s ease-in-out infinite alternate;
+  will-change:transform;
 }
 .hero-slide.active{opacity:1; visibility:visible;}
+@keyframes heroDrift{
+  0%{transform:scale(1) translate3d(0, 0, 0);}
+  100%{transform:scale(1.09) translate3d(-1.6%, -1%, 0);}
+}
+@media (prefers-reduced-motion: reduce){
+  .hero-slide{animation:none;}
+}
 .hero-slide::after{
   content:""; position:absolute; inset:0;
   background:linear-gradient(100deg, rgba(6,14,28,0.82) 0%, rgba(6,14,28,0.55) 42%, rgba(6,14,28,0.15) 75%);
