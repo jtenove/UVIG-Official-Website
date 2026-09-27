@@ -17,9 +17,42 @@
   .pz-intro h1{font-size:44px; letter-spacing:-0.01em; animation:heroFadeUp .7s var(--ease) both .12s;}
   .pz-intro .hero-eyebrow{animation:heroFadeUp .7s var(--ease) both .04s;}
   .pz-intro p{color:var(--graphite); font-size:16px; max-width:46ch; margin:12px auto 0; animation:heroFadeUp .7s var(--ease) both .2s;}
-  .pz-mode{display:flex; justify-content:center; margin-bottom:34px; animation:heroFadeUp .7s var(--ease) both .28s;}
+  .pz-mode{display:flex; justify-content:center; align-items:center; gap:18px; margin-bottom:34px; flex-wrap:wrap; animation:heroFadeUp .7s var(--ease) both .28s;}
   .pz-panel{display:none;}
   .pz-panel.active{display:block; animation:teamPanelIn .45s cubic-bezier(.22,1,.36,1);}
+
+  .quick-toggle{display:inline-flex; align-items:center; gap:9px; cursor:pointer; user-select:none;}
+  .quick-toggle-track{
+    position:relative; width:42px; height:24px; border-radius:999px; background:#DDE1E8;
+    transition:background .2s ease; flex-shrink:0;
+  }
+  .quick-toggle-track::after{
+    content:""; position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:50%;
+    background:var(--white); box-shadow:0 1px 3px rgba(10,31,61,.25); transition:transform .2s ease;
+  }
+  .quick-toggle input{position:absolute; opacity:0; width:0; height:0;}
+  .quick-toggle input:checked ~ .quick-toggle-track{background:var(--brass);}
+  .quick-toggle input:checked ~ .quick-toggle-track::after{transform:translateX(18px);}
+  .quick-toggle-label{font-family:var(--sans); font-size:13.5px; font-weight:600; color:var(--navy-900);}
+  .quick-toggle-sub{font-size:12px; color:var(--graphite); font-weight:400;}
+
+  .score-submit{margin-top:18px; padding-top:18px; border-top:1px solid rgba(255,255,255,.15); position:relative;}
+  .score-submit p{color:#C9D2E0; font-size:13.5px; margin-bottom:12px;}
+  .score-submit-form{display:flex; gap:10px; flex-wrap:wrap; justify-content:center;}
+  .score-submit-form input{
+    font-family:var(--sans); font-size:14px; padding:10px 14px; border-radius:999px; border:1.5px solid rgba(255,255,255,.25);
+    background:rgba(255,255,255,.08); color:var(--white); min-width:180px;
+  }
+  .score-submit-form input::placeholder{color:#9AA7BC;}
+  .score-submit-form input:focus{outline:none; border-color:var(--brass);}
+  .score-submit.sent p{color:#B7E4C7;}
+  .tv-result .score-submit{border-top:1px solid var(--hairline); margin-top:24px;}
+  .tv-result .score-submit p{color:var(--graphite);}
+  .tv-result .score-submit-form input{
+    border:1.5px solid var(--hairline); background:var(--white); color:var(--ink);
+  }
+  .tv-result .score-submit-form input:focus{border-color:var(--navy-700);}
+  .tv-result .score-submit.sent p{color:var(--green);}
 
   .cw-toolbar{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom:18px;}
   .cw-toolbar-right{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
@@ -203,6 +236,11 @@
         <button data-mode="trivia">Trivia</button>
         <span class="seg-ind"></span>
       </div>
+      <label class="quick-toggle">
+        <input type="checkbox" id="quickToggle">
+        <span class="quick-toggle-track"></span>
+        <span class="quick-toggle-label">Quick mode <span class="quick-toggle-sub">— about half the length</span></span>
+      </label>
     </div>
 
     <section class="pz-panel active" data-panel="crossword" style="padding:0;">
@@ -413,6 +451,48 @@ function buildCrossword(entries, seed, maxSize){
 }
 // </generator>
 
+// ---------- Quick mode: roughly halves the crossword word list and trivia question count ----------
+let quickMode = false;
+function getQuestions(){ return quickMode ? PUZZLES.trivia.questions.slice(0, Math.ceil(PUZZLES.trivia.questions.length / 2)) : PUZZLES.trivia.questions; }
+
+// ---------- Score submission (reuses the Join form's Apps Script endpoint) ----------
+const SCORE_ENDPOINT = "https://script.google.com/macros/s/AKfycbxsShfaG-0EgMWCaKdl08aEyKDpgh8jrq8of2TwnrKG2Js0qdV7LcVr4fc9U1cy36B7zg/exec";
+
+function scoreSubmitHTML(id){
+  return `
+    <div class="score-submit" id="${id}">
+      <p>Nice score — want it logged? Submit your name.</p>
+      <div class="score-submit-form">
+        <input type="text" data-role="name" placeholder="Your name">
+        <input type="email" data-role="email" placeholder="you@uvic.ca">
+        <button class="btn btn-primary" data-role="submit" type="button">Submit your score</button>
+      </div>
+      <p class="score-submit-status" data-role="status"></p>
+    </div>`;
+}
+
+function wireScoreSubmit(container, payload){
+  if (!container) return;
+  const form = container.querySelector('.score-submit-form');
+  const status = container.querySelector('[data-role="status"]');
+  form.querySelector('[data-role="submit"]').addEventListener('click', () => {
+    const name = form.querySelector('[data-role="name"]').value.trim();
+    const email = form.querySelector('[data-role="email"]').value.trim();
+    if (!name || !email){ status.textContent = 'Add your name and email to submit.'; return; }
+    const body = { type: 'puzzleScore', name, email, ...payload };
+    if (SCORE_ENDPOINT.startsWith('REPLACE_WITH')) {
+      console.warn('UVIG puzzles: SCORE_ENDPOINT is still a placeholder — score was not saved.', body);
+    } else {
+      fetch(SCORE_ENDPOINT, {
+        method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(body)
+      }).catch(err => console.error('UVIG puzzles: score submission failed', err));
+    }
+    container.classList.add('sent');
+    form.style.display = 'none';
+    status.textContent = 'Score submitted — nice work!';
+  });
+}
+
 // ---------- Crossword game ----------
 const cw = { diff: 'easy', R: 0, C: 0, cells: [], across: [], down: [], sel: null, dir: 'A', startTime: null, timer: null, solved: false };
 const $ = id => document.getElementById(id);
@@ -420,7 +500,8 @@ const $ = id => document.getElementById(id);
 function loadCrossword(diff){
   cw.diff = diff;
   const puzzle = PUZZLES.crossword[diff];
-  const layout = buildCrossword(puzzle.words, PUZZLES.week + '-' + diff);
+  const words = quickMode ? puzzle.words.slice(0, Math.ceil(puzzle.words.length / 2)) : puzzle.words;
+  const layout = buildCrossword(words, PUZZLES.week + '-' + diff + (quickMode ? '-quick' : ''));
   if (layout.missing.length) console.warn('UVIG crossword: these words could not fit and were skipped:', layout.missing.join(', '));
 
   const rows = layout.rows;
@@ -444,6 +525,8 @@ function loadCrossword(diff){
   clearInterval(cw.timer); cw.timer = null; cw.startTime = null; cw.solved = false;
   $('cwTimer').textContent = '0:00';
   $('cwBanner').classList.remove('show');
+  const oldScore = document.getElementById('cwScoreSubmit');
+  if (oldScore) oldScore.remove();
   renderGrid(); renderClues(); sizeGrid();
   const first = cw.across[0] || cw.down[0];
   cw.dir = first.dir; select(first.cellsRef[0][0], first.cellsRef[0][1], false);
@@ -625,11 +708,18 @@ function checkSolved(){
   highlight();
   $('cwGrid').classList.add('solved');
   const other = cw.diff === 'easy' ? 'hard' : 'easy';
+  const elapsedSec = (Date.now() - cw.startTime) / 1000;
+  const timeLimit = { easy: 240, hard: 420 }[cw.diff] * (quickMode ? 0.55 : 1);
+  const goodScore = elapsedSec <= timeLimit;
   setTimeout(() => {
     $('cwBannerTitle').textContent = 'Solved in ' + time;
-    $('cwBannerText').textContent = `Nice work on the ${cw.diff} crossword.`;
+    $('cwBannerText').textContent = `Nice work on the ${cw.diff}${quickMode ? ' quick' : ''} crossword.`;
     $('cwBannerSwitch').textContent = `Try the ${other} one →`;
     $('cwBanner').classList.add('show');
+    if (goodScore){
+      $('cwBanner').insertAdjacentHTML('beforeend', scoreSubmitHTML('cwScoreSubmit'));
+      wireScoreSubmit($('cwScoreSubmit'), { game: 'crossword', difficulty: cw.diff, quickMode, time });
+    }
     $('cwBanner').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, 900);
   return true;
@@ -667,7 +757,7 @@ $('cwBannerTrivia').addEventListener('click', () => setMode('trivia'));
 
 // ---------- Trivia ----------
 const tv = { i: 0, score: 0, answered: false };
-const TQ = PUZZLES.trivia.questions;
+let TQ = getQuestions();
 const KEYS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
 function tvRender(animate){
@@ -717,6 +807,7 @@ function tvNext(){
 
 function tvResult(){
   const pct = tv.score / TQ.length;
+  const goodScore = pct >= 0.7;
   const msg = pct === 1 ? ['Perfect score.', 'The trading desk is yours.']
             : pct >= 0.8 ? ['Excellent.', 'You clearly know your markets.']
             : pct >= 0.5 ? ['Solid round.', 'A few more issues of the Market Brief and you\'ll ace it.']
@@ -734,11 +825,13 @@ function tvResult(){
         <button class="btn btn-primary" id="tvAgain">Play again</button>
         <button class="btn btn-ghost" id="tvToCw">Try the crossword</button>
       </div>
+      ${goodScore ? scoreSubmitHTML('tvScoreSubmit') : ''}
     </div>`;
   requestAnimationFrame(() => requestAnimationFrame(() => { $('tvBar').style.strokeDashoffset = C * (1 - pct); }));
   let n = 0; const numEl = $('tvScoreNum');
   const tick = setInterval(() => { if (n >= tv.score){ clearInterval(tick); return; } numEl.textContent = ++n; }, Math.max(60, 900 / Math.max(tv.score, 1)));
-  $('tvAgain').addEventListener('click', () => { tv.i = 0; tv.score = 0; tvRender(true); });
+  if (goodScore) wireScoreSubmit($('tvScoreSubmit'), { game: 'trivia', quickMode, score: `${tv.score}/${TQ.length}` });
+  $('tvAgain').addEventListener('click', () => { TQ = getQuestions(); tv.i = 0; tv.score = 0; tvRender(true); });
   $('tvToCw').addEventListener('click', () => setMode('crossword'));
 }
 
@@ -760,6 +853,14 @@ function setMode(mode, fromSeg){
   if (mode === 'crossword') sizeGrid();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+$('quickToggle').addEventListener('change', e => {
+  quickMode = e.target.checked;
+  loadCrossword(cw.diff);
+  TQ = getQuestions();
+  tv.i = 0; tv.score = 0;
+  tvRender(false);
+});
 
 loadCrossword('easy');
 tvRender(false);

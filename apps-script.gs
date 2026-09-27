@@ -1,14 +1,25 @@
 /**
- * UVIG Join Form — Google Apps Script backend
+ * UVIG site forms — Google Apps Script backend
  * ---------------------------------------------
- * Appends every Join UVIG form submission as a new row in the
- * "Members" tab of the Google Sheet this script is bound to.
+ * Shared endpoint for the site's two forms:
+ *  - Join UVIG (join.html) appends to the "Members" tab.
+ *  - Weekly Puzzles score submissions (crossword.html), sent with
+ *    { type: "puzzleScore", ... }, append to the "Puzzle Scores" tab.
  *
  * Setup steps are in GOOGLE_SHEETS_SETUP.md — this file only
  * needs to be pasted into the Apps Script editor as-is.
  */
 
 function doPost(e) {
+  var data = JSON.parse(e.postData.contents);
+
+  if (data.type === "puzzleScore") {
+    return handlePuzzleScore(data);
+  }
+  return handleMemberSignup(data);
+}
+
+function handleMemberSignup(data) {
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Members");
 
   // Create the sheet with headers on first run, if it doesn't exist yet
@@ -16,8 +27,6 @@ function doPost(e) {
     sheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet("Members");
     sheet.appendRow(["Timestamp", "Name", "UVic Email", "Main Email", "Year", "Faculty", "Interests", "Heard From", "Newsletter Opt-In"]);
   }
-
-  var data = JSON.parse(e.postData.contents);
 
   sheet.appendRow([
     new Date(),
@@ -29,6 +38,29 @@ function doPost(e) {
     (data.interests || []).join(", "),
     data.heardFrom || "",
     data.newsletterOptIn ? "Yes" : "No"
+  ]);
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ status: "ok" }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function handlePuzzleScore(data) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Puzzle Scores");
+
+  if (!sheet) {
+    sheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet("Puzzle Scores");
+    sheet.appendRow(["Timestamp", "Name", "Email", "Game", "Difficulty", "Quick Mode", "Score / Time"]);
+  }
+
+  sheet.appendRow([
+    new Date(),
+    data.name || "",
+    data.email || "",
+    data.game || "",
+    data.difficulty || "",
+    data.quickMode ? "Yes" : "No",
+    data.time || data.score || ""
   ]);
 
   return ContentService

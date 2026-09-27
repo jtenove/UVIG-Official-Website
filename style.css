@@ -649,8 +649,17 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
   position:absolute; inset:0; opacity:0; visibility:hidden;
   transition:opacity .7s var(--ease), visibility .7s;
   background-size:cover; background-position:center;
+  animation:heroDrift 22s ease-in-out infinite alternate;
+  will-change:transform;
 }
 .hero-slide.active{opacity:1; visibility:visible;}
+@keyframes heroDrift{
+  0%{transform:scale(1) translate3d(0, 0, 0);}
+  100%{transform:scale(1.09) translate3d(-1.6%, -1%, 0);}
+}
+@media (prefers-reduced-motion: reduce){
+  .hero-slide{animation:none;}
+}
 .hero-slide::after{
   content:""; position:absolute; inset:0;
   background:linear-gradient(100deg, rgba(6,14,28,0.82) 0%, rgba(6,14,28,0.55) 42%, rgba(6,14,28,0.15) 75%);
@@ -935,6 +944,24 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 .nl-num{
   font-family:var(--serif); font-size:18px; color:var(--brass); font-weight:600;
   flex-shrink:0; width:24px;
+}
+
+/* ---------- Weekly Puzzles promo section ---------- */
+.puzzle-promo{background:var(--paper);}
+.pp-inner{display:grid; grid-template-columns:220px 1fr; gap:44px; align-items:center;}
+.pp-grid-preview{
+  background:linear-gradient(160deg, #F2EEE4 0%, #E8ECF2 100%); border-radius:22px; padding:16px;
+  box-shadow:var(--shadow-soft); width:fit-content;
+}
+.pp-grid{display:grid; grid-template-columns:repeat(7, 22px); grid-template-rows:repeat(7, 22px); gap:3px;}
+.pp-cell{width:22px; height:22px; border-radius:5px; background:var(--white); box-shadow:inset 0 0 0 1px rgba(10,31,61,.06);}
+.pp-cell.pp-black{background:var(--navy-900); box-shadow:none;}
+.pp-text h2{margin-top:10px;}
+.pp-text p{color:var(--graphite); font-size:15px; max-width:52ch; margin-top:14px; line-height:1.65;}
+.pp-actions{display:flex; gap:12px; margin-top:24px; flex-wrap:wrap;}
+@media (max-width: 700px){
+  .pp-inner{grid-template-columns:1fr; justify-items:center; text-align:center;}
+  .pp-text p{margin-left:auto; margin-right:auto;}
 }
 
 /* ---------- Button micro-interaction ---------- */
