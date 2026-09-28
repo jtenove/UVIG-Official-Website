@@ -670,7 +670,7 @@ footer{background:var(--navy-900); color:#B7C2D6; padding:56px 0 28px;}
 }
 .hero-slide::after{
   content:""; position:absolute; inset:0;
-  background:radial-gradient(ellipse 70% 60% at 50% 50%, rgba(6,14,28,0.62) 0%, rgba(6,14,28,0.32) 60%, rgba(6,14,28,0.55) 100%);
+  background:radial-gradient(ellipse 70% 60% at 50% 50%, rgba(6,14,28,0.42) 0%, rgba(6,14,28,0.2) 60%, rgba(6,14,28,0.38) 100%);
 }
 .hero-carousel-content{
   position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:center;
