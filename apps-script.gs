@@ -10,6 +10,11 @@
  *    tab. The Surveys page also reads this same endpoint back with a
  *    GET request (?type=leaderboard&survey=...) to show the fastest
  *    times — see doGet below.
+ *  - Feedback survey (survey.html) submissions, sent with
+ *    { type: "feedbackSurvey", ... }, append to the "Survey" tab.
+ *    Columns are built dynamically from each question's "label" in
+ *    survey-feedback-data.js, so editing that file's questions never
+ *    requires touching this file.
  *
  * Setup steps are in GOOGLE_SHEETS_SETUP.md — this file only
  * needs to be pasted into the Apps Script editor as-is.
@@ -23,6 +28,9 @@ function doPost(e) {
   }
   if (data.type === "surveyResponse") {
     return handleSurveyResponse(data);
+  }
+  if (data.type === "feedbackSurvey") {
+    return handleFeedbackSurvey(data);
   }
   return handleMemberSignup(data);
 }
@@ -104,6 +112,45 @@ function handleSurveyResponse(data) {
     data.weightedTime || "",
     JSON.stringify(data.answers || [])
   ]);
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ status: "ok" }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function handleFeedbackSurvey(data) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName("Survey");
+
+  if (!sheet) {
+    sheet = ss.insertSheet("Survey");
+    sheet.appendRow(["Timestamp", "Survey ID", "Name", "Email"]);
+  }
+
+  var headerRange = sheet.getRange(1, 1, 1, sheet.getLastColumn());
+  var headers = headerRange.getValues()[0];
+  var answers = data.answers || {};
+
+  // New question labels (from survey-feedback-data.js) get their own
+  // column automatically, appended after whatever's already there.
+  Object.keys(answers).forEach(function (label) {
+    if (headers.indexOf(label) === -1) {
+      headers.push(label);
+      sheet.getRange(1, headers.length).setValue(label);
+    }
+  });
+
+  var row = headers.map(function (h) {
+    if (h === "Timestamp") return new Date();
+    if (h === "Survey ID") return data.surveyId || "";
+    if (h === "Name") return data.name || "";
+    if (h === "Email") return data.email || "";
+    var v = answers[h];
+    if (Array.isArray(v)) return v.join(", ");
+    return v !== undefined ? v : "";
+  });
+
+  sheet.appendRow(row);
 
   return ContentService
     .createTextOutput(JSON.stringify({ status: "ok" }))

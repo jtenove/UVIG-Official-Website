@@ -78,6 +78,23 @@ If you've already deployed the script from an earlier version of this
 file, redeploy it (**New deployment**, per "Updating the script later"
 above) so it picks up survey handling.
 
+## Feedback survey (/survey.html)
+A separate, untimed feedback form — not the leaderboard quizzes above.
+Edit its questions in `survey-feedback-data.js` (comments in that file
+explain the question types and fields).
+
+Submitting sends `type: "feedbackSurvey"` and lands in a **Survey** tab
+(created automatically on first submission). Columns are built
+dynamically from each question's `label`: the first submission creates
+a column per label, and later edits to the questions in
+`survey-feedback-data.js` just add new columns as needed — no changes
+to the Apps Script are required to change the questions. Name and
+email are optional and always go in their own columns.
+
+If you've already deployed the script from an earlier version of this
+file, redeploy it (**New deployment**, per "Updating the script later"
+above) so it picks up feedback survey handling.
+
 ## Newsletter signups
 These go through your Google Form, which already writes to a Sheet
 natively (Responses tab → the green Sheets icon). No extra setup needed there.

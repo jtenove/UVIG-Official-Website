@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Survey — UVic Investment Group</title>
+<meta name="theme-color" content="#0A1F3D">
+<meta name="description" content="Quick feedback survey for UVIG members — help shape the year ahead.">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="UVIG">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .fb-meta{display:flex; gap:14px; flex-wrap:wrap; margin-top:16px; margin-bottom:28px;}
+  .fb-meta span{font-family:var(--mono); font-size:12px; color:var(--graphite); background:var(--tint); padding:6px 12px; border-radius:999px;}
+  .fb-q{margin-bottom:28px;}
+  .fb-q label.fb-q-label{display:block; font-family:var(--serif); font-size:18px; color:var(--navy-900); margin-bottom:12px; line-height:1.35;}
+  .fb-q label.fb-q-label .fb-req{color:var(--brass); font-family:var(--sans); font-size:12px; font-weight:600; margin-left:6px; letter-spacing:.03em;}
+  .fb-rating{display:flex; gap:8px;}
+  .fb-rating button{
+    flex:1; font-family:var(--mono); font-size:15px; font-weight:500; color:var(--navy-900);
+    background:#F6F5F1; border:1.5px solid transparent; border-radius:12px; padding:12px 0; cursor:pointer;
+    transition:background .18s ease, border-color .18s ease;
+  }
+  .fb-rating button:hover{background:#EEEBE3;}
+  .fb-rating button.selected{background:#F6ECD6; border-color:var(--brass); color:var(--navy-900);}
+  .fb-rating-labels{display:flex; justify-content:space-between; margin-top:6px; font-size:11.5px; color:var(--graphite);}
+  .fb-text textarea{
+    width:100%; font-family:var(--sans); font-size:14.5px; color:var(--ink); background:var(--white);
+    border:1.5px solid var(--hairline); border-radius:14px; padding:12px 14px; resize:vertical; min-height:90px;
+  }
+  .fb-text textarea:focus{outline:none; border-color:var(--navy-700);}
+  .fb-error{color:var(--red); font-size:12.5px; margin-top:8px; display:none;}
+  .fb-error.show{display:block;}
+</style>
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-inner wrap">
+      <a href="index.html" class="wordmark">UVic Investment Group <small>EST. 2015</small></a>
+      <a href="index.html" class="nav-link" style="font-size:14px;">← Back to site</a>
+    </div>
+  </header>
+
+  <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <div class="join-shell join-card">
+
+    <!-- Step 0: Intro -->
+    <div class="quiz-step active" data-step="0">
+      <span class="hero-eyebrow">FEEDBACK</span>
+      <h2 id="fbTitle"></h2>
+      <p class="step-note" id="fbIntro"></p>
+      <div class="fb-meta">
+        <span id="fbEstimate"></span>
+        <span id="fbQCount"></span>
+      </div>
+      <div class="quiz-nav" style="justify-content:flex-end;">
+        <button class="btn btn-primary" id="fbStartBtn">Start</button>
+      </div>
+    </div>
+
+    <!-- Step 1: All questions, then name/email -->
+    <div class="quiz-step" data-step="1">
+      <h2>Your feedback</h2>
+      <p class="step-note">Everything but the starred question is optional.</p>
+      <div id="fbQuestions"></div>
+
+      <div class="field">
+        <label for="fbName">Your name (optional)</label>
+        <input type="text" id="fbName" placeholder="Your name">
+      </div>
+      <div class="field">
+        <label for="fbEmail">Email (optional)</label>
+        <input type="email" id="fbEmail" placeholder="you@uvic.ca">
+      </div>
+
+      <p class="fb-error" id="fbError">Please answer the starred question before submitting.</p>
+
+      <div class="quiz-nav">
+        <button class="btn btn-ghost" data-back>Back</button>
+        <button class="btn btn-primary" id="fbSubmitBtn">Submit</button>
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div class="quiz-step" data-step="2">
+      <div class="success-screen">
+        <div class="success-icon">✓</div>
+        <h2>Thanks — got it.</h2>
+        <p>Your feedback goes straight to the exec team and helps shape what UVIG builds and runs next.</p>
+      </div>
+    </div>
+
+  </div>
+
+<script src="survey-feedback-data.js"></script>
+<script>
+  // Same Apps Script endpoint as Join / Puzzles / Surveys — dispatches
+  // on `type`, so this doesn't touch anyone else's data.
+  const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxsShfaG-0EgMWCaKdl08aEyKDpgh8jrq8of2TwnrKG2Js0qdV7LcVr4fc9U1cy36B7zg/exec";
+
+  const $ = id => document.getElementById(id);
+
+  $('fbTitle').textContent = SURVEY.title;
+  $('fbIntro').textContent = SURVEY.intro;
+  $('fbEstimate').textContent = SURVEY.estimate;
+  $('fbQCount').textContent = SURVEY.questions.length + (SURVEY.questions.length === 1 ? ' question' : ' questions');
+
+  function questionHTML(q, idx){
+    const reqTag = q.required ? '<span class="fb-req">REQUIRED</span>' : '';
+    const label = `<label class="fb-q-label">${q.q}${reqTag}</label>`;
+
+    if (q.type === 'rating') {
+      return `
+        <div class="fb-q" data-idx="${idx}" data-type="rating">
+          ${label}
+          <div class="fb-rating">
+            ${[1,2,3,4,5].map(n => `<button type="button" data-value="${n}">${n}</button>`).join('')}
+          </div>
+          <div class="fb-rating-labels"><span>${q.low || ''}</span><span>${q.high || ''}</span></div>
+        </div>
+      `;
+    }
+    if (q.type === 'choice') {
+      return `
+        <div class="fb-q" data-idx="${idx}" data-type="choice">
+          ${label}
+          <div class="choice-grid">
+            ${q.options.map(o => `
+              <label class="choice-card">
+                <input type="radio" name="fbq${idx}" value="${o}">
+                <div><div class="choice-label">${o}</div></div>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+    if (q.type === 'multi') {
+      return `
+        <div class="fb-q" data-idx="${idx}" data-type="multi">
+          ${label}
+          <div class="choice-grid">
+            ${q.options.map(o => `
+              <label class="choice-card">
+                <input type="checkbox" value="${o}">
+                <div><div class="choice-label">${o}</div></div>
+              </label>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+    // text
+    return `
+      <div class="fb-q fb-text" data-idx="${idx}" data-type="text">
+        ${label}
+        <textarea placeholder="${q.placeholder || ''}"></textarea>
+      </div>
+    `;
+  }
+
+  $('fbQuestions').innerHTML = SURVEY.questions.map(questionHTML).join('');
+
+  // Rating: single-select button row
+  document.querySelectorAll('.fb-q[data-type="rating"]').forEach(block => {
+    block.querySelectorAll('.fb-rating button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        block.querySelectorAll('.fb-rating button').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
+    });
+  });
+
+  // Choice / multi: reuse the site's existing .choice-card selected-state pattern
+  document.querySelectorAll('.choice-card').forEach(card => {
+    const input = card.querySelector('input');
+    const sync = () => card.classList.toggle('selected', input.checked);
+    input.addEventListener('change', () => {
+      if (input.type === 'radio') {
+        card.closest('.choice-grid').querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
+      }
+      sync();
+    });
+  });
+
+  function readAnswers(){
+    const answers = {};
+    let missingRequired = false;
+    document.querySelectorAll('.fb-q').forEach(block => {
+      const idx = Number(block.dataset.idx);
+      const q = SURVEY.questions[idx];
+      const type = block.dataset.type;
+      let value;
+      if (type === 'rating') {
+        const sel = block.querySelector('.fb-rating button.selected');
+        value = sel ? Number(sel.dataset.value) : undefined;
+      } else if (type === 'choice') {
+        const sel = block.querySelector('input:checked');
+        value = sel ? sel.value : undefined;
+      } else if (type === 'multi') {
+        const sel = [...block.querySelectorAll('input:checked')].map(i => i.value);
+        value = sel.length ? sel : undefined;
+      } else {
+        const text = block.querySelector('textarea').value.trim();
+        value = text || undefined;
+      }
+      if (q.required && value === undefined) missingRequired = true;
+      if (value !== undefined) answers[q.label] = value;
+    });
+    return { answers, missingRequired };
+  }
+
+  const steps = document.querySelectorAll('.quiz-step');
+  function showStep(n){
+    steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === n));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  $('fbStartBtn').addEventListener('click', () => showStep(1));
+  document.querySelectorAll('[data-back]').forEach(btn => btn.addEventListener('click', () => showStep(0)));
+
+  $('fbSubmitBtn').addEventListener('click', (e) => {
+    const btn = e.currentTarget;
+    if (btn.classList.contains('btn-loading')) return;
+
+    const { answers, missingRequired } = readAnswers();
+    if (missingRequired) {
+      $('fbError').classList.add('show');
+      return;
+    }
+    $('fbError').classList.remove('show');
+
+    const payload = {
+      type: 'feedbackSurvey',
+      surveyId: SURVEY.id,
+      name: $('fbName').value.trim(),
+      email: $('fbEmail').value.trim(),
+      answers
+    };
+
+    if (SHEET_ENDPOINT.startsWith('REPLACE_WITH')) {
+      console.warn('UVIG survey: SHEET_ENDPOINT is still a placeholder — response was not saved.', payload);
+    } else {
+      fetch(SHEET_ENDPOINT, {
+        method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(payload)
+      }).catch(err => console.error('UVIG survey: submission failed', err));
+    }
+
+    btn.classList.add('btn-loading');
+    setTimeout(() => {
+      btn.classList.remove('btn-loading');
+      showStep(2);
+    }, 450);
+  });
+</script>
+</body>
+</html>
