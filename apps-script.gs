@@ -121,14 +121,28 @@ function handleSurveyResponse(data) {
 function handleFeedbackSurvey(data) {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheet = ss.getSheetByName("Survey");
+  var fixedHeaders = ["Timestamp", "Survey ID", "Name", "Email"];
 
   if (!sheet) {
     sheet = ss.insertSheet("Survey");
-    sheet.appendRow(["Timestamp", "Survey ID", "Name", "Email"]);
   }
 
-  var headerRange = sheet.getRange(1, 1, 1, sheet.getLastColumn());
-  var headers = headerRange.getValues()[0];
+  // Read whatever header row is already there — if the tab was created
+  // empty (e.g. by hand, or by an older version of this script), this
+  // is [] rather than the fixed headers, so don't assume it's populated.
+  var lastCol = sheet.getLastColumn();
+  var headers = lastCol > 0 ? sheet.getRange(1, 1, 1, lastCol).getValues()[0] : [];
+
+  // Make sure the fixed columns exist in the right spot before anything
+  // else, whether the tab is brand new or was already sitting there
+  // without them.
+  fixedHeaders.forEach(function (h, i) {
+    if (headers[i] !== h) {
+      headers[i] = h;
+      sheet.getRange(1, i + 1).setValue(h);
+    }
+  });
+
   var answers = data.answers || {};
 
   // New question labels (from survey-feedback-data.js) get their own
