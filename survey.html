@@ -99,6 +99,8 @@
 
   </div>
 
+  <p style="text-align:center; font-size:12px; color:#9AA3B0; max-width:560px; margin:0 auto 40px;" id="fbBackupNote"></p>
+
 <script src="survey-feedback-data.js"></script>
 <script>
   // Same Apps Script endpoint as Join / Puzzles / Surveys — dispatches
@@ -245,6 +247,13 @@
       answers
     };
 
+    // Local backup first — this always succeeds, regardless of whether the
+    // Google Sheet POST below works. It's what guarantees nothing is lost
+    // even if the Apps Script deployment is misconfigured. It only covers
+    // submissions made on THIS browser/device — it doesn't collect anyone
+    // else's — so it's a safety net, not a replacement for the Sheet.
+    saveLocalBackup(payload);
+
     if (SHEET_ENDPOINT.startsWith('REPLACE_WITH')) {
       console.warn('UVIG survey: SHEET_ENDPOINT is still a placeholder — response was not saved.', payload);
     } else {
@@ -257,8 +266,56 @@
     setTimeout(() => {
       btn.classList.remove('btn-loading');
       showStep(2);
+      renderBackupNote();
     }, 450);
   });
+
+  // ---------- Local backup (guaranteed, this-device-only) ----------
+  const BACKUP_KEY = 'uvig_survey_responses';
+
+  function saveLocalBackup(payload){
+    try {
+      const existing = JSON.parse(localStorage.getItem(BACKUP_KEY) || '[]');
+      existing.push({ savedAt: new Date().toISOString(), ...payload });
+      localStorage.setItem(BACKUP_KEY, JSON.stringify(existing));
+    } catch (err) {
+      console.error('UVIG survey: local backup failed', err);
+    }
+  }
+
+  function loadLocalBackup(){
+    try { return JSON.parse(localStorage.getItem(BACKUP_KEY) || '[]'); }
+    catch { return []; }
+  }
+
+  function downloadBackupCSV(){
+    const rows = loadLocalBackup();
+    if (!rows.length) return;
+    const labels = SURVEY.questions.map(q => q.label);
+    const header = ['Saved At', 'Survey ID', 'Name', 'Email', ...labels];
+    const csvRows = rows.map(r => {
+      const cells = [r.savedAt, r.surveyId || '', r.name || '', r.email || '',
+        ...labels.map(l => { const v = r.answers ? r.answers[l] : undefined; return Array.isArray(v) ? v.join('; ') : (v || ''); })];
+      return cells.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',');
+    });
+    const csv = [header.map(h => `"${h}"`).join(','), ...csvRows].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `uvig-survey-backup-${SURVEY.id}.csv`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  function renderBackupNote(){
+    const count = loadLocalBackup().length;
+    const note = $('fbBackupNote');
+    if (!count) { note.innerHTML = ''; return; }
+    note.innerHTML = `${count} response${count === 1 ? '' : 's'} saved as a backup on this device — <a href="#" id="fbBackupDownload" style="color:var(--navy-700);">download as CSV</a> to paste into the spreadsheet.`;
+    $('fbBackupDownload').addEventListener('click', (e) => { e.preventDefault(); downloadBackupCSV(); });
+  }
+
+  renderBackupNote();
 </script>
 </body>
 </html>
