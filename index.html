@@ -311,7 +311,7 @@
       return;
     }
     document.getElementById('eventPosterBanner').innerHTML = `
-      <img src="flyer-kickoff-2026.jpg" alt="${confirmed.title} flyer" class="event-poster-img">
+      ${confirmed.flyer ? `<img src="${confirmed.flyer}" alt="${confirmed.title} flyer" class="event-poster-img">` : ''}
       <div class="event-poster-body">
         <span class="tag">NEXT UP</span>
         <h3>${confirmed.title}</h3>
@@ -321,7 +321,10 @@
           <span>${confirmed.time}</span>
           <span>${confirmed.venue}</span>
         </div>
-        <a href="events.html" class="btn btn-primary">View Events</a>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+          <a href="events.html" class="btn btn-primary">View Events</a>
+          ${typeof renderCalDropdown === 'function' ? renderCalDropdown(confirmed.id) : ''}
+        </div>
       </div>
     `;
   })();
