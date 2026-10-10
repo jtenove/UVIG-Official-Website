@@ -24,28 +24,16 @@ const UVIG_UPCOMING = [
     flyer: "flyer-kickoff-2026.jpg"
   },
   {
-    id: "girls-that-invest",
-    title: "UVIG x Girls That Invest",
-    dateDisplay: "October 7",
-    isoDate: "2026-10-07",
-    time: "TBD",
-    venue: "TBD",
+    id: "girls-that-invest-wealth-panel",
+    title: "UVIG x Girls That Invest: Wealth Management Panel",
+    dateDisplay: "October 28",
+    isoDate: "2026-10-28",
+    time: "6:00 PM",
+    venue: "Diana M. Priestly Law Library",
     partner: "UVic Girls That Invest",
-    speakers: "TBD",
-    blurb: "A joint session with UVic Girls That Invest. Details on speakers and format to follow.",
-    status: "planned"
-  },
-  {
-    id: "wealth-management-panel",
-    title: "Wealth Management Panel",
-    dateDisplay: "October 20",
-    isoDate: "2026-10-20",
-    time: "TBD",
-    venue: "TBD",
-    partner: "TBD",
-    speakers: "TBD",
-    blurb: "Learn from and network with wealth management professionals. Past panels have featured speakers from TD, RBC and Scotiabank.",
-    status: "planned"
+    speakers: "5 wealth management professionals from Victoria",
+    blurb: "Co-hosted with UVic Girls That Invest, this panel brings together five wealth management professionals from across Victoria's investment community to talk through how they built their careers, what the work actually looks like day to day, and how students can start building a path into the field. Open to all students, no finance background required.",
+    status: "confirmed"
   },
   {
     id: "finance-social",
