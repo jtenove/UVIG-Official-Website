@@ -25,43 +25,42 @@
    ============================================================ */
 
 const PUZZLES = {
-  week: "2026-W40",
+  week: "2026-W42",
 
   crossword: {
     easy: {
-      title: "Investing Basics",
+      title: "Markets & Money",
       estimate: "~5 min",
       words: [
-        { answer: "STOCK",    clue: "A share of ownership in a company" },
-        { answer: "BOND",     clue: "A loan you make to a government or company in exchange for interest" },
-        { answer: "MARKET",   clue: "Where buyers and sellers trade securities" },
-        { answer: "SAVINGS",  clue: "A high-interest ___ account" },
-        { answer: "BUDGET",   clue: "A plan for how you'll spend your money" },
-        { answer: "INTEREST", clue: "The cost of borrowing money, or what a deposit earns" },
-        { answer: "DIVIDEND", clue: "A payment a company makes to shareholders out of its profits" },
-        { answer: "BANK",     clue: "Where you might open a chequing account" },
-        { answer: "CASH",     clue: "The most liquid asset there is" },
-        { answer: "PROFIT",   clue: "What's left of revenue after costs" },
-        { answer: "RISK",     clue: "The chance an investment loses money" },
-        { answer: "LOAN",     clue: "Borrowed money that has to be paid back" },
-        { answer: "INCOME",   clue: "Money earned from work or investments" }
+        { answer: "BROKER",  clue: "A person or platform that executes trades on your behalf" },
+        { answer: "TICKER",  clue: "The short code identifying a stock, like AAPL" },
+        { answer: "SHARES",  clue: "Units of ownership in a company" },
+        { answer: "TREND",   clue: "The general direction a market is moving" },
+        { answer: "VALUE",   clue: "Investing in stocks priced below what they're worth" },
+        { answer: "WALLET",  clue: "Where you might store cash or crypto" },
+        { answer: "DEBT",    clue: "Money owed to a lender" },
+        { answer: "TAXES",   clue: "Mandatory payments to the government, including on some investment gains" },
+        { answer: "GOALS",   clue: "Financial ___: the targets guiding your saving and investing" },
+        { answer: "FUND",    clue: "A mutual ___ pools money from many investors" },
+        { answer: "TRADE",   clue: "To buy or sell a security" },
+        { answer: "GROWTH",  clue: "___ stock: a company expected to expand faster than average" }
       ]
     },
     hard: {
-      title: "Advanced Concepts",
+      title: "Trading & Instruments",
       estimate: "~5 min",
       words: [
-        { answer: "PORTFOLIO",  clue: "An investor's full collection of holdings" },
-        { answer: "LEVERAGE",   clue: "Using borrowed money to amplify potential returns" },
-        { answer: "OPTION",     clue: "The right, but not the obligation, to buy or sell at a set price" },
-        { answer: "LIQUIDITY",  clue: "How quickly an asset can become cash without moving its price" },
-        { answer: "EQUITY",     clue: "Ownership value left after subtracting liabilities" },
-        { answer: "HEDGE",      clue: "A position taken to offset the risk of another" },
-        { answer: "YIELD",      clue: "A bond's annual income as a percentage of its price" },
-        { answer: "ARBITRAGE",  clue: "Profiting from a price gap for the same asset in two markets" },
-        { answer: "MARGIN",     clue: "Money borrowed from a broker to buy securities" },
-        { answer: "INFLATION",  clue: "A general rise in prices that erodes purchasing power" },
-        { answer: "ASSET",      clue: "Anything owned that has economic value" }
+        { answer: "CAPITAL",    clue: "Money invested in a business to generate income" },
+        { answer: "SECURITY",   clue: "A tradable financial instrument, like a stock or bond" },
+        { answer: "SHORT",      clue: "Betting that an asset's price will fall" },
+        { answer: "SPREAD",     clue: "The gap between a security's bid and ask price" },
+        { answer: "PREMIUM",    clue: "The price paid to buy an options contract" },
+        { answer: "MATURITY",   clue: "The date a bond's principal is repaid" },
+        { answer: "COUPON",     clue: "A bond's periodic interest payment" },
+        { answer: "INDEX",      clue: "A benchmark tracking a basket of securities, like the S&P 500" },
+        { answer: "BENCHMARK",  clue: "A standard used to measure a portfolio's performance" },
+        { answer: "CUSTODIAN",  clue: "An institution that holds and safeguards an investor's assets" },
+        { answer: "LONG",       clue: "Holding a position betting an asset's price will rise" }
       ]
     }
   },
@@ -70,64 +69,64 @@ const PUZZLES = {
     title: "Market Trivia",
     questions: [
       {
-        q: "What does a company's P/E ratio compare?",
-        options: ["Profit to expenses", "Share price to earnings per share", "Price to equity value", "Payout to earnings"],
-        answer: 1,
-        explain: "P/E divides the share price by earnings per share, showing how much investors pay for each dollar of earnings."
-      },
-      {
-        q: "What is Canada's largest stock exchange?",
-        options: ["NASDAQ", "TSX Venture Exchange", "Toronto Stock Exchange (TSX)", "Montreal Exchange"],
-        answer: 2,
-        explain: "The Toronto Stock Exchange is Canada's main exchange. The Montreal Exchange focuses on derivatives."
-      },
-      {
-        q: "A bear market is commonly defined as a decline of at least how much from a recent high?",
-        options: ["5%", "10%", "20%", "50%"],
-        answer: 2,
-        explain: "A 10% drop is usually called a correction. A 20% drop is the common threshold for a bear market."
-      },
-      {
-        q: "When interest rates rise, what generally happens to the prices of existing bonds?",
-        options: ["They fall", "They rise", "They stay the same", "They double"],
+        q: "What does IPO stand for?",
+        options: ["Initial Public Offering", "Internal Profit Order", "Index Price Open", "Institutional Purchase Option"],
         answer: 0,
-        explain: "Newer bonds pay the higher rate, so older, lower-paying bonds become less valuable and their prices fall."
+        explain: "An IPO is when a private company first sells shares to the public on a stock exchange."
       },
       {
-        q: "What does ETF stand for?",
-        options: ["Equity Trust Fund", "Exchange-Traded Fund", "Electronic Transfer Fund", "Estimated Total Fees"],
+        q: "Which of these is often considered a 'safe haven' asset during market uncertainty?",
+        options: ["Gold", "Growth stocks", "Junk bonds", "Cryptocurrency"],
+        answer: 0,
+        explain: "Gold has historically been viewed as a store of value investors turn to when markets get volatile."
+      },
+      {
+        q: "What is a 'blue chip' stock?",
+        options: ["A penny stock under $1", "Shares in a well-established, financially stable company", "A stock that only trades after hours", "A company that just IPO'd"],
         answer: 1,
-        explain: "An exchange-traded fund holds a basket of assets and trades on an exchange like a single stock."
+        explain: "Blue chip refers to large, reputable companies with a long track record of stable performance."
       },
       {
-        q: "Using the Rule of 72, roughly how long does it take money to double at an 8% annual return?",
-        options: ["6 years", "9 years", "12 years", "15 years"],
+        q: "What does a 'bull market' describe?",
+        options: ["Prices generally falling", "Prices generally rising", "Unusually low trading volume", "A market that's closed"],
         answer: 1,
-        explain: "Divide 72 by the annual return: 72 / 8 = 9 years."
+        explain: "A bull market describes a sustained period of rising prices and investor optimism."
       },
       {
-        q: "Who sets Canada's policy interest rate?",
-        options: ["The Department of Finance", "The Big Five banks", "The TSX", "The Bank of Canada"],
-        answer: 3,
-        explain: "The Bank of Canada sets the policy rate, which influences borrowing costs across the economy."
-      },
-      {
-        q: "Which Canadian account lets investments grow and be withdrawn completely tax-free?",
-        options: ["RRSP", "TFSA", "RESP", "A chequing account"],
+        q: "What is compound interest?",
+        options: ["Interest paid only on the original principal", "Interest calculated on both principal and previously earned interest", "A fixed rate that never changes", "Interest charged only on loans, never earned on savings"],
         answer: 1,
-        explain: "TFSA growth and withdrawals are tax-free. RRSP withdrawals are taxed as income."
+        explain: "Compounding means you earn interest on your interest, which accelerates growth over time."
       },
       {
-        q: "How is a company's market capitalization calculated?",
-        options: ["Revenue × profit margin", "Total assets − total debt", "Share price × shares outstanding", "Earnings × dividend"],
-        answer: 2,
-        explain: "Market cap is the total market value of a company's shares: price times shares outstanding."
-      },
-      {
-        q: "What is the main goal of diversification?",
-        options: ["Guaranteeing higher returns", "Reducing risk by spreading investments", "Avoiding all taxes", "Trading more often"],
+        q: "In Canada, what is an RRSP primarily designed to help you save for?",
+        options: ["Education", "Retirement", "A first home, exclusively", "Emergencies"],
         answer: 1,
-        explain: "Spreading money across different assets means one bad investment has less impact on the whole portfolio."
+        explain: "A Registered Retirement Savings Plan helps Canadians save for retirement, with tax-deferred growth."
+      },
+      {
+        q: "What is a 'dividend yield'?",
+        options: ["Total dividends paid company-wide", "Annual dividend per share divided by share price", "The tax rate on dividend income", "The number of shareholders receiving dividends"],
+        answer: 1,
+        explain: "Dividend yield expresses a stock's annual dividend as a percentage of its current share price."
+      },
+      {
+        q: "What happens in a 'stock split'?",
+        options: ["A company issues more shares and lowers the price per share, without changing total value", "A company splits into two separate companies", "Two public companies merge", "A tax strategy for selling stock"],
+        answer: 0,
+        explain: "A stock split increases the number of shares and proportionally lowers the price — a shareholder's total value doesn't change."
+      },
+      {
+        q: "Which best describes a 'small-cap' company?",
+        options: ["Market value typically under about $2 billion", "Market value over $200 billion", "Trades only over-the-counter", "A government-owned company"],
+        answer: 0,
+        explain: "Small-cap companies generally have a market capitalization under roughly $2 billion, though exact thresholds vary."
+      },
+      {
+        q: "What is a mutual fund?",
+        options: ["A pooled, professionally managed investment held on behalf of many investors", "A loan from a bank", "A single company's stock", "A government savings bond"],
+        answer: 0,
+        explain: "A mutual fund pools money from many investors to buy a diversified portfolio, managed by a professional fund manager."
       }
     ]
   }
