@@ -19,6 +19,8 @@
      usually fixes it.
 
    TRIVIA
+   - Same easy/hard split as the crossword — "easy" and "hard"
+     are each their own full question set.
    - "answer" is the position of the correct option,
      counting from 0 (first option = 0, second = 1, ...).
    - "explain" is shown after the player answers.
@@ -66,6 +68,7 @@ const PUZZLES = {
   },
 
   trivia: {
+   easy: {
     title: "Market Trivia",
     questions: [
       {
@@ -129,5 +132,71 @@ const PUZZLES = {
         explain: "A mutual fund pools money from many investors to buy a diversified portfolio, managed by a professional fund manager."
       }
     ]
+   },
+   hard: {
+    title: "Advanced Trivia",
+    questions: [
+      {
+        q: "What does a bond's 'duration' measure?",
+        options: ["Its time to maturity in years", "Its price sensitivity to interest rate changes", "Its credit rating", "How often it pays a coupon"],
+        answer: 1,
+        explain: "Duration approximates how much a bond's price will move for a 1% change in interest rates — it's about price sensitivity, not just time to maturity."
+      },
+      {
+        q: "In the Capital Asset Pricing Model (CAPM), what does 'beta' measure?",
+        options: ["A stock's dividend growth rate", "A stock's volatility relative to the overall market", "A company's debt-to-equity ratio", "A stock's P/E ratio relative to its peers"],
+        answer: 1,
+        explain: "Beta measures how much a stock's price tends to move relative to the broader market — above 1 means more volatile than the market."
+      },
+      {
+        q: "What does it mean when the yield curve 'inverts'?",
+        options: ["Short-term rates rise above long-term rates", "Long-term rates rise above short-term rates", "All yields become equal", "Bond prices rise across the board"],
+        answer: 0,
+        explain: "An inverted yield curve happens when short-term yields exceed long-term yields, often viewed as a recession warning sign."
+      },
+      {
+        q: "What is 'short selling'?",
+        options: ["Selling a stock you own for a quick profit", "Borrowing and selling a stock, hoping to buy it back cheaper later", "Buying a stock with a short holding period", "Selling only small quantities of a stock"],
+        answer: 1,
+        explain: "Short sellers borrow shares, sell them, and aim to repurchase them later at a lower price, profiting from the decline."
+      },
+      {
+        q: "What does WACC stand for and measure?",
+        options: ["Weighted Average Cost of Capital — a firm's blended cost of financing", "Worldwide Asset Credit Class", "Weighted Allocation of Current Capital", "Weekly Average Closing Change"],
+        answer: 0,
+        explain: "WACC blends the cost of a company's debt and equity, weighted by how much of each it uses, into one overall financing cost."
+      },
+      {
+        q: "Under the Efficient Market Hypothesis, what does 'weak form' efficiency claim?",
+        options: ["Prices reflect all information, including insider information", "Prices already reflect all past trading information", "Prices only reflect public financial statements", "Markets are never efficient"],
+        answer: 1,
+        explain: "Weak-form efficiency says past prices and volume are already reflected in current prices, so technical analysis alone can't reliably beat the market."
+      },
+      {
+        q: "What is a 'call option'?",
+        options: ["The right to sell an asset at a set price", "The right to buy an asset at a set price", "An obligation to buy a stock", "A type of bond redemption"],
+        answer: 1,
+        explain: "A call option gives the holder the right, but not the obligation, to buy the underlying asset at the strike price."
+      },
+      {
+        q: "What does 'quantitative easing' primarily involve?",
+        options: ["A central bank raising interest rates sharply", "A central bank buying assets to inject money into the economy", "A government cutting taxes", "Banks increasing reserve requirements"],
+        answer: 1,
+        explain: "Quantitative easing is when a central bank buys bonds or other assets to increase the money supply and lower long-term rates."
+      },
+      {
+        q: "What is 'alpha' in investing?",
+        options: ["The risk-free rate of return", "A measure of excess return relative to a benchmark", "A stock's total trading volume", "The first stock added to a portfolio"],
+        answer: 1,
+        explain: "Alpha measures how much better (or worse) an investment performed compared to its benchmark, after adjusting for risk."
+      },
+      {
+        q: "What does a credit default swap (CDS) primarily do?",
+        options: ["Insures against a borrower defaulting on debt", "Converts debt into equity", "Guarantees a fixed exchange rate", "Pools multiple mortgages into one bond"],
+        answer: 0,
+        explain: "A CDS acts like insurance: the buyer pays a premium and receives a payout if the underlying borrower defaults."
+      }
+    ]
+   }
   }
 };

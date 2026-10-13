@@ -15,6 +15,11 @@
  *    Columns are built dynamically from each question's "label" in
  *    survey-feedback-data.js, so editing that file's questions never
  *    requires touching this file.
+ *  - Market Rush (crossword.html's arcade game) score submissions,
+ *    sent with { type: "gameScore", ... }, append to the "Game Scores"
+ *    tab. The game reads this same endpoint back with a GET request
+ *    (?type=gameLeaderboard&seed=...) to show today's best returns —
+ *    see doGet below.
  *
  * Setup steps are in GOOGLE_SHEETS_SETUP.md — this file only
  * needs to be pasted into the Apps Script editor as-is.
@@ -32,6 +37,9 @@ function doPost(e) {
   if (data.type === "feedbackSurvey") {
     return handleFeedbackSurvey(data);
   }
+  if (data.type === "gameScore") {
+    return handleGameScore(data);
+  }
   return handleMemberSignup(data);
 }
 
@@ -39,6 +47,9 @@ function doGet(e) {
   var type = (e.parameter.type || "").trim();
   if (type === "leaderboard") {
     return handleLeaderboard(e.parameter.survey || "");
+  }
+  if (type === "gameLeaderboard") {
+    return handleGameLeaderboard(e.parameter.seed || "");
   }
   return ContentService
     .createTextOutput(JSON.stringify({ status: "error", message: "Unknown request" }))
@@ -168,6 +179,58 @@ function handleFeedbackSurvey(data) {
 
   return ContentService
     .createTextOutput(JSON.stringify({ status: "ok" }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function handleGameScore(data) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Game Scores");
+
+  if (!sheet) {
+    sheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet("Game Scores");
+    sheet.appendRow(["Timestamp", "Name", "Email", "Game", "Seed", "Final Value", "Return %"]);
+  }
+
+  sheet.appendRow([
+    new Date(),
+    data.name || "",
+    data.email || "",
+    data.game || "",
+    data.seed || "",
+    data.finalValue || "",
+    data.returnPct || ""
+  ]);
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ status: "ok" }))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// Leaderboard: highest return %, for a given day's seed — so everyone
+// is being ranked against the exact same price path.
+function handleGameLeaderboard(seed) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Game Scores");
+  var rows = [];
+
+  if (sheet) {
+    var values = sheet.getDataRange().getValues();
+    var headers = values[0] || [];
+    for (var i = 1; i < values.length; i++) {
+      var row = {};
+      for (var c = 0; c < headers.length; c++) row[headers[c]] = values[i][c];
+      if (!seed || row["Seed"] === seed) {
+        rows.push({
+          name: row["Name"],
+          returnPct: Number(row["Return %"]) || 0,
+          finalValue: row["Final Value"]
+        });
+      }
+    }
+  }
+
+  rows.sort(function (a, b) { return b.returnPct - a.returnPct; });
+
+  return ContentService
+    .createTextOutput(JSON.stringify({ status: "ok", leaderboard: rows.slice(0, 10) }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
