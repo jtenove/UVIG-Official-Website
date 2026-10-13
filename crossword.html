@@ -249,6 +249,60 @@
   .gm-row-metric{width:90px; flex-shrink:0; text-align:right; font-family:var(--mono); color:var(--navy-700);}
   .gm-board-empty{padding:20px; text-align:center; color:var(--graphite); font-size:13.5px;}
 
+  .ipo-card{max-width:720px; margin:0 auto; background:var(--white); border-radius:32px; padding:36px; box-shadow:var(--shadow-soft); position:relative; overflow:hidden;}
+  .ipo-start{text-align:center; padding:10px 0;}
+  .ipo-start h2{font-size:28px; margin:8px 0 10px;}
+  .ipo-start p{color:var(--graphite); max-width:48ch; margin:0 auto 22px; line-height:1.6;}
+  .ipo-rules{display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:26px;}
+  .ipo-rules div{font-family:var(--mono); font-size:12px; color:var(--graphite); background:var(--tint); padding:8px 14px; border-radius:999px;}
+
+  .ipo-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; font-size:13px; color:var(--graphite);}
+  .ipo-top strong{color:var(--navy-900);}
+  .ipo-company{text-align:center; margin-bottom:24px;}
+  .ipo-company .tag{font-family:var(--sans); font-size:12px; font-weight:600; color:var(--brass); letter-spacing:.06em; display:block; margin-bottom:8px;}
+  .ipo-company h3{font-size:30px; margin-bottom:18px;}
+  .ipo-facts{display:flex; flex-direction:column; gap:8px; max-width:440px; margin:0 auto; text-align:left;}
+  .ipo-facts div{font-size:14px; color:var(--ink); background:#F6F5F1; border-radius:12px; padding:10px 14px; line-height:1.4;}
+
+  .ipo-guess{max-width:420px; margin:0 auto;}
+  .ipo-guess-display{text-align:center; margin-bottom:14px;}
+  .ipo-guess-display b{font-family:var(--serif); font-size:44px; color:var(--navy-900);}
+  .ipo-slider{width:100%; -webkit-appearance:none; appearance:none; height:8px; border-radius:999px; background:var(--hairline); outline:none; margin-bottom:10px;}
+  .ipo-slider::-webkit-slider-thumb{-webkit-appearance:none; width:26px; height:26px; border-radius:50%; background:var(--brass); cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,.25);}
+  .ipo-slider::-moz-range-thumb{width:26px; height:26px; border-radius:50%; background:var(--brass); cursor:pointer; border:none;}
+  .ipo-slider-labels{display:flex; justify-content:space-between; font-family:var(--mono); font-size:11px; color:var(--graphite); margin-bottom:22px;}
+  .ipo-submit{display:flex; justify-content:center;}
+
+  .ipo-reveal{text-align:center; padding:4px 0; position:relative;}
+  .ipo-reveal .actual{font-family:var(--serif); font-size:52px; line-height:1; margin:14px 0 6px; color:var(--navy-900);}
+  .ipo-reveal.over .actual{color:var(--red);}
+  .ipo-reveal.under .actual{color:var(--green);}
+  .ipo-reveal.exact .actual{color:var(--brass);}
+  .ipo-buzz{font-family:var(--sans); font-weight:700; font-size:15px; letter-spacing:.04em; padding:8px 18px; border-radius:999px; display:inline-block; margin-bottom:10px;}
+  .ipo-buzz.over{background:#F8E2DE; color:var(--red); animation:cwShake .4s;}
+  .ipo-buzz.under{background:#E3F1E8; color:var(--green);}
+  .ipo-buzz.exact{background:#F6ECD6; color:var(--brass);}
+  .ipo-reveal-sub{color:var(--graphite); margin-bottom:6px;}
+  .ipo-round-score{font-family:var(--mono); font-size:15px; color:var(--navy-900); margin-bottom:22px;}
+  .ipo-outcome{font-size:13.5px; color:var(--graphite); max-width:48ch; margin:0 auto 24px; line-height:1.6; background:#F6F5F1; border-radius:14px; padding:14px 18px;}
+
+  .ipo-result{text-align:center; padding:6px 0 4px;}
+  .ipo-result .total{font-family:var(--serif); font-size:52px; color:var(--navy-900); line-height:1;}
+  .ipo-result-sub{color:var(--graphite); margin:10px 0 22px;}
+  .ipo-board{margin-top:40px; text-align:left;}
+  .ipo-board h3{font-size:18px; margin-bottom:12px;}
+  .ipo-board-table{background:#F6F5F1; border-radius:18px; overflow:hidden;}
+  .ipo-row{display:flex; align-items:center; gap:14px; padding:11px 16px; font-size:13.5px;}
+  .ipo-row + .ipo-row{border-top:1px solid var(--hairline);}
+  .ipo-row-head{font-family:var(--sans); font-size:11px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--graphite); background:var(--white);}
+  .ipo-rank{width:22px; flex-shrink:0; font-family:var(--mono); font-weight:600; color:var(--brass);}
+  .ipo-row-name{flex:1; min-width:0; font-weight:500; color:var(--navy-900); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .ipo-row-metric{width:90px; flex-shrink:0; text-align:right; font-family:var(--mono); color:var(--navy-700);}
+  .ipo-board-empty{padding:20px; text-align:center; color:var(--graphite); font-size:13.5px;}
+
+  @keyframes ipoConfetti{0%{transform:translateY(0) rotate(0);opacity:1;} 100%{transform:translateY(260px) rotate(360deg);opacity:0;}}
+  .ipo-confetti{position:absolute; top:0; width:8px; height:14px; border-radius:2px; animation:ipoConfetti 1.1s ease-in forwards; pointer-events:none;}
+
   @media (max-width: 860px){
     .cw-board{grid-template-columns:minmax(0, 1fr);}
     .pz-intro h1{font-size:34px;}
@@ -257,6 +311,9 @@
     .tv-q{font-size:20px;}
     .gm-card{padding:24px 18px; border-radius:26px;}
     .gm-price b{font-size:34px;}
+    .ipo-card{padding:24px 18px; border-radius:26px;}
+    .ipo-company h3{font-size:24px;}
+    .ipo-reveal .actual{font-size:40px;}
   }
 </style>
 </head>
@@ -283,6 +340,7 @@
         <button class="active" data-mode="crossword">Crossword</button>
         <button data-mode="trivia">Trivia</button>
         <button data-mode="game">Market Rush</button>
+        <button data-mode="ipo">Price Is Right</button>
         <span class="seg-ind"></span>
       </div>
       <label class="quick-toggle">
@@ -349,6 +407,10 @@
 
     <section class="pz-panel" data-panel="game" style="padding:0;">
       <div class="gm-card" id="gmCard"></div>
+    </section>
+
+    <section class="pz-panel" data-panel="ipo" style="padding:0;">
+      <div class="ipo-card" id="ipoCard"></div>
     </section>
 
     <p class="pz-foot">UVic Investment Group · <a href="/join.html">Get the Market Brief every two weeks</a></p>
@@ -1112,6 +1174,171 @@ function gmLoadLeaderboard(){
     .catch(() => { rowsEl.innerHTML = `<div class="gm-board-empty">Leaderboard is temporarily unavailable.</div>`; });
 }
 
+// ---------- IPO Price Is Right ----------
+// Classic "closest without going over" bidding, applied to real IPO
+// prices. Each playthrough draws 5 random companies from the pool in
+// puzzles-data.js, so add more there any time to keep it fresh.
+const IPO_ROUNDS = 5;
+const ipo = { order: [], i: 0, score: 0 };
+
+function shuffle(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function ipoRenderStart(){
+  $('ipoCard').innerHTML = `
+    <div class="ipo-start">
+      <span class="hero-eyebrow">PRICE IS RIGHT</span>
+      <h2>IPO Price Is Right</h2>
+      <p>Five real companies, five real IPOs. You'll get the company, the year, and a few hints — guess the per-share IPO price. Closest without going over wins the most points. Go over, and you bust.</p>
+      <div class="ipo-rules">
+        <div>5 real companies</div>
+        <div>Closest without going over</div>
+        <div>Going over = 0 that round</div>
+      </div>
+      <button class="btn btn-primary" id="ipoStart">Start the game</button>
+    </div>`;
+  $('ipoStart').addEventListener('click', ipoStartGame);
+}
+
+function ipoStartGame(){
+  ipo.order = shuffle(PUZZLES.ipoGame.companies).slice(0, IPO_ROUNDS);
+  ipo.i = 0; ipo.score = 0;
+  ipoRenderRound();
+}
+
+function ipoRenderRound(){
+  const co = ipo.order[ipo.i];
+  const maxGuess = Math.max(300, Math.ceil((co.price * 2.5) / 10) * 10);
+  const startVal = Math.round(maxGuess / 2);
+  $('ipoCard').innerHTML = `
+    <div class="ipo-top"><span>Company <strong>${ipo.i + 1}</strong> of ${ipo.order.length}</span><span>Score <strong id="ipoScore">${ipo.score}</strong></span></div>
+    <div class="ipo-company">
+      <span class="tag">${co.sector.toUpperCase()} · ${co.year} IPO</span>
+      <h3>${co.name}</h3>
+      <div class="ipo-facts">${co.facts.map(f => `<div>${f}</div>`).join('')}</div>
+    </div>
+    <div class="ipo-guess">
+      <div class="ipo-guess-display"><b id="ipoGuessVal">$${startVal}</b></div>
+      <input type="range" class="ipo-slider" id="ipoSlider" min="1" max="${maxGuess}" value="${startVal}" step="1">
+      <div class="ipo-slider-labels"><span>$1</span><span>$${maxGuess}</span></div>
+      <div class="ipo-submit"><button class="btn btn-primary" id="ipoSubmit">Lock in guess</button></div>
+    </div>`;
+  const slider = $('ipoSlider'), valEl = $('ipoGuessVal');
+  slider.addEventListener('input', () => { valEl.textContent = '$' + slider.value; });
+  $('ipoSubmit').addEventListener('click', () => ipoReveal(Number(slider.value)));
+}
+
+function ipoConfetti(){
+  const card = $('ipoCard');
+  const colors = ['#B99A5B', '#163862', '#1F7A4D', '#0A1F3D'];
+  for (let i = 0; i < 24; i++){
+    const el = document.createElement('div');
+    el.className = 'ipo-confetti';
+    el.style.left = (Math.random() * 100) + '%';
+    el.style.background = colors[i % colors.length];
+    el.style.animationDelay = (Math.random() * 0.3) + 's';
+    card.appendChild(el);
+    setTimeout(() => el.remove(), 1600);
+  }
+}
+
+function ipoReveal(guess){
+  const co = ipo.order[ipo.i];
+  const actual = co.price;
+  let state, roundScore, buzz;
+  if (guess === actual){
+    state = 'exact'; roundScore = 1000; buzz = 'SPOT ON!';
+  } else if (guess > actual){
+    state = 'over'; roundScore = 0; buzz = 'OVER!';
+  } else {
+    state = 'under';
+    roundScore = Math.max(0, Math.round((1 - (actual - guess) / actual) * 1000));
+    buzz = 'Under — nice guess';
+  }
+  ipo.score += roundScore;
+  const last = ipo.i === ipo.order.length - 1;
+  $('ipoCard').innerHTML = `
+    <div class="ipo-reveal ${state}">
+      <span class="ipo-buzz ${state}">${buzz}</span>
+      <div class="actual">$${actual}</div>
+      <p class="ipo-reveal-sub">${co.name}'s actual IPO price — you guessed $${guess}</p>
+      <p class="ipo-round-score">+${roundScore} points this round</p>
+      <div class="ipo-outcome">${co.outcome}</div>
+      <button class="btn btn-primary" id="ipoNext">${last ? 'See final score' : 'Next company →'}</button>
+    </div>`;
+  if (state === 'exact') ipoConfetti();
+  $('ipoNext').addEventListener('click', () => {
+    ipo.i++;
+    if (ipo.i >= ipo.order.length) ipoResult();
+    else ipoRenderRound();
+  });
+}
+
+function ipoResult(){
+  const max = ipo.order.length * 1000;
+  const pct = ipo.score / max;
+  const msg = pct >= 0.85 ? ['Dead-on instincts.', 'You could price deals for a living.']
+            : pct >= 0.6 ? ['Sharp eye.', 'You read the market well.']
+            : pct >= 0.35 ? ['Solid round.', 'A few more and you\'ll have the range dialed in.']
+            : ['Good start.', 'IPO pricing is part art, part guesswork — everyone busts a few.'];
+  $('ipoCard').innerHTML = `
+    <div class="ipo-result">
+      <span class="hero-eyebrow">FINAL SCORE</span>
+      <div class="total">${ipo.score}</div>
+      <p class="ipo-result-sub">out of ${max} · ${msg[0]} ${msg[1]}</p>
+      <div class="actions" style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-bottom:10px;">
+        <button class="btn btn-primary" id="ipoAgain">Play again</button>
+        <button class="btn btn-ghost" id="ipoToGame">Try Market Rush</button>
+      </div>
+      ${scoreSubmitHTML('ipoScoreSubmit')}
+      <div class="ipo-board">
+        <h3>Leaderboard</h3>
+        <div class="ipo-board-table">
+          <div class="ipo-row ipo-row-head"><span class="ipo-rank">#</span><span class="ipo-row-name">Name</span><span class="ipo-row-metric">Score</span></div>
+          <div id="ipoBoardRows"><div class="ipo-board-empty">Loading…</div></div>
+        </div>
+      </div>
+    </div>`;
+  // Reuses the Market Rush leaderboard endpoint (same Game Scores tab) with
+  // a fixed, non-dated seed — this game isn't a daily thing like Market
+  // Rush, so there's one running leaderboard rather than one per day.
+  wireScoreSubmit($('ipoScoreSubmit'), {
+    game: 'ipo-price-is-right', seed: 'ipo-price-is-right',
+    finalValue: `${ipo.score}/${max}`, returnPct: ((ipo.score / max) * 100).toFixed(1)
+  }, 'gameScore');
+  $('ipoAgain').addEventListener('click', ipoStartGame);
+  $('ipoToGame').addEventListener('click', () => setMode('game'));
+  ipoLoadLeaderboard();
+}
+
+function ipoLoadLeaderboard(){
+  const rowsEl = $('ipoBoardRows');
+  if (!rowsEl) return;
+  if (SCORE_ENDPOINT.startsWith('REPLACE_WITH')){
+    rowsEl.innerHTML = `<div class="ipo-board-empty">Leaderboard isn't connected yet.</div>`;
+    return;
+  }
+  fetch(`${SCORE_ENDPOINT}?type=gameLeaderboard&seed=ipo-price-is-right`)
+    .then(r => r.json())
+    .then(data => {
+      const rows = (data && data.leaderboard) || [];
+      if (!rows.length){ rowsEl.innerHTML = `<div class="ipo-board-empty">No scores yet — be the first.</div>`; return; }
+      rowsEl.innerHTML = rows.map((r, i) => `
+        <div class="ipo-row">
+          <span class="ipo-rank">${i + 1}</span>
+          <span class="ipo-row-name">${r.name || 'Anonymous'}</span>
+          <span class="ipo-row-metric">${r.finalValue || ''}</span>
+        </div>`).join('');
+    })
+    .catch(() => { rowsEl.innerHTML = `<div class="ipo-board-empty">Leaderboard is temporarily unavailable.</div>`; });
+}
+
 // ---------- Mode switching. /crossword#trivia opens straight to trivia ----------
 const modeSeg = initSeg($('modeSeg'), btn => setMode(btn.dataset.mode, true));
 function setMode(mode, fromSeg){
@@ -1122,8 +1349,8 @@ function setMode(mode, fromSeg){
   }
   document.querySelectorAll('.pz-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === mode));
   const quickToggleEl = document.querySelector('.quick-toggle');
-  if (quickToggleEl) quickToggleEl.style.display = mode === 'game' ? 'none' : '';
-  history.replaceState(null, '', mode === 'trivia' ? '#trivia' : mode === 'game' ? '#game' : location.pathname);
+  if (quickToggleEl) quickToggleEl.style.display = (mode === 'game' || mode === 'ipo') ? 'none' : '';
+  history.replaceState(null, '', mode === 'trivia' ? '#trivia' : mode === 'game' ? '#game' : mode === 'ipo' ? '#ipo' : location.pathname);
   if (mode === 'crossword') sizeGrid();
   if (mode === 'game' && gm.paused){ gm.paused = false; gmRenderStart(); }
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1140,8 +1367,10 @@ $('quickToggle').addEventListener('change', e => {
 loadCrossword('easy');
 tvRender(false);
 gmRenderStart();
+ipoRenderStart();
 if (location.hash === '#trivia') setMode('trivia');
 else if (location.hash === '#game') setMode('game');
+else if (location.hash === '#ipo') setMode('ipo');
 </script>
 </body>
 </html>
