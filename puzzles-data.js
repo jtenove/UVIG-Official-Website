@@ -24,15 +24,6 @@
    - "answer" is the position of the correct option,
      counting from 0 (first option = 0, second = 1, ...).
    - "explain" is shown after the player answers.
-
-   IPO PRICE IS RIGHT
-   - Each playthrough randomly draws 5 companies from this list,
-     so add more any time to keep it fresh — no minimum/maximum.
-   - "price" is the real per-share IPO (or reference, for direct
-     listings) price — this is what the player is guessing.
-   - "facts" are the hints shown before they guess. 2-4 works well.
-   - "outcome" is revealed after they guess — what actually
-     happened to the stock on day one.
    ============================================================ */
 
 const PUZZLES = {
@@ -207,71 +198,5 @@ const PUZZLES = {
       }
     ]
    }
-  },
-
-  ipoGame: {
-    title: "IPO Price Is Right",
-    companies: [
-      {
-        name: "Facebook", sector: "Social Media", year: 2012,
-        facts: ["~900 million monthly users at the time", "The biggest tech IPO of its era", "Mark Zuckerberg rang the Nasdaq bell remotely from Menlo Park"],
-        price: 38,
-        outcome: "Priced at $38 — then fell below that within weeks, becoming one of the most infamous IPO flops in tech history."
-      },
-      {
-        name: "Google", sector: "Search Engine", year: 2004,
-        facts: ["Used an unusual public 'Dutch auction' to set its price", "Already profitable and dominant in search", "Co-founders wrote a famously blunt 'owner's manual' letter to investors"],
-        price: 85,
-        outcome: "Priced at $85 and popped about 18% on day one — a smooth landing for a format Wall Street was skeptical of."
-      },
-      {
-        name: "Beyond Meat", sector: "Plant-Based Food", year: 2019,
-        facts: ["Early backers included Bill Gates and Leonardo DiCaprio", "Sold its burgers in grocery store meat aisles, not the vegetarian section", "The first major plant-based meat company to go public"],
-        price: 25,
-        outcome: "Priced at $25 and closed its first day at $65.75 — up 163%, one of the best IPO debuts in decades."
-      },
-      {
-        name: "Uber", sector: "Ride-Hailing", year: 2019,
-        facts: ["One of the most anticipated IPOs of the decade", "Operated in 60+ countries at the time", "Years of massive losses despite massive scale"],
-        price: 45,
-        outcome: "Priced at $45 and closed down about 7.6% on day one — a rare high-profile flop for a company this hyped."
-      },
-      {
-        name: "Snowflake", sector: "Cloud Data", year: 2020,
-        facts: ["Warren Buffett's Berkshire Hathaway took a rare pre-IPO stake", "Lets companies store and analyze data in the cloud", "Became the largest software IPO ever, at the time"],
-        price: 120,
-        outcome: "Priced at $120 and closed its first day at $253.93 — up 111%."
-      },
-      {
-        name: "Zoom", sector: "Video Conferencing", year: 2019,
-        facts: ["Went public months before most people had heard of it", "Would become a household name during the 2020 pandemic", "Founder Eric Yuan was a former Cisco/WebEx engineer"],
-        price: 36,
-        outcome: "Priced at $36 and closed up 72% on day one."
-      },
-      {
-        name: "Robinhood", sector: "Retail Trading App", year: 2021,
-        facts: ["Commission-free trading pioneer", "Hugely popular during the 2021 meme-stock mania", "Let ordinary investors buy fractional shares"],
-        price: 38,
-        outcome: "Priced at $38 and closed down about 8% on day one — a flop despite its retail-investor fame."
-      },
-      {
-        name: "Airbnb", sector: "Home Sharing", year: 2020,
-        facts: ["Went public during a pandemic that had crushed travel", "Started as an air-mattress rental in a San Francisco apartment", "Hosts in over 220 countries and regions"],
-        price: 68,
-        outcome: "Priced at $68 and closed its first day at $144.71 — up 113%."
-      },
-      {
-        name: "DoorDash", sector: "Food Delivery", year: 2020,
-        facts: ["Went public the same month as Airbnb", "Became the largest US food-delivery app by market share", "Founded by a group of Stanford students"],
-        price: 102,
-        outcome: "Priced at $102 and closed up 86% on day one."
-      },
-      {
-        name: "Coinbase", sector: "Crypto Exchange", year: 2021,
-        facts: ["Went public via a direct listing, not a traditional IPO", "The largest cryptocurrency exchange in the US", "Nasdaq set a $250 reference price instead of a traditional offer price"],
-        price: 250,
-        outcome: "Reference priced at $250 and opened trading at $381 — up over 50% right out of the gate."
-      }
-    ]
   }
 };
