@@ -78,6 +78,22 @@ If you've already deployed the script from an earlier version of this
 file, redeploy it (**New deployment**, per "Updating the script later"
 above) so it picks up survey handling.
 
+## Market Rush + leaderboard
+The arcade trading game on `crossword.html` works the same way as the
+Surveys leaderboard above:
+
+- **Finishing a round** sends `type: "gameScore"` and lands in a **Game
+  Scores** tab (created automatically on first submission), with one row
+  per run: name, email, final portfolio value, and return %.
+- **The leaderboard** is read live with a `GET` request
+  (`?type=gameLeaderboard&seed=2026-10-13`) filtered to that day's price
+  path, so everyone on the leaderboard played the exact same market.
+  Same "Who has access: Anyone" requirement as the Surveys leaderboard.
+
+If you've already deployed the script from an earlier version of this
+file, redeploy it (**New deployment**, per "Updating the script later"
+above) so it picks up Market Rush handling.
+
 ## Feedback survey (/survey.html)
 A separate, untimed feedback form — not the leaderboard quizzes above.
 Edit its questions in `survey-feedback-data.js` (comments in that file

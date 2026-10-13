@@ -203,12 +203,60 @@
   .pz-foot{text-align:center; font-size:12.5px; color:#9AA3B0; margin-top:48px;}
   .pz-foot a{color:var(--navy-700);}
 
+  .gm-card{max-width:720px; margin:0 auto; background:var(--white); border-radius:32px; padding:36px; box-shadow:var(--shadow-soft); position:relative; overflow:hidden;}
+  .gm-start{text-align:center; padding:10px 0;}
+  .gm-start h2{font-size:28px; margin:8px 0 10px;}
+  .gm-start p{color:var(--graphite); max-width:46ch; margin:0 auto 22px; line-height:1.6;}
+  .gm-rules{display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:26px;}
+  .gm-rules div{font-family:var(--mono); font-size:12px; color:var(--graphite); background:var(--tint); padding:8px 14px; border-radius:999px;}
+
+  .gm-top{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:18px;}
+  .gm-stat{text-align:center; flex:1;}
+  .gm-stat b{display:block; font-family:var(--serif); font-size:20px; color:var(--navy-900); line-height:1.1;}
+  .gm-stat span{font-size:11px; color:var(--graphite); text-transform:uppercase; letter-spacing:.04em;}
+  .gm-price{text-align:center; margin-bottom:14px;}
+  .gm-price b{font-family:var(--serif); font-size:42px; color:var(--navy-900); transition:color .15s ease;}
+  .gm-price b.up{color:var(--green);}
+  .gm-price b.down{color:var(--red);}
+  .gm-price .delta{font-family:var(--mono); font-size:13px; margin-left:8px; color:var(--graphite);}
+  .gm-chart-wrap{background:#F6F5F1; border-radius:18px; padding:12px; margin-bottom:20px;}
+  .gm-chart{width:100%; height:160px; display:block;}
+  .gm-actions{display:flex; gap:14px; justify-content:center; margin-bottom:10px;}
+  .gm-btn{
+    flex:1; max-width:220px; font-family:var(--sans); font-weight:600; font-size:16px; padding:18px; border-radius:18px; border:none; cursor:pointer;
+    transition:transform .12s ease, opacity .2s ease;
+  }
+  .gm-btn:active:not(:disabled){transform:scale(.97);}
+  .gm-btn:disabled{opacity:.35; cursor:default;}
+  .gm-btn-buy{background:var(--green); color:var(--white);}
+  .gm-btn-sell{background:var(--red); color:var(--white);}
+  .gm-status{text-align:center; font-size:13px; color:var(--graphite); min-height:18px; margin-bottom:4px;}
+
+  .gm-result{text-align:center; padding:6px 0 4px;}
+  .gm-result .pct{font-family:var(--serif); font-size:52px; line-height:1;}
+  .gm-result .pct.pos{color:var(--green);}
+  .gm-result .pct.neg{color:var(--red);}
+  .gm-result-sub{color:var(--graphite); margin:10px 0 6px;}
+  .gm-compare{font-size:13.5px; color:var(--graphite); margin-bottom:22px;}
+  .gm-board{margin-top:40px; text-align:left;}
+  .gm-board h3{font-size:18px; margin-bottom:12px;}
+  .gm-board-table{background:#F6F5F1; border-radius:18px; overflow:hidden;}
+  .gm-row{display:flex; align-items:center; gap:14px; padding:11px 16px; font-size:13.5px;}
+  .gm-row + .gm-row{border-top:1px solid var(--hairline);}
+  .gm-row-head{font-family:var(--sans); font-size:11px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--graphite); background:var(--white);}
+  .gm-rank{width:22px; flex-shrink:0; font-family:var(--mono); font-weight:600; color:var(--brass);}
+  .gm-row-name{flex:1; min-width:0; font-weight:500; color:var(--navy-900); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .gm-row-metric{width:90px; flex-shrink:0; text-align:right; font-family:var(--mono); color:var(--navy-700);}
+  .gm-board-empty{padding:20px; text-align:center; color:var(--graphite); font-size:13.5px;}
+
   @media (max-width: 860px){
     .cw-board{grid-template-columns:minmax(0, 1fr);}
     .pz-intro h1{font-size:34px;}
     .cw-grid-card{padding:14px; border-radius:22px;}
     .tv-card{padding:26px 20px 24px; border-radius:26px;}
     .tv-q{font-size:20px;}
+    .gm-card{padding:24px 18px; border-radius:26px;}
+    .gm-price b{font-size:34px;}
   }
 </style>
 </head>
@@ -234,6 +282,7 @@
       <div class="seg" id="modeSeg">
         <button class="active" data-mode="crossword">Crossword</button>
         <button data-mode="trivia">Trivia</button>
+        <button data-mode="game">Market Rush</button>
         <span class="seg-ind"></span>
       </div>
       <label class="quick-toggle">
@@ -288,7 +337,18 @@
     </section>
 
     <section class="pz-panel" data-panel="trivia" style="padding:0;">
+      <div class="cw-toolbar" style="justify-content:center; margin-bottom:22px;">
+        <div class="seg seg-sm" id="tvDiffSeg">
+          <button class="active" data-diff="easy">Easy</button>
+          <button data-diff="hard">Hard</button>
+          <span class="seg-ind"></span>
+        </div>
+      </div>
       <div class="tv-card" id="tvCard"></div>
+    </section>
+
+    <section class="pz-panel" data-panel="game" style="padding:0;">
+      <div class="gm-card" id="gmCard"></div>
     </section>
 
     <p class="pz-foot">UVic Investment Group · <a href="/join.html">Get the Market Brief every two weeks</a></p>
@@ -453,7 +513,10 @@ function buildCrossword(entries, seed, maxSize){
 
 // ---------- Quick mode: roughly halves the crossword word list and trivia question count ----------
 let quickMode = false;
-function getQuestions(){ return quickMode ? PUZZLES.trivia.questions.slice(0, Math.ceil(PUZZLES.trivia.questions.length / 2)) : PUZZLES.trivia.questions; }
+function getQuestions(){
+  const qs = PUZZLES.trivia[tv.diff].questions;
+  return quickMode ? qs.slice(0, Math.ceil(qs.length / 2)) : qs;
+}
 
 // ---------- Score submission (reuses the Join form's Apps Script endpoint) ----------
 const SCORE_ENDPOINT = "https://script.google.com/macros/s/AKfycbxsShfaG-0EgMWCaKdl08aEyKDpgh8jrq8of2TwnrKG2Js0qdV7LcVr4fc9U1cy36B7zg/exec";
@@ -471,15 +534,16 @@ function scoreSubmitHTML(id){
     </div>`;
 }
 
-function wireScoreSubmit(container, payload){
+function wireScoreSubmit(container, payload, type){
   if (!container) return;
+  type = type || 'puzzleScore';
   const form = container.querySelector('.score-submit-form');
   const status = container.querySelector('[data-role="status"]');
   form.querySelector('[data-role="submit"]').addEventListener('click', () => {
     const name = form.querySelector('[data-role="name"]').value.trim();
     const email = form.querySelector('[data-role="email"]').value.trim();
     if (!name || !email){ status.textContent = 'Add your name and email to submit.'; return; }
-    const body = { type: 'puzzleScore', name, email, ...payload };
+    const body = { type, name, email, ...payload };
     if (SCORE_ENDPOINT.startsWith('REPLACE_WITH')) {
       console.warn('UVIG puzzles: SCORE_ENDPOINT is still a placeholder — score was not saved.', body);
     } else {
@@ -756,7 +820,7 @@ $('cwBannerSwitch').addEventListener('click', () => {
 $('cwBannerTrivia').addEventListener('click', () => setMode('trivia'));
 
 // ---------- Trivia ----------
-const tv = { i: 0, score: 0, answered: false };
+const tv = { i: 0, score: 0, answered: false, diff: 'easy' };
 let TQ = getQuestions();
 const KEYS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
@@ -830,10 +894,17 @@ function tvResult(){
   requestAnimationFrame(() => requestAnimationFrame(() => { $('tvBar').style.strokeDashoffset = C * (1 - pct); }));
   let n = 0; const numEl = $('tvScoreNum');
   const tick = setInterval(() => { if (n >= tv.score){ clearInterval(tick); return; } numEl.textContent = ++n; }, Math.max(60, 900 / Math.max(tv.score, 1)));
-  if (goodScore) wireScoreSubmit($('tvScoreSubmit'), { game: 'trivia', quickMode, score: `${tv.score}/${TQ.length}` });
+  if (goodScore) wireScoreSubmit($('tvScoreSubmit'), { game: 'trivia', difficulty: tv.diff, quickMode, score: `${tv.score}/${TQ.length}` });
   $('tvAgain').addEventListener('click', () => { TQ = getQuestions(); tv.i = 0; tv.score = 0; tvRender(true); });
   $('tvToCw').addEventListener('click', () => setMode('crossword'));
 }
+
+const tvDiffSeg = initSeg($('tvDiffSeg'), btn => {
+  tv.diff = btn.dataset.diff;
+  TQ = getQuestions();
+  tv.i = 0; tv.score = 0;
+  tvRender(true);
+});
 
 document.addEventListener('keydown', e => {
   if (document.querySelector('.pz-panel.active').dataset.panel !== 'trivia') return;
@@ -844,13 +915,217 @@ document.addEventListener('keydown', e => {
   else if (k === 'ENTER' && tv.answered && $('tvNext')){ e.preventDefault(); tvNext(); }
 });
 
+// ---------- Market Rush: arcade trading game ----------
+// Same price path for every visitor on a given day (seeded by date),
+// so the leaderboard is a fair comparison, not a lottery.
+const GM_ROUND_MS = 45000;
+const GM_TICKS = 130;
+const GM_INTERVAL = GM_ROUND_MS / (GM_TICKS - 1);
+const GM_START_CASH = 1000;
+
+function todaySeed(){ return new Date().toISOString().slice(0, 10); }
+
+function generatePricePath(seed, ticks){
+  const rng = mulberry32(hashString(seed));
+  const prices = [100];
+  for (let i = 1; i < ticks; i++){
+    let changePct = (rng() - 0.5) * 0.012;
+    if (rng() < 0.07) changePct += (rng() - 0.5) * 0.06; // occasional news jolt
+    const p = Math.max(5, prices[i - 1] * (1 + changePct));
+    prices.push(Number(p.toFixed(2)));
+  }
+  return prices;
+}
+
+const gm = { active: false, paused: false, i: 0, cash: GM_START_CASH, shares: 0, prices: [], timer: null, lastAction: '' };
+
+function gmRenderStart(){
+  $('gmCard').innerHTML = `
+    <div class="gm-start">
+      <span class="hero-eyebrow">ARCADE</span>
+      <h2>Market Rush</h2>
+      <p>You've got $1,000 and 45 seconds. The price moves every third of a second — buy when you think it'll rise, sell before it falls. Everyone plays today's same market, so it's a fair race to the top of the leaderboard.</p>
+      <div class="gm-rules">
+        <div>$1,000 starting cash</div>
+        <div>45 second round</div>
+        <div>All-in, all-out trades</div>
+      </div>
+      <button class="btn btn-primary" id="gmStart">Start round</button>
+    </div>`;
+  $('gmStart').addEventListener('click', gmStartRound);
+}
+
+function gmStartRound(){
+  clearInterval(gm.timer);
+  gm.active = true; gm.paused = false;
+  gm.i = 0; gm.cash = GM_START_CASH; gm.shares = 0; gm.lastAction = '';
+  gm.prices = generatePricePath('market-rush-' + todaySeed(), GM_TICKS);
+  gmRenderPlaying();
+  gm.timer = setInterval(gmTick, GM_INTERVAL);
+}
+
+function gmPortfolioValue(){
+  return gm.cash > 0 ? gm.cash : gm.shares * gm.prices[gm.i];
+}
+
+function gmRenderPlaying(){
+  $('gmCard').innerHTML = `
+    <div class="gm-top">
+      <div class="gm-stat"><b id="gmTimer">45s</b><span>Time left</span></div>
+      <div class="gm-stat"><b id="gmValue">$1,000.00</b><span>Portfolio</span></div>
+      <div class="gm-stat"><b id="gmHolding">Cash</b><span>Position</span></div>
+    </div>
+    <div class="gm-price"><b id="gmPrice">$100.00</b><span class="delta" id="gmDelta"></span></div>
+    <div class="gm-chart-wrap"><canvas class="gm-chart" id="gmChart"></canvas></div>
+    <div class="gm-actions">
+      <button class="gm-btn gm-btn-buy" id="gmBuy">Buy</button>
+      <button class="gm-btn gm-btn-sell" id="gmSell" disabled>Sell</button>
+    </div>
+    <p class="gm-status" id="gmStatus">Round started — good luck.</p>`;
+  $('gmBuy').addEventListener('click', () => gmTrade('buy'));
+  $('gmSell').addEventListener('click', () => gmTrade('sell'));
+  gmDrawChart();
+  gmUpdateHud();
+}
+
+function gmTrade(kind){
+  const price = gm.prices[gm.i];
+  if (kind === 'buy' && gm.cash > 0){
+    gm.shares = gm.cash / price; gm.cash = 0;
+    gm.lastAction = `Bought at $${price.toFixed(2)}`;
+  } else if (kind === 'sell' && gm.shares > 0){
+    gm.cash = gm.shares * price; gm.shares = 0;
+    gm.lastAction = `Sold at $${price.toFixed(2)}`;
+  } else return;
+  gmUpdateHud();
+}
+
+function gmUpdateHud(){
+  const price = gm.prices[gm.i];
+  $('gmPrice').textContent = '$' + price.toFixed(2);
+  $('gmValue').textContent = '$' + gmPortfolioValue().toFixed(2);
+  $('gmHolding').textContent = gm.cash > 0 ? 'Cash' : 'In the market';
+  $('gmStatus').textContent = gm.lastAction || 'Watching the price...';
+  $('gmBuy').disabled = gm.cash === 0;
+  $('gmSell').disabled = gm.shares === 0;
+  const remaining = Math.max(0, GM_ROUND_MS - gm.i * GM_INTERVAL);
+  $('gmTimer').textContent = Math.ceil(remaining / 1000) + 's';
+}
+
+function gmTick(){
+  const prevPrice = gm.prices[gm.i];
+  gm.i++;
+  if (gm.i >= gm.prices.length - 1){
+    clearInterval(gm.timer);
+    gm.active = false;
+    gmEndRound();
+    return;
+  }
+  const price = gm.prices[gm.i];
+  const dEl = $('gmDelta'), pEl = $('gmPrice');
+  const up = price > prevPrice;
+  pEl.classList.remove('up', 'down'); pEl.classList.add(up ? 'up' : 'down');
+  dEl.textContent = (up ? '▲ ' : '▼ ') + Math.abs(((price - prevPrice) / prevPrice) * 100).toFixed(2) + '%';
+  gmUpdateHud();
+  gmDrawChart();
+}
+
+function gmDrawChart(){
+  const canvas = $('gmChart');
+  if (!canvas) return;
+  const wrap = canvas.parentElement;
+  const w = wrap.clientWidth - 24, h = 160;
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = w * dpr; canvas.height = h * dpr;
+  canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, w, h);
+  const visible = gm.prices.slice(0, gm.i + 1);
+  if (visible.length < 2) return;
+  const min = Math.min(...visible), max = Math.max(...visible);
+  const pad = (max - min) * 0.1 || 1;
+  const lo = min - pad, hi = max + pad;
+  const x = idx => (idx / (gm.prices.length - 1)) * w;
+  const y = p => h - ((p - lo) / (hi - lo)) * h;
+  ctx.beginPath();
+  visible.forEach((p, idx) => { const px = x(idx), py = y(p); if (idx === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py); });
+  ctx.strokeStyle = '#163862'; ctx.lineWidth = 2.5; ctx.lineJoin = 'round'; ctx.stroke();
+  ctx.lineTo(x(visible.length - 1), h); ctx.lineTo(x(0), h); ctx.closePath();
+  ctx.fillStyle = 'rgba(22,56,98,0.08)'; ctx.fill();
+}
+window.addEventListener('resize', () => { if (gm.i > 0) gmDrawChart(); });
+
+function gmEndRound(){
+  const finalPrice = gm.prices[gm.prices.length - 1];
+  const finalValue = gm.cash > 0 ? gm.cash : gm.shares * finalPrice;
+  const returnPct = ((finalValue - GM_START_CASH) / GM_START_CASH) * 100;
+  const bhShares = GM_START_CASH / gm.prices[0];
+  const bhValue = bhShares * finalPrice;
+  const bhReturnPct = ((bhValue - GM_START_CASH) / GM_START_CASH) * 100;
+  const beat = returnPct > bhReturnPct;
+  $('gmCard').innerHTML = `
+    <div class="gm-result">
+      <span class="hero-eyebrow">ROUND OVER</span>
+      <div class="pct ${returnPct >= 0 ? 'pos' : 'neg'}">${returnPct >= 0 ? '+' : ''}${returnPct.toFixed(1)}%</div>
+      <p class="gm-result-sub">Final portfolio: $${finalValue.toFixed(2)}</p>
+      <p class="gm-compare">Buy-and-hold today returned ${bhReturnPct >= 0 ? '+' : ''}${bhReturnPct.toFixed(1)}% — you ${beat ? 'beat' : 'trailed'} it.</p>
+      <div class="actions" style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+        <button class="btn btn-primary" id="gmAgain">Play again</button>
+        <button class="btn btn-ghost" id="gmToCw">Try the crossword</button>
+      </div>
+      ${scoreSubmitHTML('gmScoreSubmit')}
+      <div class="gm-board">
+        <h3>Today's leaderboard</h3>
+        <div class="gm-board-table">
+          <div class="gm-row gm-row-head"><span class="gm-rank">#</span><span class="gm-row-name">Name</span><span class="gm-row-metric">Return</span></div>
+          <div id="gmBoardRows"><div class="gm-board-empty">Loading…</div></div>
+        </div>
+      </div>
+    </div>`;
+  wireScoreSubmit($('gmScoreSubmit'), { game: 'market-rush', seed: todaySeed(), finalValue: finalValue.toFixed(2), returnPct: returnPct.toFixed(2) }, 'gameScore');
+  $('gmAgain').addEventListener('click', gmStartRound);
+  $('gmToCw').addEventListener('click', () => setMode('crossword'));
+  gmLoadLeaderboard();
+}
+
+function gmLoadLeaderboard(){
+  const rowsEl = $('gmBoardRows');
+  if (!rowsEl) return;
+  if (SCORE_ENDPOINT.startsWith('REPLACE_WITH')){
+    rowsEl.innerHTML = `<div class="gm-board-empty">Leaderboard isn't connected yet.</div>`;
+    return;
+  }
+  fetch(`${SCORE_ENDPOINT}?type=gameLeaderboard&seed=${encodeURIComponent(todaySeed())}`)
+    .then(r => r.json())
+    .then(data => {
+      const rows = (data && data.leaderboard) || [];
+      if (!rows.length){ rowsEl.innerHTML = `<div class="gm-board-empty">No runs yet today — be the first.</div>`; return; }
+      rowsEl.innerHTML = rows.map((r, i) => `
+        <div class="gm-row">
+          <span class="gm-rank">${i + 1}</span>
+          <span class="gm-row-name">${r.name || 'Anonymous'}</span>
+          <span class="gm-row-metric">${Number(r.returnPct) >= 0 ? '+' : ''}${Number(r.returnPct).toFixed(1)}%</span>
+        </div>`).join('');
+    })
+    .catch(() => { rowsEl.innerHTML = `<div class="gm-board-empty">Leaderboard is temporarily unavailable.</div>`; });
+}
+
 // ---------- Mode switching. /crossword#trivia opens straight to trivia ----------
 const modeSeg = initSeg($('modeSeg'), btn => setMode(btn.dataset.mode, true));
 function setMode(mode, fromSeg){
   if (!fromSeg) modeSeg.select(b => b.dataset.mode === mode);
+  if (mode !== 'game' && gm.active){
+    clearInterval(gm.timer);
+    gm.active = false; gm.paused = true;
+  }
   document.querySelectorAll('.pz-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === mode));
-  history.replaceState(null, '', mode === 'trivia' ? '#trivia' : location.pathname);
+  const quickToggleEl = document.querySelector('.quick-toggle');
+  if (quickToggleEl) quickToggleEl.style.display = mode === 'game' ? 'none' : '';
+  history.replaceState(null, '', mode === 'trivia' ? '#trivia' : mode === 'game' ? '#game' : location.pathname);
   if (mode === 'crossword') sizeGrid();
+  if (mode === 'game' && gm.paused){ gm.paused = false; gmRenderStart(); }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -864,7 +1139,9 @@ $('quickToggle').addEventListener('change', e => {
 
 loadCrossword('easy');
 tvRender(false);
+gmRenderStart();
 if (location.hash === '#trivia') setMode('trivia');
+else if (location.hash === '#game') setMode('game');
 </script>
 </body>
 </html>
