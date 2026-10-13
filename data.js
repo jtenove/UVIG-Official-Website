@@ -33,7 +33,8 @@ const UVIG_UPCOMING = [
     partner: "UVic Girls That Invest",
     speakers: "5 wealth management professionals from Victoria",
     blurb: "Co-hosted with UVic Girls That Invest, this panel brings together five wealth management professionals from across Victoria's investment community to talk through how they built their careers, what the work actually looks like day to day, and how students can start building a path into the field. Open to all students, no finance background required.",
-    status: "confirmed"
+    status: "confirmed",
+    rsvpUrl: "wealth-management-event.html"
   },
   {
     id: "finance-social",

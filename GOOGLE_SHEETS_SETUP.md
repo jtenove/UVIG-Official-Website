@@ -111,6 +111,31 @@ If you've already deployed the script from an earlier version of this
 file, redeploy it (**New deployment**, per "Updating the script later"
 above) so it picks up feedback survey handling.
 
+## Wealth Management Panel RSVPs (/wealth-management-event.html)
+Submissions send `type: "wealthMgmtRSVP"` and land in a **Wealth
+Management RSVP** tab (created automatically on first submission):
+name, year/degree, whether they're a UVIG member, email (if not a
+member), whether they want to join, and what they'd like speakers to
+cover.
+
+The page has a small **"Admin access"** link at the bottom. Clicking
+it asks for a passcode, which is checked **in the Apps Script itself**
+(`WM_ADMIN_PASSCODE` near the top of `apps-script.gs`) — not in the
+page's source, so there's nothing to find by viewing the page. Only a
+correct passcode gets the response list and totals back. The default
+passcode is `managingdirector`; change `WM_ADMIN_PASSCODE` and
+redeploy any time you want to rotate it.
+
+**Worth knowing:** this is a convenience gate, not real authentication
+— anyone who knows (or guesses) the passcode can read the data, and
+there's no rate limiting on guesses. Don't use it for anything more
+sensitive than event RSVPs, and treat the passcode like a shared
+PIN, not a password.
+
+If you've already deployed the script from an earlier version of this
+file, redeploy it (**New deployment**, per "Updating the script later"
+above) so it picks up Wealth Management RSVP handling.
+
 ## Newsletter signups
 These go through your Google Form, which already writes to a Sheet
 natively (Responses tab → the green Sheets icon). No extra setup needed there.
