@@ -209,7 +209,7 @@ const $ = id => document.getElementById(id);
 const fmtTime = ms => { const s = Math.floor(ms / 1000); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
 
 // ---------- Score submission (reuses the same Apps Script endpoint as Join / Puzzles) ----------
-const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxsShfaG-0EgMWCaKdl08aEyKDpgh8jrq8of2TwnrKG2Js0qdV7LcVr4fc9U1cy36B7zg/exec";
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxO3zY5DaISzZnX_PHNxpT2aI_UtiROqAcmlSvmZ_YXzOSkYD2jw2CPPSBOSEKpHW9Auw/exec";
 
 const sv = { surveyId: 'newsletter', name: '', i: 0, answers: [], startTime: null, timer: null };
 
