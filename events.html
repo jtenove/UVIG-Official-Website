@@ -156,7 +156,10 @@
             <span><strong>Time:</strong>&nbsp;${ev.time}</span>
             <span><strong>Speakers:</strong>&nbsp;${ev.speakers}</span>
           </div>
-          ${renderCalDropdown(ev.id)}
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+            ${ev.rsvpUrl ? `<a href="${ev.rsvpUrl}" class="btn btn-primary" style="margin-top:14px;">RSVP</a>` : ''}
+            ${renderCalDropdown(ev.id)}
+          </div>
         </div>
         ${ev.flyer ? `<img class="event-flyer-thumb" src="${ev.flyer}" alt="${ev.title} flyer" loading="lazy">` : ''}
       </div>

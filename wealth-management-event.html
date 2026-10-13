@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wealth Management Panel RSVP — UVic Investment Group</title>
+<meta name="theme-color" content="#0A1F3D">
+<meta name="description" content="RSVP for the UVIG x Girls That Invest Wealth Management Panel.">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="UVIG">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .wm-banner{
+    background:var(--navy-900); color:var(--white); border-radius:var(--r-xl); padding:30px 32px; margin-bottom:24px;
+    position:relative; overflow:hidden;
+  }
+  .wm-banner::before{
+    content:""; position:absolute; width:300px; height:300px; border-radius:50%; top:-150px; right:-80px;
+    background:radial-gradient(circle, rgba(185,154,91,.3), transparent 70%);
+  }
+  .wm-banner-tag{position:relative; font-family:var(--sans); font-size:12px; font-weight:600; color:var(--brass); letter-spacing:.06em; display:block; margin-bottom:10px;}
+  .wm-banner h1{position:relative; color:var(--white); font-size:28px; margin-bottom:10px; line-height:1.25;}
+  .wm-banner p{position:relative; color:#C9D2E0; font-size:14.5px; line-height:1.6; max-width:60ch;}
+  .wm-banner-meta{position:relative; display:flex; gap:18px; flex-wrap:wrap; margin-top:16px; font-size:13.5px; color:#D7DEE8;}
+  .wm-banner-meta strong{color:var(--white);}
+
+  .wm-error{color:var(--red); font-size:12.5px; margin-top:8px; display:none;}
+  .wm-error.show{display:block;}
+
+  .wm-admin-link{text-align:center; margin-top:28px; font-size:12.5px;}
+  .wm-admin-link a{color:#9AA3B0;}
+  .wm-admin-link a:hover{color:var(--navy-700);}
+
+  .wm-admin-card{max-width:720px; margin:28px auto 0; background:var(--white); border-radius:28px; padding:30px; box-shadow:var(--shadow-soft);}
+  .wm-admin-totals{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:22px;}
+  .wm-admin-totals div{flex:1; min-width:120px; background:#F6F5F1; border-radius:14px; padding:14px 16px; text-align:center;}
+  .wm-admin-totals b{display:block; font-family:var(--serif); font-size:26px; color:var(--navy-900);}
+  .wm-admin-totals span{font-size:11.5px; color:var(--graphite); text-transform:uppercase; letter-spacing:.04em;}
+  .wm-admin-table{width:100%; border-collapse:collapse; font-size:13px;}
+  .wm-admin-table th, .wm-admin-table td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--hairline); vertical-align:top;}
+  .wm-admin-table th{font-family:var(--sans); font-size:11px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--graphite); background:#F6F5F1;}
+  .wm-admin-table-wrap{overflow-x:auto;}
+  .wm-pass-form{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:10px;}
+  .wm-pass-form input{
+    font-family:var(--sans); font-size:14px; padding:10px 14px; border-radius:999px; border:1.5px solid var(--hairline);
+    background:var(--white); color:var(--ink); min-width:180px;
+  }
+  .wm-pass-form input:focus{outline:none; border-color:var(--navy-700);}
+  .wm-admin-status{font-size:13px; color:var(--graphite); text-align:center; margin-top:10px;}
+</style>
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-inner wrap">
+      <a href="index.html" class="wordmark">UVic Investment Group <small>EST. 2015</small></a>
+      <a href="events.html" class="nav-link" style="font-size:14px;">← Back to events</a>
+    </div>
+  </header>
+
+  <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <div class="join-shell join-card">
+
+    <div class="wm-banner" id="wmBanner"></div>
+
+    <!-- Form -->
+    <div id="wmFormStep">
+      <h2>RSVP for this event</h2>
+      <p class="step-note">Takes less than a minute.</p>
+
+      <div class="field">
+        <label for="wmName">Full name</label>
+        <input type="text" id="wmName" placeholder="Your name">
+      </div>
+      <div class="field">
+        <label for="wmYear">Year / degree</label>
+        <input type="text" id="wmYear" placeholder="e.g. 2nd year, BCom">
+      </div>
+
+      <div class="field">
+        <label>Are you a UVIG member?</label>
+        <div class="choice-grid" id="wmMemberChoice">
+          <label class="choice-card"><input type="radio" name="wmMember" value="yes"><div><div class="choice-label">Yes</div></div></label>
+          <label class="choice-card"><input type="radio" name="wmMember" value="no"><div><div class="choice-label">No</div></div></label>
+        </div>
+      </div>
+
+      <div id="wmNonMemberFields" style="display:none;">
+        <div class="field">
+          <label for="wmEmail">Main email</label>
+          <input type="email" id="wmEmail" placeholder="you@example.com">
+        </div>
+        <label class="choice-card" style="margin-bottom:20px;">
+          <input type="checkbox" id="wmJoinInterest">
+          <div><div class="choice-label">Sign me up as a UVIG member too</div><div class="choice-sub">We'll follow up by email</div></div>
+        </label>
+      </div>
+
+      <div class="field">
+        <label for="wmTopics">What are some things you'd like speakers to talk about at this event?</label>
+        <textarea id="wmTopics" rows="4" placeholder="Your idea here" style="width:100%; font-family:var(--sans); font-size:14.5px; color:var(--ink); background:var(--white); border:1.5px solid var(--hairline); border-radius:14px; padding:12px 14px; resize:vertical;"></textarea>
+      </div>
+
+      <p class="wm-error" id="wmError">Please add your name and let us know if you're a member before submitting.</p>
+
+      <div class="quiz-nav" style="justify-content:flex-end;">
+        <button class="btn btn-primary" id="wmSubmitBtn">Submit RSVP</button>
+      </div>
+    </div>
+
+    <!-- Thank you -->
+    <div id="wmThanksStep" style="display:none;">
+      <div class="success-screen">
+        <div class="success-icon">✓</div>
+        <h2>You're on the list.</h2>
+        <p>Thanks for RSVPing — we'll see you there. Keep an eye on your email for any updates.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="wm-admin-link"><a href="#" id="wmAdminToggle">Admin access</a></p>
+  <div id="wmAdminArea"></div>
+
+<script src="data.js"></script>
+<script>
+  const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxsShfaG-0EgMWCaKdl08aEyKDpgh8jrq8of2TwnrKG2Js0qdV7LcVr4fc9U1cy36B7zg/exec";
+  const $ = id => document.getElementById(id);
+
+  // ---------- Event summary banner (pulled from data.js so it never drifts out of sync with events.html) ----------
+  const WM_EVENT = UVIG_UPCOMING.find(ev => ev.id === 'girls-that-invest-wealth-panel');
+  if (WM_EVENT) {
+    $('wmBanner').innerHTML = `
+      <span class="wm-banner-tag">${WM_EVENT.partner ? 'WITH ' + WM_EVENT.partner.toUpperCase() : 'UVIG EVENT'}</span>
+      <h1>${WM_EVENT.title}</h1>
+      <p>${WM_EVENT.blurb}</p>
+      <div class="wm-banner-meta">
+        <span><strong>${WM_EVENT.dateDisplay}, 2026</strong></span>
+        <span>${WM_EVENT.time}</span>
+        <span>${WM_EVENT.venue}</span>
+      </div>
+    `;
+  }
+
+  // ---------- Member / non-member branching ----------
+  document.querySelectorAll('#wmMemberChoice input').forEach(input => {
+    input.addEventListener('change', () => {
+      document.querySelectorAll('#wmMemberChoice .choice-card').forEach(c => c.classList.toggle('selected', c.querySelector('input').checked));
+      const noChecked = document.querySelector('#wmMemberChoice input[value="no"]').checked;
+      $('wmNonMemberFields').style.display = noChecked ? '' : 'none';
+    });
+  });
+
+  // ---------- Local backup (guaranteed, this-device-only safety net) ----------
+  const WM_BACKUP_KEY = 'uvig_wealth_rsvp_responses';
+  function wmSaveLocalBackup(payload){
+    try {
+      const existing = JSON.parse(localStorage.getItem(WM_BACKUP_KEY) || '[]');
+      existing.push({ savedAt: new Date().toISOString(), ...payload });
+      localStorage.setItem(WM_BACKUP_KEY, JSON.stringify(existing));
+    } catch (err) { console.error('UVIG wealth RSVP: local backup failed', err); }
+  }
+  function wmLoadLocalBackup(){
+    try { return JSON.parse(localStorage.getItem(WM_BACKUP_KEY) || '[]'); }
+    catch { return []; }
+  }
+
+  // ---------- Submit ----------
+  $('wmSubmitBtn').addEventListener('click', () => {
+    const name = $('wmName').value.trim();
+    const yearDegree = $('wmYear').value.trim();
+    const memberInput = document.querySelector('#wmMemberChoice input:checked');
+    const isMember = memberInput ? memberInput.value === 'yes' : null;
+    const email = $('wmEmail').value.trim();
+    const joinInterest = $('wmJoinInterest').checked;
+    const topics = $('wmTopics').value.trim();
+
+    if (!name || isMember === null || (isMember === false && !email)) {
+      $('wmError').classList.add('show');
+      return;
+    }
+    $('wmError').classList.remove('show');
+
+    const payload = { name, yearDegree, isMember, email, joinInterest, topics };
+    wmSaveLocalBackup(payload);
+
+    if (SHEET_ENDPOINT.startsWith('REPLACE_WITH')) {
+      console.warn('UVIG wealth RSVP: SHEET_ENDPOINT is still a placeholder — response was not saved.', payload);
+    } else {
+      fetch(SHEET_ENDPOINT, {
+        method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ type: 'wealthMgmtRSVP', ...payload })
+      }).catch(err => console.error('UVIG wealth RSVP: submission failed', err));
+    }
+
+    $('wmFormStep').style.display = 'none';
+    $('wmThanksStep').style.display = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ---------- Admin access (passcode checked server-side only — nothing to see in this file) ----------
+  $('wmAdminToggle').addEventListener('click', (e) => {
+    e.preventDefault();
+    $('wmAdminArea').innerHTML = `
+      <div class="wm-admin-card">
+        <h3 style="margin-bottom:10px;">Admin access</h3>
+        <p class="step-note" style="margin-bottom:0;">Enter the passcode to view all responses.</p>
+        <div class="wm-pass-form">
+          <input type="password" id="wmPasscode" placeholder="Passcode">
+          <button class="btn btn-primary" id="wmPasscodeSubmit" type="button">View responses</button>
+        </div>
+        <p class="wm-admin-status" id="wmAdminStatus"></p>
+      </div>
+    `;
+    $('wmAdminToggle').style.display = 'none';
+    $('wmPasscodeSubmit').addEventListener('click', wmCheckPasscode);
+    $('wmPasscode').addEventListener('keydown', ev => { if (ev.key === 'Enter') wmCheckPasscode(); });
+    $('wmPasscode').focus();
+  });
+
+  function wmCheckPasscode(){
+    const pass = $('wmPasscode').value;
+    const status = $('wmAdminStatus');
+    status.textContent = 'Checking…';
+    if (SHEET_ENDPOINT.startsWith('REPLACE_WITH')) {
+      status.textContent = "Backend isn't connected yet.";
+      return;
+    }
+    fetch(`${SHEET_ENDPOINT}?type=wealthMgmtAdmin&passcode=${encodeURIComponent(pass)}`)
+      .then(r => r.json())
+      .then(data => {
+        if (!data || data.status !== 'ok') { status.textContent = 'Incorrect passcode.'; return; }
+        wmRenderAdmin(data.responses || [], data.totals || {});
+      })
+      .catch(() => { status.textContent = "Couldn't reach the backend — try again in a moment."; });
+  }
+
+  function wmRenderAdmin(responses, totals){
+    const local = wmLoadLocalBackup();
+    const rowsHtml = responses.length
+      ? responses.map(r => `
+        <tr>
+          <td>${r['Timestamp'] || ''}</td>
+          <td>${r['Name'] || ''}</td>
+          <td>${r['Year / Degree'] || ''}</td>
+          <td>${r['UVIG Member'] || ''}</td>
+          <td>${r['Email'] || ''}</td>
+          <td>${r['Wants to Join'] || ''}</td>
+          <td>${r['Topics'] || ''}</td>
+        </tr>`).join('')
+      : `<tr><td colspan="7" style="text-align:center; color:var(--graphite);">No responses yet.</td></tr>`;
+
+    $('wmAdminArea').innerHTML = `
+      <div class="wm-admin-card">
+        <h3 style="margin-bottom:18px;">All responses</h3>
+        <div class="wm-admin-totals">
+          <div><b>${totals.total ?? responses.length}</b><span>Total RSVPs</span></div>
+          <div><b>${totals.members ?? '—'}</b><span>Members</span></div>
+          <div><b>${totals.nonMembers ?? '—'}</b><span>Non-members</span></div>
+          <div><b>${totals.joinInterest ?? '—'}</b><span>Want to join</span></div>
+        </div>
+        <div class="wm-admin-table-wrap">
+          <table class="wm-admin-table">
+            <thead><tr><th>Time</th><th>Name</th><th>Year / Degree</th><th>Member</th><th>Email</th><th>Join?</th><th>Topics</th></tr></thead>
+            <tbody>${rowsHtml}</tbody>
+          </table>
+        </div>
+        ${local.length ? `<p class="wm-admin-status" style="margin-top:16px;">${local.length} response${local.length === 1 ? '' : 's'} also saved as a local backup on this device — <a href="#" id="wmBackupDownload" style="color:var(--navy-700);">download as CSV</a>.</p>` : ''}
+      </div>
+    `;
+    const dl = $('wmBackupDownload');
+    if (dl) dl.addEventListener('click', (e) => { e.preventDefault(); wmDownloadBackupCSV(local); });
+  }
+
+  function wmDownloadBackupCSV(rows){
+    if (!rows.length) return;
+    const header = ['Saved At', 'Name', 'Year / Degree', 'UVIG Member', 'Email', 'Wants to Join', 'Topics'];
+    const csvRows = rows.map(r => [
+      r.savedAt, r.name || '', r.yearDegree || '', r.isMember ? 'Yes' : 'No', r.email || '', r.joinInterest ? 'Yes' : 'No', r.topics || ''
+    ].map(c => `"${String(c).replace(/"/g, '""')}"`).join(','));
+    const csv = [header.map(h => `"${h}"`).join(','), ...csvRows].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'wealth-management-rsvp-local-backup.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+</script>
+</body>
+</html>
