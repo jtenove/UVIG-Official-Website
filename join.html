@@ -36,14 +36,14 @@
     <!-- Step 0: Intro -->
     <div class="quiz-step active" data-step="0">
       <span class="hero-eyebrow">MEMBERSHIP</span>
-      <h2>Join UVic Investment Group</h2>
-      <p class="step-note">Welcome to any UVic student interested in learning more about careers in capital markets and investing. We provide events, workshops and resources to help build relevant skills and connect students with industry professionals. Our membership takes one minute to join and is zero commitment.</p>
+      <h2 data-content="join.intro.title">Join UVic Investment Group</h2>
+      <p class="step-note" data-content="join.intro.body">Welcome to any UVic student interested in learning more about careers in capital markets and investing. We provide events, workshops and resources to help build relevant skills and connect students with industry professionals. Our membership takes one minute to join and is zero commitment.</p>
       <div class="quiz-perks">
-        <h4>What you get as a member</h4>
+        <h4 data-content="join.perks.title">What you get as a member</h4>
         <ul>
-          <li>The bi-weekly newsletter covering markets and events, internships and trivia.</li>
-          <li>Full access to our Brightspace resource library: equity reports, modeling guides, and interview prep</li>
-          <li>First access to speaker series, panels and social events.</li>
+          <li data-content="join.perks.item1">The bi-weekly newsletter covering markets and events, internships and trivia.</li>
+          <li data-content="join.perks.item2">Full access to our Brightspace resource library: equity reports, modeling guides, and interview prep</li>
+          <li data-content="join.perks.item3">First access to speaker series, panels and social events.</li>
         </ul>
         <p class="field-note" style="font-size:12px; color:var(--graphite); margin-top:10px;">Becoming a member is zero commitment.</p>
       </div>
@@ -141,7 +141,11 @@
   </div>
 
 <script src="data.js"></script>
+<script src="supabase-config.js"></script>
+<script src="content-loader.js"></script>
 <script>
+// Runs once content saved from /admin is loaded (see content-loader.js).
+UVIG_READY(function () {
   // ============================================================
   // Google Sheet backend
   // Replace this with your deployed Apps Script Web App URL.
@@ -245,6 +249,7 @@
       showStep(4);
     }, 450);
   });
+});
 </script>
 </body>
 </html>

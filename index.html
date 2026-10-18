@@ -40,15 +40,15 @@
 
   <!-- Hero Carousel — 2 landscape slides -->
   <section class="hero-carousel" id="heroCarousel">
-    <div class="hero-slide active parallax-bg" style="background-image:url('photo-vancouver-dusk.jpg');" data-slide="0"></div>
-    <div class="hero-slide parallax-bg" style="background-image:url('photo-forest-dusk.jpg');" data-slide="1"></div>
+    <div class="hero-slide active parallax-bg" data-content-bg="home.hero.slide1" style="background-image:url('photo-vancouver-dusk.jpg');" data-slide="0"></div>
+    <div class="hero-slide parallax-bg" data-content-bg="home.hero.slide2" style="background-image:url('photo-forest-dusk.jpg');" data-slide="1"></div>
 
     <div class="hero-carousel-content hero-carousel-content-center">
-      <h1>UVic Investment Group</h1>
-      <span class="hero-est">EST. 2015</span>
+      <h1 data-content="home.hero.title">UVic Investment Group</h1>
+      <span class="hero-est" data-content="home.hero.subtitle">EST. 2015</span>
       <div class="hero-actions">
-        <a href="events.html" class="btn btn-primary">Explore Events</a>
-        <a href="join.html" class="btn btn-ghost">Become a member</a>
+        <a href="events.html" class="btn btn-primary" data-content="home.hero.button1">Explore Events</a>
+        <a href="join.html" class="btn btn-ghost" data-content="home.hero.button2">Become a member</a>
       </div>
     </div>
 
@@ -58,7 +58,7 @@
   <section>
     <div class="wrap">
       <div class="section-head reveal">
-        <h2>Upcoming Events</h2>
+        <h2 data-content="home.events.heading">Upcoming Events</h2>
         <span class="section-note"><a href="events.html" style="color:inherit; text-decoration:none;">View all →</a></span>
       </div>
       <div class="event-poster-banner reveal" id="eventPosterBanner"></div>
@@ -69,7 +69,7 @@
   <section id="reports">
     <div class="wrap">
       <div class="section-head reveal">
-        <h2>Featured Research</h2>
+        <h2 data-content="home.research.heading">Featured Research</h2>
         <span class="section-note"><a href="research.html" style="color:inherit; text-decoration:none;">View all →</a></span>
       </div>
       <div class="fr-carousel reveal">
@@ -87,11 +87,11 @@
 
   <!-- Banner: More than a club -->
   <section style="padding:0;">
-    <div class="split-banner parallax-bg" style="background-image:url('photo-bridging-dusk.jpg');">
+    <div class="split-banner parallax-bg" data-content-bg="home.banner.image" style="background-image:url('photo-bridging-dusk.jpg');">
       <div class="split-banner-inner">
         <div class="split-banner-text reveal">
-          <h2>Bridging the gap between academics and industry.</h2>
-          <p>Connecting UVic students to a community through direct relationships with industry professionals.</p>
+          <h2 data-content="home.banner.title">Bridging the gap between academics and industry.</h2>
+          <p data-content="home.banner.body">Connecting UVic students to a community through direct relationships with industry professionals.</p>
           <div class="split-banner-actions">
             <a href="team.html" class="btn btn-primary">Explore UVIG</a>
             <a href="join.html" class="btn btn-ghost">Join the Group</a>
@@ -113,47 +113,47 @@
     <div class="wrap">
       <div class="about-wrap reveal">
         <div class="about-text">
-          <h2>What is UVIG?</h2>
-          <p>The University of Victoria Investment Group is a student-run organization focused on developing investment knowledge, connecting students with the financial industry, and creating a community of likeminded students.</p>
+          <h2 data-content="home.about.title">What is UVIG?</h2>
+          <p data-content="home.about.body">The University of Victoria Investment Group is a student-run organization focused on developing investment knowledge, connecting students with the financial industry, and creating a community of likeminded students.</p>
         </div>
         <div class="about-stats-inline">
           <div class="stat">
-            <div class="num" data-counter="130" data-counter-suffix="+">0</div>
-            <div class="label">Members</div>
+            <div class="num" data-content-counter="home.stats.members" data-counter="130" data-counter-suffix="+">0</div>
+            <div class="label" data-content="home.stats.membersLabel">Members</div>
           </div>
           <div class="stat">
-            <div class="num" data-counter="14">0</div>
-            <div class="label">Research Reports</div>
+            <div class="num" data-content-counter="home.stats.reports" data-counter="14">0</div>
+            <div class="label" data-content="home.stats.reportsLabel">Research Reports</div>
           </div>
           <div class="stat">
-            <div class="num" data-counter="25" data-counter-suffix="+">0</div>
-            <div class="label">Industry Professionals Hosted</div>
+            <div class="num" data-content-counter="home.stats.professionals" data-counter="25" data-counter-suffix="+">0</div>
+            <div class="label" data-content="home.stats.professionalsLabel">Industry Professionals Hosted</div>
           </div>
         </div>
       </div>
 
       <div class="feature-photo-grid reveal stagger">
         <div class="feature-photo-card tilt-card">
-          <div class="fp-frame"><div class="fp-image" style="background-image:url('photo-longship-1.jpg');"></div></div>
+          <div class="fp-frame"><div class="fp-image" data-content-bg="home.card1.image" style="background-image:url('photo-longship-1.jpg');"></div></div>
           <div class="fp-body">
-            <h3>Meet the industry.</h3>
-            <p>We host monthly flagship panels, technical workshops, and networking socials that bridge UVic students directly with capital markets professionals, connecting members with leaders across asset management, wealth management, venture capital, and investment banking.</p>
+            <h3 data-content="home.card1.title">Meet the industry.</h3>
+            <p data-content="home.card1.body">We host monthly flagship panels, technical workshops, and networking socials that bridge UVic students directly with capital markets professionals, connecting members with leaders across asset management, wealth management, venture capital, and investment banking.</p>
             <a href="events.html" class="read-link">View events →</a>
           </div>
         </div>
         <div class="feature-photo-card tilt-card">
-          <div class="fp-frame"><div class="fp-image" style="background-image:url('photo-css-lunch-1.jpg');"></div></div>
+          <div class="fp-frame"><div class="fp-image" data-content-bg="home.card2.image" style="background-image:url('photo-css-lunch-1.jpg');"></div></div>
           <div class="fp-body">
-            <h3>Think like an analyst.</h3>
-            <p>UVIG has developed a Brightspace repository featuring 40+ institutional-level resources: sector-specific equity reports, financial modeling guides, M&amp;A and LBO walkthroughs, firm-specific interview prep, and Wall Street Oasis technical toolkits designed for internship placement.</p>
+            <h3 data-content="home.card2.title">Think like an analyst.</h3>
+            <p data-content="home.card2.body">UVIG has developed a Brightspace repository featuring 40+ institutional-level resources: sector-specific equity reports, financial modeling guides, M&amp;A and LBO walkthroughs, firm-specific interview prep, and Wall Street Oasis technical toolkits designed for internship placement.</p>
             <a href="research.html" class="read-link">Explore research →</a>
           </div>
         </div>
         <div class="feature-photo-card tilt-card">
-          <div class="fp-frame"><div class="fp-image" style="background-image:url('photo-finance-social-1.jpg');"></div></div>
+          <div class="fp-frame"><div class="fp-image" data-content-bg="home.card3.image" style="background-image:url('photo-finance-social-1.jpg');"></div></div>
           <div class="fp-body">
-            <h3>Build your career.</h3>
-            <p>Join a network of students spanning 1st to 4th year, participating in monthly social events, portfolio challenges, mentorship, and access to our bi-weekly newsletter and resource library.</p>
+            <h3 data-content="home.card3.title">Build your career.</h3>
+            <p data-content="home.card3.body">Join a network of students spanning 1st to 4th year, participating in monthly social events, portfolio challenges, mentorship, and access to our bi-weekly newsletter and resource library.</p>
             <a href="join.html" class="read-link">Join UVIG →</a>
           </div>
         </div>
@@ -165,25 +165,25 @@
   <section style="padding-top:0;">
     <div class="wrap">
       <div class="section-head reveal" style="border-bottom:none; margin-bottom:0;">
-        <h2>Three Ways to Get Involved</h2>
+        <h2 data-content="home.involved.heading">Three Ways to Get Involved</h2>
       </div>
       <div class="involved-grid reveal stagger">
         <a href="events.html" class="involved-card tilt-card">
-          <div class="ic-frame"><div class="ic-image" style="background-image:url('photo-mckinnon-building.jpg');"></div></div>
-          <h3>Attend an Event</h3>
-          <p>Speaker series, workshops, and networking.</p>
+          <div class="ic-frame"><div class="ic-image" data-content-bg="home.involved1.image" style="background-image:url('photo-mckinnon-building.jpg');"></div></div>
+          <h3 data-content="home.involved1.title">Attend an Event</h3>
+          <p data-content="home.involved1.body">Speaker series, workshops, and networking.</p>
         </a>
         <a href="research.html" class="involved-card tilt-card">
           <div class="ic-frame"><div class="ic-image ic-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
           </div></div>
-          <h3>Read Our Research</h3>
-          <p>Equity research, sector reports, and market insights.</p>
+          <h3 data-content="home.involved2.title">Read Our Research</h3>
+          <p data-content="home.involved2.body">Equity research, sector reports, and market insights.</p>
         </a>
         <a href="newsletter.html" class="involved-card tilt-card">
-          <div class="ic-frame"><div class="ic-image" style="background-image:url('photo-newspaper-business.jpg');"></div></div>
-          <h3>Join the Newsletter</h3>
-          <p>Be part of a driven and supportive network.</p>
+          <div class="ic-frame"><div class="ic-image" data-content-bg="home.involved3.image" style="background-image:url('photo-newspaper-business.jpg');"></div></div>
+          <h3 data-content="home.involved3.title">Join the Newsletter</h3>
+          <p data-content="home.involved3.body">Be part of a driven and supportive network.</p>
         </a>
       </div>
     </div>
@@ -194,9 +194,9 @@
     <div class="wrap">
       <div class="nl-promo-inner">
         <div class="nl-promo-text">
-          <span class="hero-eyebrow">Stay in the loop</span>
-          <h2>The UVIG Market Brief</h2>
-          <p>A bi-weekly email with economic trend analysis, our latest equity research, recruitment timelines, upcoming events, and weekly puzzles.</p>
+          <span class="hero-eyebrow" data-content="home.newsletter.eyebrow">Stay in the loop</span>
+          <h2 data-content="home.newsletter.title">The UVIG Market Brief</h2>
+          <p data-content="home.newsletter.body">A bi-weekly email with economic trend analysis, our latest equity research, recruitment timelines, upcoming events, and weekly puzzles.</p>
           <div class="nl-promo-actions">
             <a href="join.html" class="btn btn-primary">Subscribe now</a>
             <a href="newsletter.html" class="btn btn-ghost">See what's inside</a>
@@ -222,9 +222,9 @@
           </div>
         </div>
         <div class="pp-text">
-          <span class="hero-eyebrow">NEW EVERY WEEK</span>
-          <h2>Weekly Puzzles</h2>
-          <p>An investment crossword and a round of market trivia, refreshed every week from the Market Brief. Flip on Quick Mode for a shorter round, and submit your score if you post a good one.</p>
+          <span class="hero-eyebrow" data-content="home.puzzles.eyebrow">NEW EVERY WEEK</span>
+          <h2 data-content="home.puzzles.title">Weekly Puzzles</h2>
+          <p data-content="home.puzzles.body">An investment crossword and a round of market trivia, refreshed every week from the Market Brief. Flip on Quick Mode for a shorter round, and submit your score if you post a good one.</p>
           <div class="pp-actions">
             <a href="crossword.html" class="btn btn-primary">Play this week's crossword</a>
             <a href="crossword.html#trivia" class="btn btn-ghost">Try the trivia →</a>
@@ -240,7 +240,7 @@
       <div class="footer-grid">
         <div>
           <div class="footer-word">UVic Investment Group</div>
-          <p>A student-run investment club at the University of Victoria.</p>
+          <p data-content="footer.tagline">A student-run investment club at the University of Victoria.</p>
           <div class="footer-social">
             <a href="https://www.instagram.com/uvicinvestmentgroup/" target="_blank" rel="noopener" aria-label="Instagram">
               <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.97.24 2.43.4a4.9 4.9 0 0 1 1.77 1.15 4.9 4.9 0 0 1 1.15 1.77c.16.46.35 1.26.4 2.43.07 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.24 1.97-.4 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.46.16-1.26.35-2.43.4-1.25.07-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.97-.24-2.43-.4a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.16-.46-.35-1.26-.4-2.43C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.24-1.97.4-2.43A4.9 4.9 0 0 1 3.82 3 4.9 4.9 0 0 1 5.6 1.85c.46-.16 1.26-.35 2.43-.4C9.28 1.38 9.68 1.38 12 1.38V2.2zm0 3.15a6.65 6.65 0 1 0 0 13.3 6.65 6.65 0 0 0 0-13.3zm0 10.97a4.32 4.32 0 1 1 0-8.64 4.32 4.32 0 0 1 0 8.64zm6.9-11.2a1.55 1.55 0 1 1-3.1 0 1.55 1.55 0 0 1 3.1 0z"/></svg>
@@ -275,15 +275,19 @@
         </div>
       </div>
       <div class="footer-bottom wrap" style="padding-left:0;padding-right:0;">
-        <span>© 2026 UVic Investment Group. Student-run, not affiliated with UVic's official investment funds.</span>
+        <span data-content="footer.copyright">© 2026 UVic Investment Group. Student-run, not affiliated with UVic's official investment funds.</span>
         <span>Built by students, for a brighter tomorrow.</span>
       </div>
     </div>
   </footer>
 
 <script src="data.js"></script>
+<script src="supabase-config.js"></script>
+<script src="content-loader.js"></script>
 <script src="script.js"></script>
 <script>
+// Runs once content saved from /admin is loaded (see content-loader.js).
+UVIG_READY(function () {
   // ---- Hero carousel (3 slides, auto-cycles only, no manual controls) ----
   (function(){
     const slides = document.querySelectorAll('.hero-slide');
@@ -328,6 +332,7 @@
       </div>
     `;
   })();
+});
 </script>
 </body>
 </html>

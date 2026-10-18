@@ -129,7 +129,11 @@
   <div id="wmAdminArea"></div>
 
 <script src="data.js"></script>
+<script src="supabase-config.js"></script>
+<script src="content-loader.js"></script>
 <script>
+// Runs once content saved from /admin is loaded (see content-loader.js).
+UVIG_READY(function () {
   // Dedicated Apps Script deployment for this form only — see
   // apps-script-wealth-management.gs. Not the shared site endpoint.
   const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbwrrPwYXVRyGyk5j3n2mIE1bTHp7y-3lCqxzmfkW9stQz8xJR0sX-TiMx_paFnNgB4K/exec";
@@ -294,6 +298,7 @@
     a.click();
     URL.revokeObjectURL(a.href);
   }
+});
 </script>
 </body>
 </html>

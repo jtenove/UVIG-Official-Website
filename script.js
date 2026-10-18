@@ -154,8 +154,10 @@ function downloadICS(ev) {
    cards from data.js) has finished loading, so dynamically drawn
    cards get the same effects. Each piece is a no-op on pages
    without matching elements.
+   Waits for content-loader.js (content saved from /admin) so the
+   effects attach to the final, rendered cards.
    ============================================================ */
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => (window.UVIG_READY || (fn => fn()))(function () {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ---- 1. Reveal on scroll, both directions. Elements with .stagger animate their children one by one. ----
@@ -361,4 +363,4 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', request, { passive: true });
     window.addEventListener('resize', request);
   })();
-});
+}));

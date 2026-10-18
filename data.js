@@ -1,8 +1,9 @@
 /* ============================================================
    UVIG SITE CONTENT
-   Edit this file to update events or team info across the whole
-   site — index.html, events.html and team.html all read from here.
-   No HTML editing required for routine updates.
+   The built-in content for events, research, team and more.
+   Day-to-day edits happen at /admin (see ADMIN_SETUP.md); anything
+   saved there replaces the matching list below on page load.
+   This file is the fallback and what "Reset to original" restores.
    ============================================================ */
 
 // ---------- UPCOMING EVENTS (2026/27 season) ----------

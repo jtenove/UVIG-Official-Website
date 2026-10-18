@@ -357,7 +357,11 @@
   <div class="cw-toast" id="cwToast"></div>
 
 <script src="/puzzles-data.js"></script>
+<script src="/supabase-config.js"></script>
+<script src="/content-loader.js"></script>
 <script>
+// Runs once content saved from /admin is loaded (see content-loader.js).
+UVIG_READY(function () {
 // ---------- Pill segmented controls with a sliding indicator ----------
 function initSeg(el, onChange){
   const ind = el.querySelector('.seg-ind');
@@ -1142,6 +1146,7 @@ tvRender(false);
 gmRenderStart();
 if (location.hash === '#trivia') setMode('trivia');
 else if (location.hash === '#game') setMode('game');
+});
 </script>
 </body>
 </html>
