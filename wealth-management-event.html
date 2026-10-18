@@ -247,18 +247,21 @@ UVIG_READY(function () {
       .catch(() => { status.textContent = "Couldn't reach the backend — try again in a moment."; });
   }
 
+  // Responses are whatever people typed, so escape them before they go into the table.
+  const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
   function wmRenderAdmin(responses, totals){
     const local = wmLoadLocalBackup();
     const rowsHtml = responses.length
       ? responses.map(r => `
         <tr>
-          <td>${r['Timestamp'] || ''}</td>
-          <td>${r['Name'] || ''}</td>
-          <td>${r['Year / Degree'] || ''}</td>
-          <td>${r['UVIG Member'] || ''}</td>
-          <td>${r['Email'] || ''}</td>
-          <td>${r['Wants to Join'] || ''}</td>
-          <td>${r['Topics'] || ''}</td>
+          <td>${esc(r['Timestamp'])}</td>
+          <td>${esc(r['Name'])}</td>
+          <td>${esc(r['Year / Degree'])}</td>
+          <td>${esc(r['UVIG Member'])}</td>
+          <td>${esc(r['Email'])}</td>
+          <td>${esc(r['Wants to Join'])}</td>
+          <td>${esc(r['Topics'])}</td>
         </tr>`).join('')
       : `<tr><td colspan="7" style="text-align:center; color:var(--graphite);">No responses yet.</td></tr>`;
 
@@ -266,10 +269,10 @@ UVIG_READY(function () {
       <div class="wm-admin-card">
         <h3 style="margin-bottom:18px;">All responses</h3>
         <div class="wm-admin-totals">
-          <div><b>${totals.total ?? responses.length}</b><span>Total RSVPs</span></div>
-          <div><b>${totals.members ?? '—'}</b><span>Members</span></div>
-          <div><b>${totals.nonMembers ?? '—'}</b><span>Non-members</span></div>
-          <div><b>${totals.joinInterest ?? '—'}</b><span>Want to join</span></div>
+          <div><b>${esc(totals.total ?? responses.length)}</b><span>Total RSVPs</span></div>
+          <div><b>${esc(totals.members ?? '—')}</b><span>Members</span></div>
+          <div><b>${esc(totals.nonMembers ?? '—')}</b><span>Non-members</span></div>
+          <div><b>${esc(totals.joinInterest ?? '—')}</b><span>Want to join</span></div>
         </div>
         <div class="wm-admin-table-wrap">
           <table class="wm-admin-table">
