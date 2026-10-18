@@ -39,11 +39,11 @@
   <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
 
   <section class="page-hero page-hero-photo">
-    <div class="page-hero-bg parallax-bg" style="background-image:url('photo-newspaper-business.jpg');"></div>
+    <div class="page-hero-bg parallax-bg" data-content-bg="newsletter.hero.image" style="background-image:url('photo-newspaper-business.jpg');"></div>
     <div class="wrap">
-      <span class="hero-eyebrow">THE UVIG MARKET BRIEF</span>
-      <h1>What's in the newsletter</h1>
-      <p class="lede">A short, bi-weekly email analyzing economic trends and summarizing our latest industry research. Built for students, not portfolio managers.</p>
+      <span class="hero-eyebrow" data-content="newsletter.hero.eyebrow">THE UVIG MARKET BRIEF</span>
+      <h1 data-content="newsletter.hero.title">What's in the newsletter</h1>
+      <p class="lede" data-content="newsletter.hero.lede">A short, bi-weekly email analyzing economic trends and summarizing our latest industry research. Built for students, not portfolio managers.</p>
     </div>
   </section>
 
@@ -53,30 +53,30 @@
       <div class="brief-block">
         <div class="brief-num">01</div>
         <div>
-          <h3>Market Pulse</h3>
-          <p>A plain-language recap of the two weeks in markets: rates, major indices, and the economic data that moved them.</p>
+          <h3 data-content="newsletter.block1.title">Market Pulse</h3>
+          <p data-content="newsletter.block1.body">A plain-language recap of the two weeks in markets: rates, major indices, and the economic data that moved them.</p>
         </div>
       </div>
       <div class="brief-block">
         <div class="brief-num">02</div>
         <div>
-          <h3>Sector Spotlight</h3>
-          <p>The key takeaway from our research team's latest industry report, condensed into a few minutes of reading.</p>
+          <h3 data-content="newsletter.block2.title">Sector Spotlight</h3>
+          <p data-content="newsletter.block2.body">The key takeaway from our research team's latest industry report, condensed into a few minutes of reading.</p>
         </div>
       </div>
       <div class="brief-block">
         <div class="brief-num">03</div>
         <div>
-          <h3>Club Digest</h3>
-          <p>Stay informed on upcoming events, crucial recruitment timelines, and the latest partnership news. Plus, discover exactly how to get involved with UVIG this semester.</p>
+          <h3 data-content="newsletter.block3.title">Club Digest</h3>
+          <p data-content="newsletter.block3.body">Stay informed on upcoming events, crucial recruitment timelines, and the latest partnership news. Plus, discover exactly how to get involved with UVIG this semester.</p>
         </div>
       </div>
 
       </div>
 
       <div class="nl-cta-box reveal">
-        <h2>Get it in your inbox every two weeks</h2>
-        <p>No spam, unsubscribe anytime.</p>
+        <h2 data-content="newsletter.cta.title">Get it in your inbox every two weeks</h2>
+        <p data-content="newsletter.cta.body">No spam, unsubscribe anytime.</p>
         <a href="join.html" class="btn btn-primary">Join UVIG to subscribe</a>
       </div>
     </div>
@@ -87,7 +87,7 @@
       <div class="footer-grid">
         <div>
           <div class="footer-word">UVic Investment Group</div>
-          <p>A student-run investment club at the University of Victoria.</p>
+          <p data-content="footer.tagline">A student-run investment club at the University of Victoria.</p>
           <div class="footer-social">
             <a href="https://www.instagram.com/uvicinvestmentgroup/" target="_blank" rel="noopener" aria-label="Instagram">
               <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.97.24 2.43.4a4.9 4.9 0 0 1 1.77 1.15 4.9 4.9 0 0 1 1.15 1.77c.16.46.35 1.26.4 2.43.07 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.24 1.97-.4 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.46.16-1.26.35-2.43.4-1.25.07-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.97-.24-2.43-.4a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.16-.46-.35-1.26-.4-2.43C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.24-1.97.4-2.43A4.9 4.9 0 0 1 3.82 3 4.9 4.9 0 0 1 5.6 1.85c.46-.16 1.26-.35 2.43-.4C9.28 1.38 9.68 1.38 12 1.38V2.2zm0 3.15a6.65 6.65 0 1 0 0 13.3 6.65 6.65 0 0 0 0-13.3zm0 10.97a4.32 4.32 0 1 1 0-8.64 4.32 4.32 0 0 1 0 8.64zm6.9-11.2a1.55 1.55 0 1 1-3.1 0 1.55 1.55 0 0 1 3.1 0z"/></svg>
@@ -122,12 +122,14 @@
         </div>
       </div>
       <div class="footer-bottom wrap" style="padding-left:0;padding-right:0;">
-        <span>© 2026 UVic Investment Group. Student-run, not affiliated with UVic's official investment funds.</span>
+        <span data-content="footer.copyright">© 2026 UVic Investment Group. Student-run, not affiliated with UVic's official investment funds.</span>
         <span>University of Victoria</span>
       </div>
     </div>
   </footer>
 <script src="data.js"></script>
+<script src="supabase-config.js"></script>
+<script src="content-loader.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

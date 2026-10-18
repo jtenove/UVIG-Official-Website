@@ -1,6 +1,38 @@
 {
   "rewrites": [
-    { "source": "/crossword", "destination": "/crossword.html" },
-    { "source": "/crossword/", "destination": "/crossword.html" }
+    {
+      "source": "/crossword",
+      "destination": "/crossword.html"
+    },
+    {
+      "source": "/crossword/",
+      "destination": "/crossword.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/admin(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/admin/",
+      "destination": "/admin",
+      "permanent": false
+    }
   ]
 }

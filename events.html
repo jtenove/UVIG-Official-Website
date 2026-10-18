@@ -39,19 +39,19 @@
   <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
 
   <section class="page-hero page-hero-photo">
-    <div class="page-hero-bg parallax-bg" style="background-image:url('photo-longship-2.jpg');"></div>
+    <div class="page-hero-bg parallax-bg" data-content-bg="events.hero.image" style="background-image:url('photo-longship-2.jpg');"></div>
     <div class="wrap">
-      <span class="hero-eyebrow">SPEAKERS, PANELS &amp; SOCIALS</span>
-      <h1>Events</h1>
-      <p class="lede">Everything happening this season, plus a look back at the panels, workshops and socials that came before it.</p>
+      <span class="hero-eyebrow" data-content="events.hero.eyebrow">SPEAKERS, PANELS &amp; SOCIALS</span>
+      <h1 data-content="events.hero.title">Events</h1>
+      <p class="lede" data-content="events.hero.lede">Everything happening this season, plus a look back at the panels, workshops and socials that came before it.</p>
     </div>
   </section>
 
   <section id="upcoming">
     <div class="wrap">
       <div class="section-head reveal">
-        <h2>This season</h2>
-        <span class="section-note">2026 / 27</span>
+        <h2 data-content="events.upcoming.heading">This season</h2>
+        <span class="section-note" data-content="events.upcoming.note">2026 / 27</span>
       </div>
       <div id="upcomingList" class="reveal stagger"></div>
     </div>
@@ -60,8 +60,8 @@
   <section id="past" style="padding-top:0;">
     <div class="wrap">
       <div class="section-head reveal">
-        <h2>Past events</h2>
-        <span class="section-note">A LOOK BACK</span>
+        <h2 data-content="events.past.heading">Past events</h2>
+        <span class="section-note" data-content="events.past.note">A LOOK BACK</span>
       </div>
       <div class="past-grid reveal stagger" id="pastGrid"></div>
     </div>
@@ -70,8 +70,8 @@
   <section id="firms" style="padding-top:0;">
     <div class="wrap">
       <div class="section-head reveal">
-        <h2>Who we've hosted</h2>
-        <span class="section-note">FIRMS &amp; SPEAKERS FROM PAST EVENTS</span>
+        <h2 data-content="events.hosted.heading">Who we've hosted</h2>
+        <span class="section-note" data-content="events.hosted.note">FIRMS &amp; SPEAKERS FROM PAST EVENTS</span>
       </div>
     </div>
     <div class="firms-marquee" aria-hidden="true">
@@ -87,7 +87,7 @@
       <div class="footer-grid">
         <div>
           <div class="footer-word">UVic Investment Group</div>
-          <p>A student-run investment club at the University of Victoria.</p>
+          <p data-content="footer.tagline">A student-run investment club at the University of Victoria.</p>
           <div class="footer-social">
             <a href="https://www.instagram.com/uvicinvestmentgroup/" target="_blank" rel="noopener" aria-label="Instagram">
               <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.97.24 2.43.4a4.9 4.9 0 0 1 1.77 1.15 4.9 4.9 0 0 1 1.15 1.77c.16.46.35 1.26.4 2.43.07 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.24 1.97-.4 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.46.16-1.26.35-2.43.4-1.25.07-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.97-.24-2.43-.4a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.16-.46-.35-1.26-.4-2.43C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.24-1.97.4-2.43A4.9 4.9 0 0 1 3.82 3 4.9 4.9 0 0 1 5.6 1.85c.46-.16 1.26-.35 2.43-.4C9.28 1.38 9.68 1.38 12 1.38V2.2zm0 3.15a6.65 6.65 0 1 0 0 13.3 6.65 6.65 0 0 0 0-13.3zm0 10.97a4.32 4.32 0 1 1 0-8.64 4.32 4.32 0 0 1 0 8.64zm6.9-11.2a1.55 1.55 0 1 1-3.1 0 1.55 1.55 0 0 1 3.1 0z"/></svg>
@@ -122,14 +122,18 @@
         </div>
       </div>
       <div class="footer-bottom wrap" style="padding-left:0;padding-right:0;">
-        <span>© 2026 UVic Investment Group. Student-run, not affiliated with UVic's official investment funds.</span>
+        <span data-content="footer.copyright">© 2026 UVic Investment Group. Student-run, not affiliated with UVic's official investment funds.</span>
         <span>University of Victoria</span>
       </div>
     </div>
   </footer>
 <script src="data.js"></script>
+<script src="supabase-config.js"></script>
+<script src="content-loader.js"></script>
 <script src="script.js"></script>
 <script>
+// Runs once content saved from /admin is loaded (see content-loader.js).
+UVIG_READY(function () {
   // ---- Upcoming events (confirmed and not yet happened) ----
   const upcomingList = document.getElementById('upcomingList');
   const todayISO = new Date().toISOString().slice(0, 10);
@@ -237,6 +241,7 @@
     const target = document.getElementById(location.hash.slice(1));
     if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'center' }), 150);
   }
+});
 </script>
 </body>
 </html>

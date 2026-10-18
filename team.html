@@ -39,11 +39,11 @@
   <div class="ambient" aria-hidden="true"><span></span><span></span><span></span></div>
 
   <section class="page-hero page-hero-photo">
-    <div class="page-hero-bg parallax-bg" style="background-image:url('photo-finance-social-2.jpg');"></div>
+    <div class="page-hero-bg parallax-bg" data-content-bg="team.hero.image" style="background-image:url('photo-finance-social-2.jpg');"></div>
     <div class="wrap">
-      <span class="hero-eyebrow">2026 / 27 LEADERSHIP</span>
-      <h1>Our team</h1>
-      <p class="lede">UVIG is run entirely by students, across research, external relations, and club operations.</p>
+      <span class="hero-eyebrow" data-content="team.hero.eyebrow">2026 / 27 LEADERSHIP</span>
+      <h1 data-content="team.hero.title">Our team</h1>
+      <p class="lede" data-content="team.hero.lede">UVIG is run entirely by students, across research, external relations, and club operations.</p>
     </div>
   </section>
 
@@ -60,24 +60,24 @@
       </div>
 
       <div class="team-panel active" data-panel="board" id="board">
-        <p class="team-desc">UVIG's Board of Directors provides governance, mentorship, and continuity for the club, drawing on the experience of alumni and industry professionals to guide long-term strategy.</p>
+        <p class="team-desc" data-content="team.board.description">UVIG's Board of Directors provides governance, mentorship, and continuity for the club, drawing on the experience of alumni and industry professionals to guide long-term strategy.</p>
         <div class="team-grid team-grid-board" id="boardGrid"></div>
       </div>
       <div class="team-panel" data-panel="external" id="external">
-        <p class="team-desc">The External team runs UVIG's public-facing programming: speaker events, partnerships, marketing, and club relations, connecting members directly with industry professionals.</p>
+        <p class="team-desc" data-content="team.external.description">The External team runs UVIG's public-facing programming: speaker events, partnerships, marketing, and club relations, connecting members directly with industry professionals.</p>
         <div id="externalFeatured"></div>
         <div class="team-grid" id="externalGrid"></div>
       </div>
       <div class="team-panel" data-panel="internal" id="internal">
-        <p class="team-desc">The Internal team leads UVIG's research function: publishing sector reports, training analysts, and maintaining the club's equity research pipeline.</p>
+        <p class="team-desc" data-content="team.internal.description">The Internal team leads UVIG's research function: publishing sector reports, training analysts, and maintaining the club's equity research pipeline.</p>
         <div id="internalFeatured"></div>
         <div class="team-grid" id="internalGrid"></div>
       </div>
       <div class="team-panel" data-panel="members" id="members">
-        <p class="team-desc">UVIG's members are the club itself: a broad, active community across every year and faculty.</p>
+        <p class="team-desc" data-content="team.members.description">UVIG's members are the club itself: a broad, active community across every year and faculty.</p>
         <div class="members-copy">
-          <p>Beyond the executive team, UVIG is 130+ members strong across every year and faculty: analysts contributing to equity reports, delegates preparing for case competitions, and students who come out for the speaker series and socials.</p>
-          <p>There's no prerequisite finance background to join. Members choose their level of involvement, from attending events to publishing research.</p>
+          <p data-content="team.members.paragraph1">Beyond the executive team, UVIG is 130+ members strong across every year and faculty: analysts contributing to equity reports, delegates preparing for case competitions, and students who come out for the speaker series and socials.</p>
+          <p data-content="team.members.paragraph2">There's no prerequisite finance background to join. Members choose their level of involvement, from attending events to publishing research.</p>
         </div>
         <a href="join.html" class="btn btn-primary" style="margin-top:8px;">Become a member</a>
       </div>
@@ -89,7 +89,7 @@
       <div class="footer-grid">
         <div>
           <div class="footer-word">UVic Investment Group</div>
-          <p>A student-run investment club at the University of Victoria.</p>
+          <p data-content="footer.tagline">A student-run investment club at the University of Victoria.</p>
           <div class="footer-social">
             <a href="https://www.instagram.com/uvicinvestmentgroup/" target="_blank" rel="noopener" aria-label="Instagram">
               <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.97.24 2.43.4a4.9 4.9 0 0 1 1.77 1.15 4.9 4.9 0 0 1 1.15 1.77c.16.46.35 1.26.4 2.43.07 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.24 1.97-.4 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.46.16-1.26.35-2.43.4-1.25.07-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.97-.24-2.43-.4a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.16-.46-.35-1.26-.4-2.43C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.24-1.97.4-2.43A4.9 4.9 0 0 1 3.82 3 4.9 4.9 0 0 1 5.6 1.85c.46-.16 1.26-.35 2.43-.4C9.28 1.38 9.68 1.38 12 1.38V2.2zm0 3.15a6.65 6.65 0 1 0 0 13.3 6.65 6.65 0 0 0 0-13.3zm0 10.97a4.32 4.32 0 1 1 0-8.64 4.32 4.32 0 0 1 0 8.64zm6.9-11.2a1.55 1.55 0 1 1-3.1 0 1.55 1.55 0 0 1 3.1 0z"/></svg>
@@ -124,14 +124,18 @@
         </div>
       </div>
       <div class="footer-bottom wrap" style="padding-left:0;padding-right:0;">
-        <span>© 2026 UVic Investment Group. Student-run, not affiliated with UVic's official investment funds.</span>
+        <span data-content="footer.copyright">© 2026 UVic Investment Group. Student-run, not affiliated with UVic's official investment funds.</span>
         <span>University of Victoria</span>
       </div>
     </div>
   </footer>
 <script src="data.js"></script>
+<script src="supabase-config.js"></script>
+<script src="content-loader.js"></script>
 <script src="script.js"></script>
 <script>
+// Runs once content saved from /admin is loaded (see content-loader.js).
+UVIG_READY(function () {
   function initials(name){
     return name.split(',')[0].split(' ').filter(Boolean).slice(0,2).map(w => w[0]).join('');
   }
@@ -209,6 +213,7 @@
   tabs.forEach(t => t.classList.toggle('active', t.dataset.panel === validPanel));
   requestAnimationFrame(() => moveIndicator([...tabs].find(t => t.dataset.panel === validPanel)));
   window.addEventListener('resize', () => moveIndicator([...tabs].find(t => t.classList.contains('active'))));
+});
 </script>
 </body>
 </html>
