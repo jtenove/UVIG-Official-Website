@@ -213,7 +213,7 @@
             { name: 'speakers', label: 'Speakers', type: 'text', required: true, wide: true },
             { name: 'blurb', label: 'Description', type: 'textarea', required: true, wide: true },
             { name: 'flyer', label: 'Flyer image (optional)', type: 'image', wide: true },
-            { name: 'rsvpUrl', label: 'RSVP link (optional)', type: 'text', wide: true, placeholder: 'wealth-management-event.html or https://…', hint: 'Adds an RSVP button next to “Add to calendar”.' },
+            { name: 'rsvpUrl', label: 'RSVP link (optional)', type: 'text', wide: true, placeholder: 'https://forms.gle/…', hint: 'Adds an RSVP button next to “Add to calendar”.' },
             { name: 'id', label: 'Link ID', type: 'text', mono: true, wide: true, required: true, hint: 'Used in links like events.html#this-id. Fills in from the title; changing it breaks old links.' }
           ] } } },
 

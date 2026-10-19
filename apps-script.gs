@@ -20,21 +20,10 @@
  *    tab. The game reads this same endpoint back with a GET request
  *    (?type=gameLeaderboard&seed=...) to show today's best returns —
  *    see doGet below.
- *  - Wealth Management Panel RSVPs (wealth-management-event.html),
- *    sent with { type: "wealthMgmtRSVP", ... }, append to the
- *    "Wealth Management RSVP" tab. The page's own "Admin access" link
- *    reads this same endpoint back with a GET request
- *    (?type=wealthMgmtAdmin&passcode=...) to show every response plus
- *    totals — the passcode is checked here, server-side, not in the
- *    page's source. Change WM_ADMIN_PASSCODE below to update it.
  *
  * Setup steps are in GOOGLE_SHEETS_SETUP.md — this file only
  * needs to be pasted into the Apps Script editor as-is.
  */
-
-// Passcode for the Wealth Management RSVP admin view. Change this and
-// redeploy any time you want to rotate it.
-var WM_ADMIN_PASSCODE = "managingdirector";
 
 function doPost(e) {
   var data = JSON.parse(e.postData.contents);
@@ -51,9 +40,6 @@ function doPost(e) {
   if (data.type === "gameScore") {
     return handleGameScore(data);
   }
-  if (data.type === "wealthMgmtRSVP") {
-    return handleWealthMgmtRSVP(data);
-  }
   return handleMemberSignup(data);
 }
 
@@ -64,9 +50,6 @@ function doGet(e) {
   }
   if (type === "gameLeaderboard") {
     return handleGameLeaderboard(e.parameter.seed || "");
-  }
-  if (type === "wealthMgmtAdmin") {
-    return handleWealthMgmtAdmin(e.parameter.passcode || "");
   }
   return ContentService
     .createTextOutput(JSON.stringify({ status: "error", message: "Unknown request" }))
@@ -248,67 +231,6 @@ function handleGameLeaderboard(seed) {
 
   return ContentService
     .createTextOutput(JSON.stringify({ status: "ok", leaderboard: rows.slice(0, 10) }))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-function handleWealthMgmtRSVP(data) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Wealth Management RSVP");
-
-  if (!sheet) {
-    sheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet("Wealth Management RSVP");
-    sheet.appendRow(["Timestamp", "Name", "Year / Degree", "UVIG Member", "Email", "Wants to Join", "Topics"]);
-  }
-
-  sheet.appendRow([
-    new Date(),
-    data.name || "",
-    data.yearDegree || "",
-    data.isMember ? "Yes" : "No",
-    data.email || "",
-    data.joinInterest ? "Yes" : "No",
-    data.topics || ""
-  ]);
-
-  return ContentService
-    .createTextOutput(JSON.stringify({ status: "ok" }))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-// Admin view for the Wealth Management RSVP list. The passcode is
-// checked here — if it's wrong, no response data is included at all,
-// so there's nothing for a visitor to find just by reading the page.
-function handleWealthMgmtAdmin(passcode) {
-  if (passcode !== WM_ADMIN_PASSCODE) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: "error", message: "Invalid passcode" }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Wealth Management RSVP");
-  var rows = [];
-
-  if (sheet) {
-    var values = sheet.getDataRange().getValues();
-    var headers = values[0] || [];
-    for (var i = 1; i < values.length; i++) {
-      var row = {};
-      for (var c = 0; c < headers.length; c++) {
-        var v = values[i][c];
-        row[headers[c]] = (v instanceof Date) ? v.toLocaleString() : v;
-      }
-      rows.push(row);
-    }
-  }
-
-  var totals = {
-    total: rows.length,
-    members: rows.filter(function (r) { return r["UVIG Member"] === "Yes"; }).length,
-    nonMembers: rows.filter(function (r) { return r["UVIG Member"] === "No"; }).length,
-    joinInterest: rows.filter(function (r) { return r["Wants to Join"] === "Yes"; }).length
-  };
-
-  return ContentService
-    .createTextOutput(JSON.stringify({ status: "ok", responses: rows, totals: totals }))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
