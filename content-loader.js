@@ -35,7 +35,7 @@
   };
 
   // Fields holding a link or file path rather than display text.
-  var URL_FIELDS = { flyer: 1, cover: 1, pdf: 1, rsvpUrl: 1, photos: 1, image: 1, url: 1, href: 1 };
+  var URL_FIELDS = { flyer: 1, venuePhoto: 1, cover: 1, pdf: 1, rsvpUrl: 1, photos: 1, image: 1, url: 1, href: 1 };
 
   // Pages build HTML from these values with template strings, so
   // neutralize the few characters that could turn text into markup.

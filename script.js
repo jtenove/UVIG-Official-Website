@@ -66,6 +66,41 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+/* ---- Venue with optional room photo ----
+   If an event has a venuePhoto, the venue becomes a button that opens
+   the photo in a lightbox (see the click handler below). */
+function renderVenue(ev) {
+  const venue = ev.venue || '';
+  if (!ev.venuePhoto) return venue;
+  const attr = s => String(s).replace(/"/g, '&quot;');
+  return `<button type="button" class="venue-link" data-venue-photo="${attr(ev.venuePhoto)}" data-venue-name="${attr(venue)}" aria-haspopup="dialog">${venue}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></button>`;
+}
+
+function openVenueLightbox(src, name) {
+  closeVenueLightbox();
+  const box = document.createElement('div');
+  box.className = 'venue-lightbox';
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-modal', 'true');
+  box.setAttribute('aria-label', name || 'Event room');
+  box.innerHTML = '<div class="venue-lightbox-inner"><button type="button" class="venue-lightbox-close" aria-label="Close">&times;</button><img alt=""><div class="venue-lightbox-cap"></div></div>';
+  box.querySelector('img').src = src;
+  box.querySelector('img').alt = name ? 'Photo of ' + name : 'Photo of the event room';
+  box.querySelector('.venue-lightbox-cap').textContent = name || '';
+  box.addEventListener('click', e => { if (e.target === box || e.target.closest('.venue-lightbox-close')) closeVenueLightbox(); });
+  document.body.appendChild(box);
+  requestAnimationFrame(() => box.classList.add('show'));
+  box.querySelector('.venue-lightbox-close').focus();
+}
+function closeVenueLightbox() {
+  document.querySelectorAll('.venue-lightbox').forEach(b => b.remove());
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVenueLightbox(); });
+document.addEventListener('click', e => {
+  const link = e.target.closest('.venue-link');
+  if (link) openVenueLightbox(link.dataset.venuePhoto, link.dataset.venueName);
+});
+
 /* ---- Calendar helpers ----
    Events with a "TBD" time default to 12:00 PM / 2-hour duration so a
    calendar entry can still be created — the description flags that the
