@@ -1259,3 +1259,17 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
   nav.primary-nav a.nav-link{border-bottom-color:#EEF0F3;}
   nav.primary-nav a.nav-link::after{display:none;}
 }
+
+/* Venue with room photo: looks like text, signals it's clickable */
+.venue-link{display:inline-flex; align-items:center; gap:6px; background:none; border:0; padding:0; font:inherit; color:inherit; cursor:pointer; text-decoration:underline; text-decoration-color:var(--brass); text-underline-offset:3px; text-decoration-thickness:1.5px;}
+.venue-link svg{width:15px; height:15px; flex:none; color:var(--brass);}
+.venue-link:hover{color:var(--navy-900); text-decoration-color:var(--navy-700);}
+.venue-link:focus-visible{outline:2px solid var(--navy-600); outline-offset:3px; border-radius:4px;}
+.venue-lightbox{position:fixed; inset:0; z-index:1000; background:rgba(10,31,61,.78); display:flex; align-items:center; justify-content:center; padding:20px; opacity:0; transition:opacity .2s var(--ease);}
+.venue-lightbox.show{opacity:1;}
+.venue-lightbox-inner{position:relative; max-width:min(960px,100%); max-height:100%; display:flex; flex-direction:column; gap:10px; transform:scale(.97); transition:transform .2s var(--ease);}
+.venue-lightbox.show .venue-lightbox-inner{transform:none;}
+.venue-lightbox img{display:block; max-width:100%; max-height:calc(100vh - 110px); border-radius:14px; box-shadow:0 30px 80px rgba(0,0,0,.45); object-fit:contain; background:#000;}
+.venue-lightbox-cap{color:#fff; font-size:14px; text-align:center;}
+.venue-lightbox-close{position:absolute; top:-14px; right:-14px; width:36px; height:36px; border-radius:50%; border:0; background:#fff; color:var(--navy-900); font-size:22px; line-height:1; cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,.3);}
+@media (max-width:640px){ .venue-lightbox-close{top:-10px; right:-6px;} }

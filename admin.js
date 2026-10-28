@@ -209,6 +209,7 @@
             { name: 'dateDisplay', label: 'Date as shown', type: 'text', required: true, hint: 'Fills in from the date. Change it for things like “Oct 27 & Feb 24”.' },
             { name: 'time', label: 'Time', type: 'text', required: true, placeholder: '6:00 PM', hint: 'Use a format like 6:00 PM so “Add to calendar” works. TBD is fine.' },
             { name: 'venue', label: 'Venue', type: 'text', required: true },
+            { name: 'venuePhoto', label: 'Room photo (optional)', type: 'image', wide: true, hint: 'Makes the venue clickable on the site so people can see the room.' },
             { name: 'partner', label: 'Co-host / partner', type: 'text', required: true, hint: 'Use TBD if there’s no partner.' },
             { name: 'speakers', label: 'Speakers', type: 'text', required: true, wide: true },
             { name: 'blurb', label: 'Description', type: 'textarea', required: true, wide: true },

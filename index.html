@@ -323,7 +323,7 @@ UVIG_READY(function () {
         <div class="event-poster-meta">
           <span><strong>${confirmed.dateDisplay}, 2026</strong></span>
           <span>${confirmed.time}</span>
-          <span>${confirmed.venue}</span>
+          <span>${renderVenue(confirmed)}</span>
         </div>
         <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
           ${confirmed.rsvpUrl ? `<a href="${confirmed.rsvpUrl}" class="btn btn-primary">RSVP</a>` : `<a href="events.html" class="btn btn-primary">View Events</a>`}
