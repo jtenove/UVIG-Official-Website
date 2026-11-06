@@ -33,6 +33,16 @@
       "source": "/admin/",
       "destination": "/admin",
       "permanent": false
+    },
+    {
+      "source": "/newsletter",
+      "destination": "/#investors-club",
+      "permanent": false
+    },
+    {
+      "source": "/newsletter.html",
+      "destination": "/#investors-club",
+      "permanent": false
     }
   ]
 }
