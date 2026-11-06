@@ -4,8 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Weekly Puzzles | UVic Investment Group</title>
-<meta name="theme-color" content="#0A1F3D">
 <meta name="description" content="UVIG's weekly investment crossword and market trivia.">
+<link rel="canonical" href="https://www.uvicinvestmentgroup.com/crossword.html">
+<link rel="icon" type="image/png" href="/icon-192.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="UVic Investment Group">
+<meta property="og:title" content="Weekly Puzzles | UVic Investment Group">
+<meta property="og:description" content="UVIG's weekly investment crossword and market trivia.">
+<meta property="og:url" content="https://www.uvicinvestmentgroup.com/crossword.html">
+<meta property="og:image" content="https://www.uvicinvestmentgroup.com/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0A1F3D">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,6 +99,24 @@
     border-radius:999px; padding:4px 10px; letter-spacing:.02em;
   }
   .cw-current-clue .txt{font-size:14.5px; color:var(--ink); line-height:1.4;}
+
+  /* On-screen keyboard for touch devices: precise, no native keyboard covering the grid */
+  .cw-kb{display:none;}
+  body.cw-touchkb .cw-kb{
+    display:block; position:sticky; bottom:8px; z-index:6; margin:16px -8px -8px; padding:10px 8px 12px;
+    background:rgba(255,255,255,.97); backdrop-filter:blur(8px); border-radius:20px; box-shadow:0 -6px 30px rgba(10,31,61,.18);
+  }
+  .cw-kb-clue{display:flex; gap:10px; align-items:center; padding:2px 6px 10px; font-size:13.5px; line-height:1.35; color:var(--ink);}
+  .cw-kb-clue .num{flex-shrink:0; font-size:12px; font-weight:600; color:var(--white); background:var(--navy-900); border-radius:999px; padding:3px 9px;}
+  .cw-kb-row{display:flex; gap:5px; justify-content:center; margin-top:6px;}
+  .cw-kb-key{
+    flex:1 1 0; max-width:36px; height:46px; border:0; border-radius:10px; background:#EEF1F5; color:var(--navy-900);
+    font:600 16px var(--sans); cursor:pointer; touch-action:manipulation; padding:0;
+  }
+  .cw-kb-key:active{background:#DDE3EB; transform:scale(.96);}
+  .cw-kb-key.wide{max-width:none; flex:1.5 1 0; font-size:13px;}
+  .cw-kb-key.dark{background:var(--navy-900); color:var(--white);}
+  body.cw-touchkb .cw-cell{scroll-margin-bottom:290px; scroll-margin-top:120px;}
   .cw-grid-area{width:100%; min-width:0; display:flex; justify-content:center;}
   .cw-grid{display:grid; gap:var(--gap, 5px); grid-template-columns:repeat(var(--cols, 11), var(--cell, 40px));}
   .cw-cell{
@@ -322,6 +349,7 @@
         <div class="cw-grid-card">
           <div class="cw-current-clue"><span class="num" id="cwCurNum">1A</span><span class="txt" id="cwCurTxt"></span></div>
           <div class="cw-grid-area" id="cwGridArea"><div class="cw-grid" id="cwGrid"></div></div>
+          <div class="cw-kb" id="cwKb" aria-label="Crossword keyboard"></div>
         </div>
         <div class="cw-clues">
           <div class="cw-clue-group">
@@ -600,6 +628,42 @@ function loadCrossword(diff){
   cw.dir = first.dir; select(first.cellsRef[0][0], first.cellsRef[0][1], false);
 }
 
+// ---------- On-screen keyboard (touch devices only) ----------
+const TOUCH_KB = window.matchMedia('(pointer:coarse)').matches;
+function buildKeyboard(){
+  const kb = $('cwKb');
+  if (!TOUCH_KB || !kb) return;
+  document.body.classList.add('cw-touchkb');
+  kb.innerHTML = '<div class="cw-kb-clue"><span class="num" id="cwKbNum"></span><span id="cwKbTxt"></span></div>';
+  const row = (keys, extra) => {
+    const r = document.createElement('div'); r.className = 'cw-kb-row';
+    keys.forEach(k => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'cw-kb-key' + (k.cls ? ' ' + k.cls : ''); b.textContent = k.label; b.dataset.key = k.key;
+      b.setAttribute('aria-label', k.aria || k.label);
+      r.appendChild(b);
+    });
+    kb.appendChild(r);
+  };
+  const L = s => s.split('').map(c => ({ label: c, key: c }));
+  row(L('QWERTYUIOP'));
+  row(L('ASDFGHJKL'));
+  row([{ label: '\u21C5', key: 'DIR', cls: 'wide', aria: 'Switch between across and down' }, ...L('ZXCVBNM'), { label: '\u232B', key: 'BACK', cls: 'wide', aria: 'Delete' }]);
+  row([{ label: 'Next clue', key: 'NEXT', cls: 'wide dark' }]);
+  const press = key => {
+    if (cw.solved || !cw.sel) return;
+    const [r, c] = cw.sel;
+    if (key === 'BACK'){
+      if (cw.cells[r][c].val) setLetter(r, c, '');
+      else { step(-1); setLetter(cw.sel[0], cw.sel[1], ''); }
+    } else if (key === 'NEXT') jumpWord(1);
+    else if (key === 'DIR'){ if (wordAt(r, c, cw.dir === 'A' ? 'D' : 'A')){ cw.dir = cw.dir === 'A' ? 'D' : 'A'; highlight(); } }
+    else typeLetter(r, c, key);
+  };
+  kb.addEventListener('mousedown', e => e.preventDefault());
+  kb.addEventListener('click', e => { const b = e.target.closest('.cw-kb-key'); if (b) press(b.dataset.key); });
+}
+
 function renderGrid(){
   const grid = $('cwGrid');
   grid.classList.remove('solved');
@@ -615,7 +679,7 @@ function renderGrid(){
       if (cell.num){ const s = document.createElement('span'); s.className = 'cw-number'; s.textContent = cell.num; el.appendChild(s); }
       const inp = document.createElement('input');
       inp.className = 'cw-input'; inp.maxLength = 2; inp.autocomplete = 'off'; inp.autocapitalize = 'characters';
-      inp.spellcheck = false; inp.setAttribute('aria-label', 'Row ' + (r+1) + ' column ' + (c+1));
+      inp.spellcheck = false; if (TOUCH_KB) inp.setAttribute('inputmode', 'none'); inp.setAttribute('aria-label', 'Row ' + (r+1) + ' column ' + (c+1));
       inp.addEventListener('mousedown', e => { e.preventDefault(); onCellClick(r, c); });
       inp.addEventListener('focus', () => { if (!cw.sel || cw.sel[0] !== r || cw.sel[1] !== c) select(r, c, false); inp.select(); });
       inp.addEventListener('keydown', e => onKey(e, r, c));
@@ -660,7 +724,10 @@ function select(r, c, focus = true){
   if (!wordAt(r, c, cw.dir)) cw.dir = cw.dir === 'A' ? 'D' : 'A';
   cw.sel = [r, c];
   highlight();
-  if (focus) cw.cells[r][c].inp.focus({ preventScroll: true });
+  if (focus){
+    cw.cells[r][c].inp.focus({ preventScroll: true });
+    if (TOUCH_KB) cw.cells[r][c].el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
 }
 
 function onCellClick(r, c){
@@ -680,6 +747,7 @@ function highlight(){
   cw.cells[r][c].el.classList.add('cw-current');
   document.querySelectorAll('.cw-clue-item').forEach(li => li.classList.toggle('active', !!w && li.dataset.dir === w.dir && li.dataset.num === String(w.num)));
   if (w){ $('cwCurNum').textContent = w.num + (w.dir === 'A' ? 'A' : 'D'); $('cwCurTxt').textContent = w.clue; }
+  if (w && TOUCH_KB){ const n = $('cwKbNum'), t = $('cwKbTxt'); if (n){ n.textContent = $('cwCurNum').textContent; t.textContent = w.clue; } }
 }
 
 function setLetter(r, c, L){
@@ -1141,6 +1209,7 @@ $('quickToggle').addEventListener('change', e => {
   tvRender(false);
 });
 
+buildKeyboard();
 loadCrossword('easy');
 tvRender(false);
 gmRenderStart();
