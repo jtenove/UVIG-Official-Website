@@ -273,7 +273,7 @@
 
   <main class="pz-shell">
     <div class="pz-intro">
-      <span class="hero-eyebrow">FROM THE UVIG MARKET BRIEF</span>
+      <span class="hero-eyebrow">FROM THE INVESTORS CLUB</span>
       <h1>Weekly Puzzles</h1>
       <p>An investment crossword and a quick round of market trivia. New every week.</p>
     </div>
@@ -351,7 +351,7 @@
       <div class="gm-card" id="gmCard"></div>
     </section>
 
-    <p class="pz-foot">UVic Investment Group · <a href="/join.html">Get the Market Brief every two weeks</a></p>
+    <p class="pz-foot">UVic Investment Group · <a href="/join.html">Get The Investors Club every two weeks</a></p>
   </main>
 
   <div class="cw-toast" id="cwToast"></div>
@@ -878,8 +878,8 @@ function tvResult(){
   const goodScore = pct >= 0.7;
   const msg = pct === 1 ? ['Perfect score.', 'The trading desk is yours.']
             : pct >= 0.8 ? ['Excellent.', 'You clearly know your markets.']
-            : pct >= 0.5 ? ['Solid round.', 'A few more issues of the Market Brief and you\'ll ace it.']
-            : ['Good start.', 'The Market Brief covers all of this. You\'ll get there.'];
+            : pct >= 0.5 ? ['Solid round.', 'A few more issues of The Investors Club and you\'ll ace it.']
+            : ['Good start.', 'The Investors Club covers all of this. You\'ll get there.'];
   const C = 2 * Math.PI * 64;
   $('tvCard').innerHTML = `
     <div class="tv-result tv-body enter">

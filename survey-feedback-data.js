@@ -31,7 +31,7 @@
 const SURVEY = {
   id: "2026-27-year-ahead",
   title: "Help shape UVIG",
-  intro: "Four quick questions about the year ahead for UVIG and the Market Brief. Every response is read by the exec team.",
+  intro: "Four quick questions about the year ahead for UVIG and The Investors Club. Every response is read by the exec team.",
   estimate: "About 1 minute",
 
   questions: [
@@ -51,13 +51,13 @@ const SURVEY = {
     {
       type: "multi",
       label: "Newsletter favourites",
-      q: "What did you enjoy the most about the newsletter?",
+      q: "What did you enjoy the most about The Investors Club?",
       options: ["Market recap", "Recruitment updates", "Upcoming events", "Games and trivia"]
     },
     {
       type: "text",
       label: "Improvement idea",
-      q: "Please share one way we can make events or the newsletter a better experience.",
+      q: "Please share one way we can make events or The Investors Club a better experience.",
       placeholder: "Your idea here"
     }
   ]

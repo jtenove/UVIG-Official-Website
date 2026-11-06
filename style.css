@@ -1329,3 +1329,32 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
 #firms .speaker-card{align-items:center;}
 #firms .speaker-card .role{line-height:1.4;}
 #firms .speaker-group-title{margin-bottom:14px;}
+
+/* ============================================================
+   THE INVESTORS CLUB — homepage section + newsletter page
+   ============================================================ */
+.nl-promo-grid{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:44px; align-items:center; padding:16px 0;}
+.nl-promo-cover{display:block; border-radius:var(--r-lg); overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,.4); transition:transform .5s var(--ease), box-shadow .5s var(--ease);}
+.nl-promo-cover:hover{transform:translateY(-4px) scale(1.01); box-shadow:0 30px 70px rgba(0,0,0,.5);}
+.nl-promo-cover img{display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover;}
+.nl-promo-grid .nl-promo-text{text-align:left;}
+.nl-promo-grid .nl-promo-text h2{font-size:34px;}
+.nl-promo-grid .nl-promo-lead{margin:14px 0 0; max-width:none; font-size:15px; color:#C9D2E0;}
+.nl-promo-list{list-style:none; margin:16px 0 0; padding:0;}
+.nl-promo-list li{position:relative; padding:10px 0 10px 32px; color:var(--white); font-size:15.5px; border-top:1px solid rgba(255,255,255,.12);}
+.nl-promo-list li:first-child{border-top:0;}
+.nl-promo-list li::before{content:'✓'; position:absolute; left:0; top:50%; transform:translateY(-50%); width:20px; height:20px; border-radius:50%; background:rgba(185,154,91,.22); color:var(--brass); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center;}
+.nl-promo-grid .nl-promo-actions{justify-content:flex-start;}
+@media (max-width:860px){
+  .nl-promo-grid{grid-template-columns:1fr; gap:28px;}
+  .nl-promo-grid .nl-promo-text h2{font-size:28px;}
+  .nl-promo-grid .nl-promo-actions .btn{flex:1;}
+}
+
+/* Newsletter page: the cover sits between the contents list and the sign-up box */
+.nl-cover-figure{margin:34px 0 0;}
+.nl-cover-figure a{display:block; border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--shadow-lift);}
+.nl-cover-figure img{display:block; width:100%; height:auto;}
+.nl-cta-box .btn + .btn{margin-left:10px; background:transparent; color:var(--white); border:1px solid rgba(255,255,255,.5);}
+.nl-cta-box .btn + .btn:hover{background:rgba(255,255,255,.1);}
+@media (max-width:520px){ .nl-cta-box .btn + .btn{margin-left:0;} }

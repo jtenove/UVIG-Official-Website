@@ -288,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => (window.UVIG_READY || (fn =>
     const dots = [...dotsEl.children];
     const slides = [...track.children];
     const total = reports.length;
-    let index = 0;
+    let index = Math.floor((total - 1) / 2); // open on the middle report so both neighbours peek in
     let dragging = false, startX = 0, startOffset = 0;
 
     // Centers the active slide in the viewport, so its neighbors peek in on either side.
