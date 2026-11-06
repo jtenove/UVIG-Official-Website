@@ -1283,3 +1283,49 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
 /* Past-event photos open full-size in the lightbox; an odd last photo spans the row */
 .past-card.has-photo .photo-row img{cursor:zoom-in;}
 .past-card.has-photo .photo-row img:nth-child(odd):last-child{grid-column:1 / -1;}
+
+/* ============================================================
+   EVENTS PAGE POLISH — one card language across upcoming, past
+   and speakers: same radius, shadow, padding and type scale.
+   ============================================================ */
+
+/* Upcoming: friendly empty state instead of a bare sentence */
+.events-empty{display:flex; align-items:center; gap:22px; flex-wrap:wrap; background:var(--white); border-radius:var(--r-lg); box-shadow:var(--shadow-soft); padding:26px 30px; border-left:4px solid var(--brass);}
+.events-empty-icon{width:52px; height:52px; border-radius:16px; background:var(--brass-soft); color:var(--brass); display:grid; place-items:center; flex:none;}
+.events-empty-icon svg{width:26px; height:26px;}
+.events-empty-text{flex:1; min-width:240px;}
+.events-empty-text h3{font-family:var(--serif); font-size:20px; color:var(--navy-900); margin:0;}
+.events-empty-text p{color:var(--graphite); font-size:14.5px; margin:6px 0 0; max-width:56ch;}
+.events-empty-actions{display:flex; gap:10px; flex-wrap:wrap;}
+@media (max-width:640px){
+  .events-empty{padding:22px 20px; gap:16px;}
+  .events-empty-actions{width:100%; flex-direction:column;}
+  .events-empty-actions .btn{width:100%;}
+}
+
+/* Past events: compact two-column flow, no stretched empty cards */
+#past .past-grid{display:block; column-count:2; column-gap:20px; margin-top:28px;}
+#past .past-card{break-inside:avoid; -webkit-column-break-inside:avoid; margin:0 0 20px; display:block;}
+#past .past-card.has-photo{display:block;}
+#past .past-card{padding:24px 26px;}
+#past .past-card.has-photo{padding:0;}
+#past .past-card.has-photo .photo-card-body{padding:22px 26px 24px;}
+#past .past-card .tag{display:block; text-transform:uppercase; letter-spacing:.08em; font-size:10.5px;}
+#past .past-card h4{font-size:18px; line-height:1.3; margin-top:8px;}
+#past .past-card .meta{margin-top:8px;}
+#past .past-card p{font-size:14px; line-height:1.6; margin-top:12px;}
+#past .past-card .speaker-line{margin-top:14px; padding-top:12px; line-height:1.6;}
+
+/* Photos: consistent height, a single photo gets a taller, top-aligned frame (flyers read from the top) */
+#past .past-card.has-photo .photo-row img{height:150px;}
+#past .past-card.has-photo .photo-row.single img{height:210px; object-position:center top;}
+@media (max-width:860px){
+  #past .past-grid{column-count:1;}
+  #past .past-card.has-photo .photo-row img{height:140px;}
+  #past .past-card.has-photo .photo-row.single img{height:200px;}
+}
+
+/* Speakers: even card heights and tidy role text */
+#firms .speaker-card{align-items:center;}
+#firms .speaker-card .role{line-height:1.4;}
+#firms .speaker-group-title{margin-bottom:14px;}

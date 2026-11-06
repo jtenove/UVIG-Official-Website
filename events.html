@@ -145,7 +145,17 @@ UVIG_READY(function () {
   }
 
   upcomingList.innerHTML = !confirmed.length
-    ? `<p class="step-note">Stay tuned - we will be releasing our schedule for the fall semester in the upcoming weeks.</p>`
+    ? `<div class="events-empty">
+        <div class="events-empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div>
+        <div class="events-empty-text">
+          <h3>Nothing on the calendar right now</h3>
+          <p>We'll post our next events here as soon as they're confirmed. Follow us on Instagram or join the newsletter to hear first.</p>
+        </div>
+        <div class="events-empty-actions">
+          <a href="https://www.instagram.com/uvicinvestmentgroup/" target="_blank" rel="noopener" class="btn btn-ghost">Follow on Instagram</a>
+          <a href="join.html" class="btn btn-primary">Join UVIG</a>
+        </div>
+      </div>`
     : [...confirmed].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate)).map(ev => {
     const { day, month } = dateBits(ev);
     return `
@@ -189,7 +199,7 @@ UVIG_READY(function () {
   const pastEvents = [...recentlyPast, ...UVIG_PAST];
   pastGrid.innerHTML = pastEvents.map(ev => {
     const photoBlock = ev.photos ? `
-      <div class="photo-row">
+      <div class="photo-row${ev.photos.length === 1 ? ' single' : ''}">
         ${ev.photos.map(p => `<img src="${p}" alt="Photo from ${ev.title}" loading="lazy">`).join('')}
       </div>
     ` : '';
