@@ -891,7 +891,6 @@
     { id: 'events', file: 'events.html', label: 'Events' },
     { id: 'research', file: 'research.html', label: 'Research' },
     { id: 'team', file: 'team.html', label: 'Team' },
-    { id: 'newsletter', file: 'newsletter.html', label: 'Newsletter' },
     { id: 'join', file: 'join.html', label: 'Join' },
     { id: 'footer', file: 'index.html', label: 'Footer (every page)' }
   ];
