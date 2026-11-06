@@ -39,24 +39,13 @@ const UVIG_UPCOMING = [
     // Shown on the Events page "Past events" grid once the date has passed.
     pastTag: "Panel",
     pastBlurb: "Co-hosted with UVic Girls That Invest and presented with Raymond James, a panel of four wealth management professionals from Victoria shared how they got into the industry, what the work looks like day to day, and advice for getting started, followed by audience Q&A and networking with food and drinks.",
+    pastPhotos: ["photo-wm-poster.jpg", "photo-wm-speakers.jpg", "photo-wm-panel.jpg"],
     pastSpeakers: [
       "Amanda Dumitru: Senior Wealth Advisor, IG Wealth Management",
       "April Dorey Hartwig: Senior Wealth Manager, Raymond James",
       "Chelsey Rossner: Associate Branch Manager, RBC Dominion Securities",
       "Sybil Verch: Senior Wealth Advisor, Raymond James"
     ]
-  },
-  {
-    id: "finance-social",
-    title: "Finance Social",
-    dateDisplay: "November 10",
-    isoDate: "2026-11-10",
-    time: "TBD",
-    venue: "Maude Hunter's",
-    partner: "TBD",
-    speakers: "N/A",
-    blurb: "A casual social to meet other students interested in finance. No agenda, just conversation and networking.",
-    status: "planned"
   },
   {
     id: "asset-management-panel",

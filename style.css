@@ -1279,3 +1279,7 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
 .success-perks li{position:relative; padding:10px 0 10px 32px; color:var(--ink); font-size:15px; border-top:1px solid var(--hairline);}
 .success-perks li:first-child{border-top:0;}
 .success-perks li::before{content:'✓'; position:absolute; left:0; top:50%; transform:translateY(-50%); width:20px; height:20px; border-radius:50%; background:var(--brass-soft,#F5EEDF); color:var(--brass); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center;}
+
+/* Past-event photos open full-size in the lightbox; an odd last photo spans the row */
+.past-card.has-photo .photo-row img{cursor:zoom-in;}
+.past-card.has-photo .photo-row img:nth-child(odd):last-child{grid-column:1 / -1;}
