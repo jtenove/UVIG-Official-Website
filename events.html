@@ -181,9 +181,10 @@ UVIG_READY(function () {
       title: ev.title,
       dateDisplay: `${ev.dateDisplay}, 2026`,
       venue: ev.venue,
-      tag: 'Recent',
-      blurb: ev.blurb,
-      photos: ev.flyer ? [ev.flyer] : undefined
+      tag: ev.pastTag || 'Recent',
+      blurb: ev.pastBlurb || ev.blurb,
+      speakers: ev.pastSpeakers && ev.pastSpeakers.length ? ev.pastSpeakers : undefined,
+      photos: ev.pastPhotos && ev.pastPhotos.length ? ev.pastPhotos : ev.flyer ? [ev.flyer] : undefined
     }));
   const pastEvents = [...recentlyPast, ...UVIG_PAST];
   pastGrid.innerHTML = pastEvents.map(ev => {

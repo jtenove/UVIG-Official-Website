@@ -33,9 +33,18 @@ const UVIG_UPCOMING = [
     venue: "Hickman Building, Room 105",
     venuePhoto: "photo-hickman-105.jpg",
     partner: "UVic Girls That Invest",
-    speakers: "5 wealth management professionals from Victoria",
-    blurb: "Co-hosted with UVic Girls That Invest, this panel brings together five wealth management professionals from across Victoria's investment community to talk through how they built their careers, what the work actually looks like day to day, and how students can start building a path into the field. Open to all students, no finance background required.",
-    status: "confirmed"
+    speakers: "4 wealth management professionals from Victoria",
+    blurb: "Co-hosted with UVic Girls That Invest, this panel brings together four wealth management professionals from across Victoria's investment community to talk through how they built their careers, what the work actually looks like day to day, and how students can start building a path into the field. Open to all students, no finance background required.",
+    status: "confirmed",
+    // Shown on the Events page "Past events" grid once the date has passed.
+    pastTag: "Panel",
+    pastBlurb: "Co-hosted with UVic Girls That Invest and presented with Raymond James, a panel of four wealth management professionals from Victoria shared how they got into the industry, what the work looks like day to day, and advice for getting started, followed by audience Q&A and networking with food and drinks.",
+    pastSpeakers: [
+      "Amanda Dumitru: Senior Wealth Advisor, IG Wealth Management",
+      "April Dorey Hartwig: Senior Wealth Manager, Raymond James",
+      "Chelsey Rossner: Associate Branch Manager, RBC Dominion Securities",
+      "Sybil Verch: Senior Wealth Advisor, Raymond James"
+    ]
   },
   {
     id: "finance-social",
@@ -265,7 +274,9 @@ const UVIG_SPEAKERS = [
   {
     category: "Wealth Management & Banking",
     people: [
-      { name: "Chelsey Rossner", role: "Branch Manager, RBC Dominion Securities" },
+      { name: "Amanda Dumitru", role: "Senior Wealth Advisor, IG Wealth Management" },
+      { name: "April Dorey Hartwig", role: "Senior Wealth Manager, Raymond James" },
+      { name: "Chelsey Rossner", role: "Associate Branch Manager, RBC Dominion Securities" },
       { name: "Cristina Fazio, BA, CFP, CIM", role: "Associate Advisor, RBC Dominion Securities" },
       { name: "Graydon McQuibban", role: "Senior Wealth Advisor, Raymond James" },
       { name: "Harld Seleman", role: "Public Equities, Vancity Investment Management" },
@@ -275,6 +286,7 @@ const UVIG_SPEAKERS = [
       { name: "Lauren Minogue, CFA, CFP", role: "Wealth Advisor, Connor, Clark & Lunn Private Capital" },
       { name: "Loerna Milkert", role: "Director, Retail Banking, Island Savings" },
       { name: "Shaun Rosson, CFP", role: "IG Wealth Management" },
+      { name: "Sybil Verch", role: "Senior Wealth Advisor, Raymond James" },
       { name: "Valery Heckel", role: "Equity Research Associate, CIBC Capital Markets" }
     ]
   },
