@@ -97,6 +97,8 @@ function closeVenueLightbox() {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVenueLightbox(); });
 document.addEventListener('click', e => {
+  const photo = e.target.closest('.past-card .photo-row img');
+  if (photo) { openVenueLightbox(photo.currentSrc || photo.src, photo.alt.replace(/^Photo from /, '')); return; }
   const link = e.target.closest('.venue-link');
   if (link) openVenueLightbox(link.dataset.venuePhoto, link.dataset.venueName);
 });
