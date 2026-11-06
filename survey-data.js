@@ -15,12 +15,12 @@ const SURVEYS = {
   newsletter: {
     id: "newsletter",
     title: "Newsletter Survey",
-    subtitle: "Help us make the Market Brief better. A few quick questions, no wrong answers.",
+    subtitle: "Help us make The Investors Club better. A few quick questions, no wrong answers.",
     questions: [
-      { q: "How often do you read the UVIG Market Brief?", options: ["Every issue", "Most issues", "Occasionally", "This is news to me"] },
+      { q: "How often do you read The Investors Club?", options: ["Every issue", "Most issues", "Occasionally", "This is news to me"] },
       { q: "Which section do you find most useful?", options: ["Market Pulse", "Sector Spotlight", "Club Digest", "The puzzles"] },
-      { q: "How would you rate the newsletter's length?", options: ["Too short", "Just right", "Too long"] },
-      { q: "Would you recommend the Market Brief to a friend?", options: ["Definitely", "Probably", "Not sure", "No"] },
+      { q: "How would you rate The Investors Club's length?", options: ["Too short", "Just right", "Too long"] },
+      { q: "Would you recommend The Investors Club to a friend?", options: ["Definitely", "Probably", "Not sure", "No"] },
       { q: "What should we add more of?", options: ["Market analysis", "Event recaps", "Career & recruiting content", "Puzzles & trivia"] }
     ]
   },
