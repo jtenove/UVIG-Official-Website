@@ -1273,3 +1273,9 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
 .venue-lightbox-cap{color:#fff; font-size:14px; text-align:center;}
 .venue-lightbox-close{position:absolute; top:-14px; right:-14px; width:36px; height:36px; border-radius:50%; border:0; background:#fff; color:var(--navy-900); font-size:22px; line-height:1; cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,.3);}
 @media (max-width:640px){ .venue-lightbox-close{top:-10px; right:-6px;} }
+
+/* Join confirmation: perks as a tidy checklist under the intro line */
+.success-perks{list-style:none; margin:18px auto 0; padding:0; max-width:34ch; text-align:left; animation:fadeUpSmall .45s var(--ease) both; animation-delay:.3s;}
+.success-perks li{position:relative; padding:10px 0 10px 32px; color:var(--ink); font-size:15px; border-top:1px solid var(--hairline);}
+.success-perks li:first-child{border-top:0;}
+.success-perks li::before{content:'✓'; position:absolute; left:0; top:50%; transform:translateY(-50%); width:20px; height:20px; border-radius:50%; background:var(--brass-soft,#F5EEDF); color:var(--brass); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center;}

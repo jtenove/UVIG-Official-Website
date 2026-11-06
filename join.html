@@ -134,7 +134,12 @@
       <div class="success-screen">
         <div class="success-icon">✓</div>
         <h2 id="successHeading">Welcome to the club.</h2>
-        <p id="successBody">Thanks for joining the Investment group. As a member, you'll join a community of students with similar interests and goals, gain access to our Brightspace resources and stay up to date with our newsletter. If you want to connect with other students and hear from industry professionals, attend our social events that will be held through the school year.</p>
+        <p id="successBody" data-content="join.success.intro">Thanks for joining the Investment Group. As a member, you'll gain access to:</p>
+        <ul class="success-perks">
+          <li data-content="join.success.perk1">Our Brightspace resource library</li>
+          <li data-content="join.success.perk2">The UVIG bi-weekly newsletter</li>
+          <li data-content="join.success.perk3">Early access to events</li>
+        </ul>
       </div>
     </div>
 
@@ -241,7 +246,6 @@ UVIG_READY(function () {
 
     const firstName = payload.name.split(' ')[0] || '';
     document.getElementById('successHeading').textContent = firstName ? `Welcome to the club, ${firstName}.` : 'Welcome to the club.';
-    document.getElementById('successBody').textContent = `Thanks for joining the Investment group. As a member, you'll join a community of students with similar interests and goals, gain access to our Brightspace resources and stay up to date with our newsletter. If you want to connect with other students and hear from industry professionals, attend our social events that will be held through the school year.`;
 
     btn.classList.add('btn-loading');
     setTimeout(() => {
