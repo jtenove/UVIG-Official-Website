@@ -215,6 +215,10 @@
             { name: 'blurb', label: 'Description', type: 'textarea', required: true, wide: true },
             { name: 'flyer', label: 'Flyer image (optional)', type: 'image', wide: true },
             { name: 'rsvpUrl', label: 'RSVP link (optional)', type: 'text', wide: true, placeholder: 'https://forms.gle/…', hint: 'Adds an RSVP button next to “Add to calendar”.' },
+            { name: 'pastTag', label: 'After the event: tag', type: 'text', placeholder: 'Panel, Workshop, Social…', hint: 'Used on the Past events card once the date has passed.' },
+            { name: 'pastBlurb', label: 'After the event: recap', type: 'textarea', wide: true, hint: 'Past-tense summary shown in Past events. Leave blank to reuse the description.' },
+            { name: 'pastSpeakers', label: 'After the event: speakers', type: 'stringList', wide: true, addLabel: 'Add speaker', placeholder: 'Name: Title, Firm' },
+            { name: 'pastPhotos', label: 'After the event: photos', type: 'imageList', wide: true, addLabel: 'Add photo', hint: 'Event photos for the Past events card. Without any, the flyer is used.' },
             { name: 'id', label: 'Link ID', type: 'text', mono: true, wide: true, required: true, hint: 'Used in links like events.html#this-id. Fills in from the title; changing it breaks old links.' }
           ] } } },
 
