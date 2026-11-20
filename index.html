@@ -342,7 +342,7 @@ UVIG_READY(function () {
           <span>${renderVenue(confirmed)}</span>
         </div>
         <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
-          ${confirmed.rsvpUrl ? `<a href="${confirmed.rsvpUrl}" class="btn btn-primary">RSVP</a>` : `<a href="events.html" class="btn btn-primary">View Events</a>`}
+          ${confirmed.rsvpUrl ? `<a href="${confirmed.rsvpUrl}" class="btn btn-primary"${/^https?:/.test(confirmed.rsvpUrl) ? ' target="_blank" rel="noopener"' : ''}>RSVP</a>` : `<a href="events.html" class="btn btn-primary">View Events</a>`}
           ${typeof renderCalDropdown === 'function' ? renderCalDropdown(confirmed.id) : ''}
         </div>
       </div>

@@ -180,7 +180,7 @@ UVIG_READY(function () {
             <span><strong>Speakers:</strong>&nbsp;${ev.speakers}</span>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-            ${ev.rsvpUrl ? `<a href="${ev.rsvpUrl}" class="btn btn-primary" style="margin-top:14px;">RSVP</a>` : ''}
+            ${ev.rsvpUrl ? `<a href="${ev.rsvpUrl}" class="btn btn-primary" style="margin-top:14px;"${/^https?:/.test(ev.rsvpUrl) ? ' target="_blank" rel="noopener"' : ''}>RSVP</a>` : ''}
             ${renderCalDropdown(ev.id)}
           </div>
         </div>
