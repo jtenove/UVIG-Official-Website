@@ -66,41 +66,82 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-/* ---- Venue with optional room photo ----
-   If an event has a venuePhoto, the venue becomes a button that opens
-   the photo in a lightbox (see the click handler below). */
+/* ---- Venue with optional photos ----
+   If an event has venuePhotos (or a single venuePhoto), the venue becomes a
+   button that opens them in a swipeable lightbox (see the handlers below). */
 function renderVenue(ev) {
   const venue = ev.venue || '';
-  if (!ev.venuePhoto) return venue;
+  const photos = (ev.venuePhotos && ev.venuePhotos.length ? ev.venuePhotos : ev.venuePhoto ? [ev.venuePhoto] : []).filter(Boolean);
+  if (!photos.length) return venue;
   const attr = s => String(s).replace(/"/g, '&quot;');
-  return `<button type="button" class="venue-link" data-venue-photo="${attr(ev.venuePhoto)}" data-venue-name="${attr(venue)}" aria-haspopup="dialog">${venue}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></button>`;
+  return `<button type="button" class="venue-link" data-venue-photos="${attr(photos.join('|'))}" data-venue-name="${attr(venue)}" aria-haspopup="dialog">${venue}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></button>`;
 }
 
-function openVenueLightbox(src, name) {
+let venueLightboxState = null;
+function openVenueLightbox(srcs, name) {
   closeVenueLightbox();
+  srcs = [].concat(srcs).filter(Boolean);
+  if (!srcs.length) return;
   const box = document.createElement('div');
   box.className = 'venue-lightbox';
   box.setAttribute('role', 'dialog');
   box.setAttribute('aria-modal', 'true');
-  box.setAttribute('aria-label', name || 'Event room');
-  box.innerHTML = '<div class="venue-lightbox-inner"><button type="button" class="venue-lightbox-close" aria-label="Close">&times;</button><img alt=""><div class="venue-lightbox-cap"></div></div>';
-  box.querySelector('img').src = src;
-  box.querySelector('img').alt = name ? 'Photo of ' + name : 'Photo of the event room';
+  box.setAttribute('aria-label', name || 'Event photos');
+  const many = srcs.length > 1;
+  box.innerHTML = '<div class="venue-lightbox-inner">' +
+    '<button type="button" class="venue-lightbox-close" aria-label="Close">&times;</button>' +
+    '<div class="vl-viewport"><div class="vl-track">' + srcs.map(() => '<div class="vl-slide"><img alt=""></div>').join('') + '</div>' +
+    (many ? '<button type="button" class="vl-nav vl-prev" aria-label="Previous photo">&#8249;</button><button type="button" class="vl-nav vl-next" aria-label="Next photo">&#8250;</button>' : '') + '</div>' +
+    '<div class="venue-lightbox-cap"></div>' +
+    (many ? '<div class="vl-dots">' + srcs.map((_, i) => '<button type="button" class="vl-dot" aria-label="Photo ' + (i + 1) + '"></button>').join('') + '</div>' : '') +
+    '</div>';
+  const imgs = box.querySelectorAll('.vl-slide img');
+  srcs.forEach((s, i) => { imgs[i].src = s; imgs[i].alt = (name ? 'Photo of ' + name : 'Event photo') + (many ? ' (' + (i + 1) + ' of ' + srcs.length + ')' : ''); });
   box.querySelector('.venue-lightbox-cap').textContent = name || '';
-  box.addEventListener('click', e => { if (e.target === box || e.target.closest('.venue-lightbox-close')) closeVenueLightbox(); });
+  const track = box.querySelector('.vl-track');
+  const dots = [...box.querySelectorAll('.vl-dot')];
+  const state = venueLightboxState = { i: 0, n: srcs.length };
+  state.go = idx => {
+    state.i = Math.max(0, Math.min(state.n - 1, idx));
+    track.style.transition = '';
+    track.style.transform = 'translateX(' + (-state.i * 100) + '%)';
+    dots.forEach((d, k) => d.classList.toggle('active', k === state.i));
+    const p = box.querySelector('.vl-prev'), n = box.querySelector('.vl-next');
+    if (p) p.disabled = state.i === 0;
+    if (n) n.disabled = state.i === state.n - 1;
+  };
+  // Swipe (touch or mouse drag)
+  let startX = null, dx = 0;
+  const vp = box.querySelector('.vl-viewport');
+  vp.addEventListener('pointerdown', e => { if (!many || e.target.closest('.vl-nav')) return; startX = e.clientX; dx = 0; track.style.transition = 'none'; vp.setPointerCapture(e.pointerId); });
+  vp.addEventListener('pointermove', e => { if (startX === null) return; dx = e.clientX - startX; track.style.transform = 'translateX(calc(' + (-state.i * 100) + '% + ' + dx + 'px))'; });
+  const end = () => { if (startX === null) return; const w = vp.clientWidth || 1; startX = null; state.go(state.i + (dx < -w * 0.15 ? 1 : dx > w * 0.15 ? -1 : 0)); };
+  vp.addEventListener('pointerup', end); vp.addEventListener('pointercancel', end);
+  box.addEventListener('click', e => {
+    if (e.target.closest('.vl-prev')) state.go(state.i - 1);
+    else if (e.target.closest('.vl-next')) state.go(state.i + 1);
+    else if (e.target.closest('.vl-dot')) state.go(dots.indexOf(e.target.closest('.vl-dot')));
+    else if (e.target === box || e.target.closest('.venue-lightbox-close') || (e.target.classList.contains('vl-slide') && Math.abs(dx) < 4)) closeVenueLightbox();
+  });
   document.body.appendChild(box);
+  state.go(0);
   requestAnimationFrame(() => box.classList.add('show'));
   box.querySelector('.venue-lightbox-close').focus();
 }
 function closeVenueLightbox() {
+  venueLightboxState = null;
   document.querySelectorAll('.venue-lightbox').forEach(b => b.remove());
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVenueLightbox(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeVenueLightbox();
+  else if (venueLightboxState && e.key === 'ArrowRight') venueLightboxState.go(venueLightboxState.i + 1);
+  else if (venueLightboxState && e.key === 'ArrowLeft') venueLightboxState.go(venueLightboxState.i - 1);
+});
 document.addEventListener('click', e => {
   const photo = e.target.closest('.past-card .photo-row img');
   if (photo) { openVenueLightbox(photo.currentSrc || photo.src, photo.alt.replace(/^Photo from /, '')); return; }
   const link = e.target.closest('.venue-link');
-  if (link) openVenueLightbox(link.dataset.venuePhoto, link.dataset.venueName);
+  if (link) openVenueLightbox(link.dataset.venuePhotos.split('|'), link.dataset.venueName);
 });
 
 /* ---- Calendar helpers ----

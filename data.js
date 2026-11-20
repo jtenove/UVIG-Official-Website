@@ -31,7 +31,7 @@ const UVIG_UPCOMING = [
     isoDate: "2026-10-28",
     time: "6:00 PM",
     venue: "Hickman Building, Room 105",
-    venuePhoto: "photo-hickman-105.jpg",
+    venuePhotos: ["photo-hickman-105.jpg"],
     partner: "UVic Girls That Invest",
     speakers: "4 wealth management professionals from Victoria",
     blurb: "Co-hosted with UVic Girls That Invest, this panel brings together four wealth management professionals from across Victoria's investment community to talk through how they built their careers, what the work actually looks like day to day, and how students can start building a path into the field. Open to all students, no finance background required.",
@@ -58,6 +58,7 @@ const UVIG_UPCOMING = [
     speakers: "N/A",
     blurb: "Close out the term at the UVIG Finance Social! Connect with fellow students interested in finance before exams take over. Plus, it's Wing Wednesday at The Rack! All ages welcome. Bring a friend.",
     status: "confirmed",
+    venuePhotos: ["photo-rack-bistro-1.jpg", "photo-rack-bistro-2.jpg"],
     flyer: "flyer-finance-social-2026.jpg",
     rsvpUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf2Tp7Onl-sN5sNHSdYLKuww5WO8WOaBlps0gamAz1QGYbTOw/viewform"
   },
