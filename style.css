@@ -1386,3 +1386,18 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
   .btn{min-height:44px;}
   .wordmark{display:inline-flex; align-items:center; min-height:44px;}
 }
+
+/* Swipeable photo lightbox */
+.vl-viewport{position:relative; overflow:hidden; border-radius:14px; touch-action:pan-y; background:transparent; cursor:grab;}
+.vl-viewport:active{cursor:grabbing;}
+.vl-track{display:flex; will-change:transform; transition:transform .35s var(--ease);}
+.vl-slide{flex:0 0 100%; display:flex; align-items:center; justify-content:center;}
+.venue-lightbox .vl-slide img{border-radius:0; box-shadow:none; max-height:calc(100vh - 150px); width:auto; max-width:100%; user-select:none; -webkit-user-drag:none;}
+.vl-nav{position:absolute; top:50%; transform:translateY(-50%); width:42px; height:42px; border-radius:50%; border:0; background:rgba(255,255,255,.92); color:var(--navy-900); font-size:28px; line-height:1; cursor:pointer; box-shadow:0 6px 18px rgba(0,0,0,.3); display:flex; align-items:center; justify-content:center; padding:0 0 3px;}
+.vl-nav:disabled{opacity:.35; cursor:default;}
+.vl-prev{left:10px;} .vl-next{right:10px;}
+.vl-dots{display:flex; justify-content:center; gap:8px; margin-top:2px;}
+.vl-dot{width:8px; height:8px; border-radius:50%; border:0; padding:0; background:rgba(255,255,255,.4); cursor:pointer; position:relative;}
+.vl-dot::before{content:''; position:absolute; inset:-10px;}
+.vl-dot.active{background:var(--brass); width:22px; border-radius:4px;}
+@media (max-width:640px){ .vl-nav{display:none;} }
