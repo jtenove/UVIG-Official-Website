@@ -48,6 +48,20 @@ const UVIG_UPCOMING = [
     ]
   },
   {
+    id: "finance-social",
+    title: "UVIG Finance Social",
+    dateDisplay: "November 25",
+    isoDate: "2026-11-25",
+    time: "7:00 PM to 10:00 PM",
+    venue: "The Rack Bistro, 1550 Cedar Hill Cross Rd",
+    partner: "TBD",
+    speakers: "N/A",
+    blurb: "Close out the term at the UVIG Finance Social! Connect with fellow students interested in finance before exams take over. Plus, it's Wing Wednesday at The Rack! All ages welcome. Bring a friend.",
+    status: "confirmed",
+    flyer: "flyer-finance-social-2026.jpg",
+    rsvpUrl: "https://docs.google.com/forms/d/e/1FAIpQLSf2Tp7Onl-sN5sNHSdYLKuww5WO8WOaBlps0gamAz1QGYbTOw/viewform"
+  },
+  {
     id: "asset-management-panel",
     title: "Asset Management Panel",
     dateDisplay: "November 24",

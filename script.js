@@ -108,17 +108,24 @@ document.addEventListener('click', e => {
    calendar entry can still be created — the description flags that the
    time is provisional. Update once real times are confirmed. */
 function parseEventDateTime(ev) {
-  let hours = 12, minutes = 0;
-  const m = /(\d{1,2}):(\d{2})\s*(AM|PM)/i.exec(ev.time || '');
-  if (m) {
-    hours = parseInt(m[1], 10);
-    minutes = parseInt(m[2], 10);
-    if (/PM/i.test(m[3]) && hours < 12) hours += 12;
-    if (/AM/i.test(m[3]) && hours === 12) hours = 0;
-  }
+  // "7:00 PM" or "7:00 PM to 10:00 PM": the second time, if any, is the end.
+  const toHM = m => {
+    let h = parseInt(m[1], 10);
+    const min = parseInt(m[2], 10);
+    if (/PM/i.test(m[3]) && h < 12) h += 12;
+    if (/AM/i.test(m[3]) && h === 12) h = 0;
+    return [h, min];
+  };
+  const times = [...(ev.time || '').matchAll(/(\d{1,2}):(\d{2})\s*(AM|PM)/gi)].map(toHM);
+  const [hours, minutes] = times[0] || [12, 0];
   const start = new Date(ev.isoDate + 'T00:00:00');
   start.setHours(hours, minutes, 0, 0);
-  const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
+  let end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
+  if (times[1]) {
+    const e = new Date(start);
+    e.setHours(times[1][0], times[1][1], 0, 0);
+    if (e > start) end = e;
+  }
   return { start, end };
 }
 
