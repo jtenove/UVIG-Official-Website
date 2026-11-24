@@ -1422,3 +1422,13 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
 
 /* Carousel cards show the publish date above the title instead of repeating the sector name */
 .featured-research-card .fr-date{display:block; margin-bottom:8px; text-transform:uppercase; letter-spacing:.06em;}
+
+/* Team page: calm and static. No drifting blurred background blobs, no glow on the
+   co-presidents band, and no entrance/hover animation on the tabs or cards. */
+.page-team .ambient{display:none;}
+.page-team .leadership-band::after{display:none;}
+.page-team .team-panel.active,
+.page-team .team-panel.active .team-card{animation:none;}
+.page-team .team-panel.leaving{display:none;}
+.page-team .team-card{transition:none;}
+.page-team .team-card:hover{transform:none; box-shadow:var(--shadow-soft);}
