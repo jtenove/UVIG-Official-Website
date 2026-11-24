@@ -212,6 +212,16 @@ const UVIG_PAST = [
 // a link once reports have a real destination.
 const UVIG_REPORTS = [
   {
+    title: "Sector Report: Consumer Staples",
+    sector: "Consumer Staples",
+    authors: "Owen Harrington, Maia Bell, Carter Guerin & Mariah Luzon",
+    date: "November 2026",
+    blurb: "A look at the defensive $5.0T consumer staples sector: steady demand against rising costs, tariffs and interest-rate pressure, with coverage of General Mills, Coca-Cola, Procter & Gamble, and Costco.",
+    pdf: "report-consumer-staples-2026.pdf",
+    cover: "report-cover-consumer-staples-2026.jpg",
+    isNew: true
+  },
+  {
     title: "Sector Report: Healthcare",
     sector: "Healthcare",
     authors: "Kavin Bawa, Émilie Doyon, Jonathan Khoo & Peter Mikulash",
@@ -237,12 +247,6 @@ const UVIG_REPORTS = [
     blurb: "Covering the $13.66T consumer discretionary market: digitization and sustainability trends, and analysis of Amazon, McDonald's, Nike, and Tesla.",
     pdf: "report-consumer-discretionary-2025.pdf",
     cover: "report-cover-consumer-discretionary-2025.jpg"
-  },
-  {
-    title: "Consumer Staples sector coverage",
-    sector: "Coming soon",
-    pending: true,
-    comingSoon: true
   }
 ];
 

@@ -136,7 +136,7 @@ UVIG_READY(function () {
     return `
       <a href="${r.pdf}" target="_blank" class="report-card tilt-card">
         <div class="report-card-top">
-          <span class="sector-tag">${r.sector}</span>
+          <span class="sector-tag">${r.sector}${r.isNew ? ' <span class="new-pill">NEW</span>' : ''}</span>
           <span class="report-date">${r.date}</span>
         </div>
         <h3>${r.title}</h3>

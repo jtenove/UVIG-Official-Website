@@ -257,6 +257,7 @@
         newItem: function () { return { title: 'Sector Report: ', sector: '', authors: '', date: '', blurb: '', pdf: '', cover: '' }; },
         summary: function (r) { return { title: r.title || 'Untitled report', sub: [r.sector, r.date].filter(Boolean).join(' · '), thumb: r.cover, badge: r.pending ? { text: 'Coming soon', cls: 'brass' } : { text: 'Published', cls: 'green' } }; },
         item: { type: 'object', fields: [
+          { name: 'isNew', label: 'Mark as NEW', type: 'checkbox', wide: true, sub: 'Adds a NEW sticker and makes the homepage carousel open on this report.' },
           { name: 'pending', label: 'Coming soon placeholder', type: 'checkbox', wide: true, sub: 'Shows a greyed-out “check back soon” card instead of a report.',
             onToggle: function (r) { if (r.pending) r.comingSoon = true; else delete r.comingSoon; } },
           { name: 'title', label: 'Title', type: 'text', required: true, wide: true },
