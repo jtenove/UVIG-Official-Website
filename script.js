@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => (window.UVIG_READY || (fn =>
         <div class="featured-research-card">
           <div class="fr-image" style="background-image:url('${r.cover}');">${r.isNew ? '<span class="new-sticker">NEW</span>' : ''}</div>
           <div class="fr-body">
-            <span class="sector-tag">${r.sector}</span>
+            ${r.date ? `<span class="report-date fr-date">${r.date}</span>` : ''}
             <h3>${r.title}</h3>
             <p>${r.blurb}</p>
             <a href="${r.pdf}" target="_blank" class="read-link">Read the full report (PDF) →</a>
