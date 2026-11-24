@@ -64,15 +64,25 @@ const UVIG_UPCOMING = [
   },
   {
     id: "asset-management-panel",
-    title: "Asset Management Panel",
-    dateDisplay: "November 24",
-    isoDate: "2026-11-24",
-    time: "TBD",
-    venue: "TBD",
+    title: "UVIG Asset Management Panel",
+    dateDisplay: "December 2",
+    isoDate: "2026-12-02",
+    time: "6:00 PM to 8:00 PM",
+    venue: "David Strong Building (DSB) C118",
     partner: "TBD",
-    speakers: "TBD",
-    blurb: "Hear from professionals working in asset management and investment roles. Open to everyone, no finance background required.",
-    status: "planned"
+    speakers: "Jade Prezeau, Carter MacLean, Mac Costigan & Harld Seleman",
+    blurb: "Join the UVic Investment Group in hosting an evening with professionals from Victoria's asset management community. Our panelists will talk about how they got started, what their day-to-day looks like, and how students can break into the industry. The evening starts with a one-hour moderated panel, followed by an audience Q&A and time to network with the speakers. Open to all students.",
+    status: "confirmed",
+    flyer: "flyer-asset-management-panel.jpg",
+    // Add rsvpUrl: "<Google Form link>" here (or in /admin) to show the RSVP button.
+    // Shown on the Events page "Past events" grid once the date has passed.
+    pastTag: "Panel",
+    pastSpeakers: [
+      "Jade Prezeau: Senior Analyst, Private Debt, BCI",
+      "Carter MacLean: Investment Associate, Westerkirk Capital",
+      "Mac Costigan: Investment Associate, Westerkirk Capital",
+      "Harld Seleman: Active Equities, Vancity Investment Management"
+    ]
   }
 ];
 // "status: confirmed" events get the full treatment (calendar add, top billing).
