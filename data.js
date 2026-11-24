@@ -330,7 +330,6 @@ const UVIG_TEAM = {
     { name: "Sheri Love", role: "Director", firm: "UVic BCom Co-op Coordinator" },
     { name: "Alicia Voss, CFA", role: "Director", firm: "Associate, Derivatives, Collateral & Engineering, BCI" },
     { name: "Steven Fan, CFA", role: "Director", firm: "Investment Analyst, UVic Treasury" },
-    { name: "Samantha Toms", role: "Director", firm: "Board Member" },
     { name: "Sascha Jansen-Rudan", role: "Director", firm: "Former UVIG President" }
   ],
   external: [
