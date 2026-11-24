@@ -311,11 +311,17 @@ document.addEventListener('DOMContentLoaded', () => (window.UVIG_READY || (fn =>
     if (!track || typeof UVIG_REPORTS === 'undefined') return;
     const reports = UVIG_REPORTS.filter(r => !r.pending);
     if (!reports.length) return;
+    // A report marked "isNew" opens centered, with neighbours peeking in on both sides.
+    const newIdx = reports.findIndex(r => r.isNew);
+    if (newIdx > -1 && reports.length > 2) {
+      const [fresh] = reports.splice(newIdx, 1);
+      reports.splice(Math.floor((reports.length) / 2), 0, fresh);
+    }
 
     track.innerHTML = reports.map(r => `
       <div class="fr-slide">
         <div class="featured-research-card">
-          <div class="fr-image" style="background-image:url('${r.cover}');"></div>
+          <div class="fr-image" style="background-image:url('${r.cover}');">${r.isNew ? '<span class="new-sticker">NEW</span>' : ''}</div>
           <div class="fr-body">
             <span class="sector-tag">${r.sector}</span>
             <h3>${r.title}</h3>
@@ -336,7 +342,8 @@ document.addEventListener('DOMContentLoaded', () => (window.UVIG_READY || (fn =>
     const dots = [...dotsEl.children];
     const slides = [...track.children];
     const total = reports.length;
-    let index = Math.floor((total - 1) / 2); // open on the middle report so both neighbours peek in
+    let index = Math.max(0, reports.findIndex(r => r.isNew));
+    if (index === 0 && !reports[0].isNew) index = Math.floor((total - 1) / 2); // otherwise open on the middle report
     let dragging = false, startX = 0, startOffset = 0;
 
     // Centers the active slide in the viewport, so its neighbors peek in on either side.
