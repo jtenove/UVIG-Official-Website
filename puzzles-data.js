@@ -24,6 +24,14 @@
    - "answer" is the position of the correct option,
      counting from 0 (first option = 0, second = 1, ...).
    - "explain" is shown after the player answers.
+   
+   CONNECTIONS
+   - "easy" and "hard" are each one puzzle: four groups of four words.
+   - List groups from easiest to trickiest: they are coloured
+     yellow, green, blue, purple in that order.
+   - Every word must belong to exactly one group, but it is more fun
+     when a few words look like they fit somewhere else.
+   - Keep words short (up to about 10 letters) so they fit a tile.
    ============================================================ */
 
 const PUZZLES = {
@@ -362,6 +370,90 @@ const PUZZLES = {
           ],
           "answer": 1,
           "explain": "When a heavily shorted stock rises, short sellers rush to cover, which pushes the price up even further."
+        }
+      ]
+    }
+  },
+  "connections": {
+    "easy": {
+      "title": "Money Basics",
+      "groups": [
+        {
+          "name": "Finance animals",
+          "words": [
+            "BULL",
+            "BEAR",
+            "WHALE",
+            "UNICORN"
+          ]
+        },
+        {
+          "name": "Big Canadian banks",
+          "words": [
+            "RBC",
+            "TD",
+            "BMO",
+            "CIBC"
+          ]
+        },
+        {
+          "name": "Canadian registered accounts",
+          "words": [
+            "TFSA",
+            "RRSP",
+            "RESP",
+            "FHSA"
+          ]
+        },
+        {
+          "name": "Ways to pay",
+          "words": [
+            "CASH",
+            "DEBIT",
+            "CREDIT",
+            "CHEQUE"
+          ]
+        }
+      ]
+    },
+    "hard": {
+      "title": "Trader Talk",
+      "groups": [
+        {
+          "name": "Kinds of orders",
+          "words": [
+            "LIMIT",
+            "STOP",
+            "MARKET",
+            "BRACKET"
+          ]
+        },
+        {
+          "name": "Interest rates",
+          "words": [
+            "PRIME",
+            "OVERNIGHT",
+            "DISCOUNT",
+            "FIXED"
+          ]
+        },
+        {
+          "name": "Options Greeks",
+          "words": [
+            "DELTA",
+            "GAMMA",
+            "THETA",
+            "VEGA"
+          ]
+        },
+        {
+          "name": "Risk and return measures",
+          "words": [
+            "ALPHA",
+            "BETA",
+            "SHARPE",
+            "SORTINO"
+          ]
         }
       ]
     }

@@ -1401,3 +1401,10 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
 .vl-dot::before{content:''; position:absolute; inset:-10px;}
 .vl-dot.active{background:var(--brass); width:22px; border-radius:4px;}
 @media (max-width:640px){ .vl-nav{display:none;} }
+
+/* Very small phones: keep the header on one line */
+@media (max-width:400px){
+  .masthead .wordmark{font-size:19px;}
+  .masthead .wordmark small{display:none;}
+  .masthead .nav-link{white-space:nowrap; font-size:13px;}
+}

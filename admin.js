@@ -165,6 +165,19 @@
         ] } }
     ]
   };
+  var connectionsSchema = {
+    type: 'object', fields: [
+      { name: 'title', label: 'Puzzle title', type: 'text', required: true },
+      { name: 'groups', label: 'Groups', type: 'list', wide: true, addLabel: 'Add group',
+        hint: 'Four groups of four words, easiest first. They are coloured yellow, green, blue, purple in that order.',
+        newItem: function () { return { name: '', words: ['', '', '', ''] }; },
+        summary: function (g) { return { title: g.name || 'New group', sub: (g.words || []).filter(Boolean).join(', ') }; },
+        item: { type: 'object', fields: [
+          { name: 'name', label: 'What the group has in common', type: 'text', required: true, wide: true },
+          { name: 'words', label: 'Four words', type: 'stringList', required: true, wide: true, minItems: 4, addLabel: 'Add word', hint: 'Short words (up to about 10 letters) fit best.' }
+        ] } }
+    ]
+  };
   var triviaSchema = {
     type: 'object', fields: [
       { name: 'title', label: 'Round title', type: 'text', required: true },
@@ -319,6 +332,10 @@
         { name: 'crossword', label: 'Crossword', type: 'object', layout: 'tabs', wide: true, fields: [
           Object.assign({ name: 'easy', label: 'Easy crossword' }, crosswordSchema),
           Object.assign({ name: 'hard', label: 'Hard crossword' }, crosswordSchema)
+        ] },
+        { name: 'connections', label: 'Connections', type: 'object', layout: 'tabs', wide: true, fields: [
+          Object.assign({ name: 'easy', label: 'Easy connections' }, connectionsSchema),
+          Object.assign({ name: 'hard', label: 'Hard connections' }, connectionsSchema)
         ] },
         { name: 'trivia', label: 'Trivia', type: 'object', layout: 'tabs', wide: true, fields: [
           Object.assign({ name: 'easy', label: 'Easy trivia' }, triviaSchema),
