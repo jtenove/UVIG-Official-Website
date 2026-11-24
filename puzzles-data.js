@@ -27,176 +27,343 @@
    ============================================================ */
 
 const PUZZLES = {
-  week: "2026-W42",
-
-  crossword: {
-    easy: {
-      title: "Markets & Money",
-      estimate: "~5 min",
-      words: [
-        { answer: "BROKER",  clue: "A person or platform that executes trades on your behalf" },
-        { answer: "TICKER",  clue: "The short code identifying a stock, like AAPL" },
-        { answer: "SHARES",  clue: "Units of ownership in a company" },
-        { answer: "TREND",   clue: "The general direction a market is moving" },
-        { answer: "VALUE",   clue: "Investing in stocks priced below what they're worth" },
-        { answer: "WALLET",  clue: "Where you might store cash or crypto" },
-        { answer: "DEBT",    clue: "Money owed to a lender" },
-        { answer: "TAXES",   clue: "Mandatory payments to the government, including on some investment gains" },
-        { answer: "GOALS",   clue: "Financial ___: the targets guiding your saving and investing" },
-        { answer: "FUND",    clue: "A mutual ___ pools money from many investors" },
-        { answer: "TRADE",   clue: "To buy or sell a security" },
-        { answer: "GROWTH",  clue: "___ stock: a company expected to expand faster than average" }
+  "week": "2026-W48",
+  "crossword": {
+    "easy": {
+      "title": "Portfolio Basics",
+      "estimate": "~5 min",
+      "words": [
+        {
+          "answer": "BONDS",
+          "clue": "Loans to governments or companies that pay interest"
+        },
+        {
+          "answer": "RISK",
+          "clue": "The chance an investment loses value"
+        },
+        {
+          "answer": "YIELD",
+          "clue": "Income an investment pays, as a percentage of its price"
+        },
+        {
+          "answer": "BULL",
+          "clue": "A market where prices are rising"
+        },
+        {
+          "answer": "BEAR",
+          "clue": "A market where prices are falling"
+        },
+        {
+          "answer": "ASSET",
+          "clue": "Anything of value you own, like a stock or a property"
+        },
+        {
+          "answer": "CASH",
+          "clue": "Money in hand, the most liquid asset"
+        },
+        {
+          "answer": "BUDGET",
+          "clue": "A plan for how you will spend and save your money"
+        },
+        {
+          "answer": "INTEREST",
+          "clue": "The cost of borrowing money, or the reward for lending it"
+        },
+        {
+          "answer": "SAVINGS",
+          "clue": "Money set aside for later, often kept in an account"
+        },
+        {
+          "answer": "RETURN",
+          "clue": "The gain or loss on an investment over time"
+        },
+        {
+          "answer": "MARKET",
+          "clue": "Where buyers and sellers trade securities"
+        }
       ]
     },
-    hard: {
-      title: "Trading & Instruments",
-      estimate: "~5 min",
-      words: [
-        { answer: "CAPITAL",    clue: "Money invested in a business to generate income" },
-        { answer: "SECURITY",   clue: "A tradable financial instrument, like a stock or bond" },
-        { answer: "SHORT",      clue: "Betting that an asset's price will fall" },
-        { answer: "SPREAD",     clue: "The gap between a security's bid and ask price" },
-        { answer: "PREMIUM",    clue: "The price paid to buy an options contract" },
-        { answer: "MATURITY",   clue: "The date a bond's principal is repaid" },
-        { answer: "COUPON",     clue: "A bond's periodic interest payment" },
-        { answer: "INDEX",      clue: "A benchmark tracking a basket of securities, like the S&P 500" },
-        { answer: "BENCHMARK",  clue: "A standard used to measure a portfolio's performance" },
-        { answer: "CUSTODIAN",  clue: "An institution that holds and safeguards an investor's assets" },
-        { answer: "LONG",       clue: "Holding a position betting an asset's price will rise" }
+    "hard": {
+      "title": "Finance Terms",
+      "estimate": "~5 min",
+      "words": [
+        {
+          "answer": "EQUITY",
+          "clue": "Ownership interest in a company"
+        },
+        {
+          "answer": "DIVIDEND",
+          "clue": "A cash payout of profits to shareholders"
+        },
+        {
+          "answer": "LIQUIDITY",
+          "clue": "How easily an asset can be turned into cash without moving its price"
+        },
+        {
+          "answer": "HEDGE",
+          "clue": "A position taken to offset potential losses elsewhere"
+        },
+        {
+          "answer": "ARBITRAGE",
+          "clue": "Profiting from a price gap for the same asset in two markets"
+        },
+        {
+          "answer": "LEVERAGE",
+          "clue": "Using borrowed money to amplify potential returns"
+        },
+        {
+          "answer": "BETA",
+          "clue": "A measure of a stock's sensitivity to the overall market"
+        },
+        {
+          "answer": "DEFLATION",
+          "clue": "A broad, sustained fall in prices across an economy"
+        },
+        {
+          "answer": "TRANCHE",
+          "clue": "One slice of a structured debt offering"
+        },
+        {
+          "answer": "DURATION",
+          "clue": "A bond's sensitivity to changes in interest rates"
+        },
+        {
+          "answer": "ALPHA",
+          "clue": "Return earned above a benchmark"
+        }
       ]
     }
   },
-
-  trivia: {
-   easy: {
-    title: "Market Trivia",
-    questions: [
-      {
-        q: "What does IPO stand for?",
-        options: ["Initial Public Offering", "Internal Profit Order", "Index Price Open", "Institutional Purchase Option"],
-        answer: 0,
-        explain: "An IPO is when a private company first sells shares to the public on a stock exchange."
-      },
-      {
-        q: "Which of these is often considered a 'safe haven' asset during market uncertainty?",
-        options: ["Gold", "Growth stocks", "Junk bonds", "Cryptocurrency"],
-        answer: 0,
-        explain: "Gold has historically been viewed as a store of value investors turn to when markets get volatile."
-      },
-      {
-        q: "What is a 'blue chip' stock?",
-        options: ["A penny stock under $1", "Shares in a well-established, financially stable company", "A stock that only trades after hours", "A company that just IPO'd"],
-        answer: 1,
-        explain: "Blue chip refers to large, reputable companies with a long track record of stable performance."
-      },
-      {
-        q: "What does a 'bull market' describe?",
-        options: ["Prices generally falling", "Prices generally rising", "Unusually low trading volume", "A market that's closed"],
-        answer: 1,
-        explain: "A bull market describes a sustained period of rising prices and investor optimism."
-      },
-      {
-        q: "What is compound interest?",
-        options: ["Interest paid only on the original principal", "Interest calculated on both principal and previously earned interest", "A fixed rate that never changes", "Interest charged only on loans, never earned on savings"],
-        answer: 1,
-        explain: "Compounding means you earn interest on your interest, which accelerates growth over time."
-      },
-      {
-        q: "In Canada, what is an RRSP primarily designed to help you save for?",
-        options: ["Education", "Retirement", "A first home, exclusively", "Emergencies"],
-        answer: 1,
-        explain: "A Registered Retirement Savings Plan helps Canadians save for retirement, with tax-deferred growth."
-      },
-      {
-        q: "What is a 'dividend yield'?",
-        options: ["Total dividends paid company-wide", "Annual dividend per share divided by share price", "The tax rate on dividend income", "The number of shareholders receiving dividends"],
-        answer: 1,
-        explain: "Dividend yield expresses a stock's annual dividend as a percentage of its current share price."
-      },
-      {
-        q: "What happens in a 'stock split'?",
-        options: ["A company issues more shares and lowers the price per share, without changing total value", "A company splits into two separate companies", "Two public companies merge", "A tax strategy for selling stock"],
-        answer: 0,
-        explain: "A stock split increases the number of shares and proportionally lowers the price — a shareholder's total value doesn't change."
-      },
-      {
-        q: "Which best describes a 'small-cap' company?",
-        options: ["Market value typically under about $2 billion", "Market value over $200 billion", "Trades only over-the-counter", "A government-owned company"],
-        answer: 0,
-        explain: "Small-cap companies generally have a market capitalization under roughly $2 billion, though exact thresholds vary."
-      },
-      {
-        q: "What is a mutual fund?",
-        options: ["A pooled, professionally managed investment held on behalf of many investors", "A loan from a bank", "A single company's stock", "A government savings bond"],
-        answer: 0,
-        explain: "A mutual fund pools money from many investors to buy a diversified portfolio, managed by a professional fund manager."
-      }
-    ]
-   },
-   hard: {
-    title: "Advanced Trivia",
-    questions: [
-      {
-        q: "What does a bond's 'duration' measure?",
-        options: ["Its time to maturity in years", "Its price sensitivity to interest rate changes", "Its credit rating", "How often it pays a coupon"],
-        answer: 1,
-        explain: "Duration approximates how much a bond's price will move for a 1% change in interest rates — it's about price sensitivity, not just time to maturity."
-      },
-      {
-        q: "In the Capital Asset Pricing Model (CAPM), what does 'beta' measure?",
-        options: ["A stock's dividend growth rate", "A stock's volatility relative to the overall market", "A company's debt-to-equity ratio", "A stock's P/E ratio relative to its peers"],
-        answer: 1,
-        explain: "Beta measures how much a stock's price tends to move relative to the broader market — above 1 means more volatile than the market."
-      },
-      {
-        q: "What does it mean when the yield curve 'inverts'?",
-        options: ["Short-term rates rise above long-term rates", "Long-term rates rise above short-term rates", "All yields become equal", "Bond prices rise across the board"],
-        answer: 0,
-        explain: "An inverted yield curve happens when short-term yields exceed long-term yields, often viewed as a recession warning sign."
-      },
-      {
-        q: "What is 'short selling'?",
-        options: ["Selling a stock you own for a quick profit", "Borrowing and selling a stock, hoping to buy it back cheaper later", "Buying a stock with a short holding period", "Selling only small quantities of a stock"],
-        answer: 1,
-        explain: "Short sellers borrow shares, sell them, and aim to repurchase them later at a lower price, profiting from the decline."
-      },
-      {
-        q: "What does WACC stand for and measure?",
-        options: ["Weighted Average Cost of Capital — a firm's blended cost of financing", "Worldwide Asset Credit Class", "Weighted Allocation of Current Capital", "Weekly Average Closing Change"],
-        answer: 0,
-        explain: "WACC blends the cost of a company's debt and equity, weighted by how much of each it uses, into one overall financing cost."
-      },
-      {
-        q: "Under the Efficient Market Hypothesis, what does 'weak form' efficiency claim?",
-        options: ["Prices reflect all information, including insider information", "Prices already reflect all past trading information", "Prices only reflect public financial statements", "Markets are never efficient"],
-        answer: 1,
-        explain: "Weak-form efficiency says past prices and volume are already reflected in current prices, so technical analysis alone can't reliably beat the market."
-      },
-      {
-        q: "What is a 'call option'?",
-        options: ["The right to sell an asset at a set price", "The right to buy an asset at a set price", "An obligation to buy a stock", "A type of bond redemption"],
-        answer: 1,
-        explain: "A call option gives the holder the right, but not the obligation, to buy the underlying asset at the strike price."
-      },
-      {
-        q: "What does 'quantitative easing' primarily involve?",
-        options: ["A central bank raising interest rates sharply", "A central bank buying assets to inject money into the economy", "A government cutting taxes", "Banks increasing reserve requirements"],
-        answer: 1,
-        explain: "Quantitative easing is when a central bank buys bonds or other assets to increase the money supply and lower long-term rates."
-      },
-      {
-        q: "What is 'alpha' in investing?",
-        options: ["The risk-free rate of return", "A measure of excess return relative to a benchmark", "A stock's total trading volume", "The first stock added to a portfolio"],
-        answer: 1,
-        explain: "Alpha measures how much better (or worse) an investment performed compared to its benchmark, after adjusting for risk."
-      },
-      {
-        q: "What does a credit default swap (CDS) primarily do?",
-        options: ["Insures against a borrower defaulting on debt", "Converts debt into equity", "Guarantees a fixed exchange rate", "Pools multiple mortgages into one bond"],
-        answer: 0,
-        explain: "A CDS acts like insurance: the buyer pays a premium and receives a payout if the underlying borrower defaults."
-      }
-    ]
-   }
+  "trivia": {
+    "easy": {
+      "title": "Market Trivia",
+      "questions": [
+        {
+          "q": "What does 'diversification' mean?",
+          "options": [
+            "Putting all your money in one stock",
+            "Spreading investments across different assets to reduce risk",
+            "Selling everything when markets fall",
+            "Only buying bonds"
+          ],
+          "answer": 1,
+          "explain": "Diversifying means not relying on any single investment, so one bad result hurts your portfolio less."
+        },
+        {
+          "q": "A 'bull market' is one where prices are generally...?",
+          "options": [
+            "Falling",
+            "Flat",
+            "Rising",
+            "Closed for the holidays"
+          ],
+          "answer": 2,
+          "explain": "A bull market is a sustained period of rising prices, usually alongside investor optimism."
+        },
+        {
+          "q": "What is a dividend?",
+          "options": [
+            "A fee charged by your broker",
+            "A share of company profits paid to shareholders",
+            "A type of bond",
+            "A tax on investment gains"
+          ],
+          "answer": 1,
+          "explain": "Dividends are payments, usually in cash, that a company makes to its shareholders out of its profits."
+        },
+        {
+          "q": "What does TFSA stand for?",
+          "options": [
+            "Total Financial Savings Account",
+            "Tax-Free Savings Account",
+            "Tiered Fund Security Agreement",
+            "Trading Fund Services Authority"
+          ],
+          "answer": 1,
+          "explain": "A TFSA is a Canadian account where investment growth and withdrawals are tax-free."
+        },
+        {
+          "q": "The S&P 500 tracks roughly how many large U.S. companies?",
+          "options": [
+            "50",
+            "100",
+            "500",
+            "5,000"
+          ],
+          "answer": 2,
+          "explain": "The S&P 500 follows about 500 of the largest publicly traded companies in the United States."
+        },
+        {
+          "q": "What does 'ETF' stand for?",
+          "options": [
+            "Equity Trading Fee",
+            "Electronic Transfer Fund",
+            "Exchange-Traded Fund",
+            "Extended Term Fund"
+          ],
+          "answer": 2,
+          "explain": "An ETF is a fund that holds a basket of assets and trades on an exchange like a single stock."
+        },
+        {
+          "q": "Which of these is typically the lowest-risk investment?",
+          "options": [
+            "Government treasury bills",
+            "Small-cap stocks",
+            "Cryptocurrency",
+            "Startup shares"
+          ],
+          "answer": 0,
+          "explain": "Short-term government debt is considered one of the safest investments because governments rarely default."
+        },
+        {
+          "q": "What is compound interest?",
+          "options": [
+            "Interest charged only on the original amount",
+            "Interest earned on both your principal and past interest",
+            "A fixed fee on every deposit",
+            "Interest that stops after one year"
+          ],
+          "answer": 1,
+          "explain": "Compounding means your earnings start earning too, which is why starting early matters."
+        },
+        {
+          "q": "What does inflation do to purchasing power?",
+          "options": [
+            "Increases it",
+            "Reduces it",
+            "Leaves it unchanged",
+            "Doubles it"
+          ],
+          "answer": 1,
+          "explain": "When prices rise over time, each dollar buys less than before."
+        },
+        {
+          "q": "What does 'TSX' stand for?",
+          "options": [
+            "Trading Standard Exchange",
+            "Toronto Stock Exchange",
+            "Total Securities Index",
+            "Treasury Securities Exchange"
+          ],
+          "answer": 1,
+          "explain": "The TSX is Canada's main stock exchange, based in Toronto."
+        }
+      ]
+    },
+    "hard": {
+      "title": "Advanced Trivia",
+      "questions": [
+        {
+          "q": "The price-to-earnings (P/E) ratio compares a stock's price to its...?",
+          "options": [
+            "Dividend yield",
+            "Earnings per share",
+            "Book value",
+            "Trading volume"
+          ],
+          "answer": 1,
+          "explain": "P/E shows how much investors pay for each dollar of a company's earnings."
+        },
+        {
+          "q": "Which institution sets Canada's overnight interest rate target?",
+          "options": [
+            "Department of Finance",
+            "Toronto Stock Exchange",
+            "Bank of Canada",
+            "Canada Revenue Agency"
+          ],
+          "answer": 2,
+          "explain": "The Bank of Canada sets the target for the overnight rate, its main policy tool."
+        },
+        {
+          "q": "An inverted yield curve, where short-term rates exceed long-term rates, has often signalled what?",
+          "options": [
+            "An upcoming recession",
+            "A stock market boom",
+            "Lower taxes",
+            "Rising dividends"
+          ],
+          "answer": 0,
+          "explain": "Inversions have frequently preceded recessions, which is why markets watch the curve closely."
+        },
+        {
+          "q": "In options trading, what does owning a 'call' give you?",
+          "options": [
+            "The right to sell at a set price",
+            "The right to buy at a set price",
+            "An obligation to buy",
+            "A guaranteed profit"
+          ],
+          "answer": 1,
+          "explain": "A call option gives the holder the right, not the obligation, to buy an asset at the strike price."
+        },
+        {
+          "q": "EBITDA stands for earnings before interest, taxes, depreciation and...?",
+          "options": [
+            "Amortization",
+            "Allocation",
+            "Arbitrage",
+            "Accruals"
+          ],
+          "answer": 0,
+          "explain": "EBITDA adds back amortization along with interest, taxes and depreciation to approximate operating performance."
+        },
+        {
+          "q": "What does the Sharpe ratio measure?",
+          "options": [
+            "Dividend growth",
+            "Risk-adjusted return",
+            "Trading costs",
+            "Company size"
+          ],
+          "answer": 1,
+          "explain": "The Sharpe ratio shows how much return you earn per unit of risk taken."
+        },
+        {
+          "q": "What is 'quantitative easing'?",
+          "options": [
+            "Raising interest rates sharply",
+            "A central bank buying assets to add liquidity",
+            "Cutting government spending",
+            "A tax on bond trades"
+          ],
+          "answer": 1,
+          "explain": "In quantitative easing, a central bank buys securities to lower long-term rates and support lending."
+        },
+        {
+          "q": "The 'rule of 72' is a shortcut for estimating what?",
+          "options": [
+            "Annual tax owed",
+            "How many years it takes an investment to double",
+            "A stock's fair price",
+            "Required retirement savings"
+          ],
+          "answer": 1,
+          "explain": "Divide 72 by the annual return percentage to roughly estimate the years needed to double your money."
+        },
+        {
+          "q": "Which ratio compares a company's total debt to its shareholders' equity?",
+          "options": [
+            "Current ratio",
+            "Debt-to-equity",
+            "Price-to-book",
+            "Quick ratio"
+          ],
+          "answer": 1,
+          "explain": "Debt-to-equity shows how much a company relies on borrowing versus owners' funds."
+        },
+        {
+          "q": "What is a 'short squeeze'?",
+          "options": [
+            "A ban on short selling",
+            "A rapid price rise that forces short sellers to buy back shares",
+            "A fall in trading volume",
+            "A tax on short-term gains"
+          ],
+          "answer": 1,
+          "explain": "When a heavily shorted stock rises, short sellers rush to cover, which pushes the price up even further."
+        }
+      ]
+    }
   }
 };
