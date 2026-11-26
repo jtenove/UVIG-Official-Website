@@ -74,7 +74,7 @@ const UVIG_UPCOMING = [
     blurb: "Join the UVic Investment Group in hosting an evening with professionals from Victoria's asset management community. Our panelists will talk about how they got started, what their day-to-day looks like, and how students can break into the industry. The evening starts with a one-hour moderated panel, followed by an audience Q&A and time to network with the speakers. Open to all students.",
     status: "confirmed",
     flyer: "flyer-asset-management-panel.jpg",
-    // Add rsvpUrl: "<Google Form link>" here (or in /admin) to show the RSVP button.
+    rsvpUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdA5UH760fX1XTs5FFBaBq8x5zJ5ojy_Eb78YWlhJDnmFr4Ew/viewform",
     // Shown on the Events page "Past events" grid once the date has passed.
     pastTag: "Panel",
     pastSpeakers: [

@@ -209,28 +209,59 @@ function renderCalDropdown(eventId) {
   `;
 }
 
+// RFC 5545: escape text values, and fold lines longer than 75 octets so Apple
+// Calendar, Outlook and others all accept the file.
+function icsEscape(t) {
+  return String(t == null ? '' : t).replace(/\\/g, '\\\\').replace(/\r?\n/g, '\\n').replace(/;/g, '\\;').replace(/,/g, '\\,');
+}
+function icsFold(line) {
+  const enc = new TextEncoder(), dec = new TextDecoder();
+  const bytes = enc.encode(line);
+  if (bytes.length <= 75) return line;
+  const out = [];
+  let i = 0, limit = 75;
+  while (i < bytes.length) {
+    let end = Math.min(i + limit, bytes.length);
+    while (end < bytes.length && (bytes[end] & 0xC0) === 0x80) end--; // don't split a multi-byte character
+    out.push((i ? ' ' : '') + dec.decode(bytes.slice(i, end)));
+    i = end; limit = 74;
+  }
+  return out.join('\r\n');
+}
+
 function downloadICS(ev) {
   const { start, end } = parseEventDateTime(ev);
-  const ics = [
-    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//UVIG//Events//EN', 'BEGIN:VEVENT',
+  const lines = [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//UVIG//Events//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
     `UID:${ev.id}@uvicinvestmentgroup.com`,
     `DTSTAMP:${toICSDate(new Date())}`,
     `DTSTART:${toICSDate(start)}`,
     `DTEND:${toICSDate(end)}`,
-    `SUMMARY:${ev.title}`,
-    `DESCRIPTION:${eventDescription(ev)}`,
-    `LOCATION:${ev.venue || ''}`,
+    `SUMMARY:${icsEscape(ev.title)}`,
+    `DESCRIPTION:${icsEscape(eventDescription(ev))}`,
+    `LOCATION:${icsEscape(ev.venue || '')}`,
     'END:VEVENT', 'END:VCALENDAR'
-  ].join('\r\n');
-  const blob = new Blob([ics], { type: 'text/calendar' });
+  ].map(icsFold);
+  const ics = lines.join('\r\n') + '\r\n';
+  const filename = `${ev.id}.ics`;
+
+  // iPhone / iPad (Safari and in-app browsers) ignore the download attribute for generated
+  // files, but opening a calendar data URL hands the event straight to Apple Calendar.
+  const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (isIOS) {
+    window.location.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+    return;
+  }
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `${ev.id}.ics`;
+  a.download = filename;
   document.body.appendChild(a);
   a.click();
   a.remove();
-  URL.revokeObjectURL(url);
+  setTimeout(() => URL.revokeObjectURL(url), 10000); // revoking right away cancels the download in Safari
 }
 
 /* ============================================================
