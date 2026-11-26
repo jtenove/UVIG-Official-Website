@@ -1432,3 +1432,38 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
 .page-team .team-panel.leaving{display:none;}
 .page-team .team-card{transition:none;}
 .page-team .team-card:hover{transform:none; box-shadow:var(--shadow-soft);}
+
+/* ============================================================
+   EVENTS PAGE: one card layout everywhere (image on top, text
+   below), and no blurred glare in the background.
+   ============================================================ */
+.page-events .ambient{display:none;}
+.ev-grid{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:22px; margin-top:8px; align-items:stretch;}
+.ev-card{display:flex; flex-direction:column; background:var(--white); border-radius:var(--r-lg); box-shadow:var(--shadow-soft); overflow:hidden; min-width:0;}
+.ev-card.highlight{background:linear-gradient(160deg, var(--white) 0%, var(--brass-soft) 100%);}
+.ev-media{position:relative; aspect-ratio:16 / 10; background:var(--navy-900); overflow:hidden; flex:none;}
+.ev-media.has-img{cursor:zoom-in;}
+.ev-media img{display:block; width:100%; height:100%; object-fit:cover; object-position:center 40%;}
+.ev-count{position:absolute; right:10px; bottom:10px; background:rgba(10,31,61,.82); color:#fff; font-size:12px; font-weight:600; padding:4px 10px; border-radius:999px;}
+.ev-ph{display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:6px; padding:16px; color:var(--white);
+  background:linear-gradient(135deg, var(--navy-900) 0%, var(--navy-700) 100%);}
+.ev-ph b{font-family:var(--serif); font-weight:600; font-size:clamp(26px, 3.2vw, 38px); line-height:1.1;}
+.ev-ph span{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--brass);}
+.ev-body{display:flex; flex-direction:column; padding:22px 24px 24px; flex:1;}
+.ev-tag{font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--brass);}
+.ev-body h3{font-family:var(--serif); font-size:20px; line-height:1.3; color:var(--navy-900); margin:8px 0 0;}
+.ev-when{font-family:var(--mono); font-size:12px; color:var(--graphite); margin-top:8px; line-height:1.5;}
+.ev-body p{color:var(--graphite); font-size:14px; line-height:1.6; margin:12px 0 0;}
+.ev-meta{display:grid; gap:6px; margin-top:14px; font-size:13px; color:var(--navy-700);}
+.ev-meta strong{display:block; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--graphite); margin-bottom:1px;}
+.ev-speakers{margin-top:14px; padding-top:12px; border-top:1px solid var(--hairline); font-size:12.5px; line-height:1.6; color:var(--navy-700);}
+.ev-actions{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:auto; padding-top:18px;}
+.ev-actions .cal-dropdown{margin-top:0;}
+#upcoming .ev-grid{grid-template-columns:repeat(2, minmax(0, 1fr));}
+#upcoming .ev-media{aspect-ratio:16 / 9;}
+@media (max-width:1000px){ .ev-grid{grid-template-columns:repeat(2, minmax(0, 1fr));} }
+@media (max-width:640px){ .ev-grid, #upcoming .ev-grid{grid-template-columns:minmax(0, 1fr);} .ev-body{padding:20px 20px 22px;} }
+
+/* Flyers are portrait posters: show the whole poster (it carries the date, time and place) on a matching tint */
+.ev-media.ev-contain{background:#EEF1F6;}
+.ev-media.ev-contain img{object-fit:contain; object-position:center;}
