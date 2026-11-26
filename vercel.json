@@ -43,6 +43,26 @@
       "source": "/newsletter.html",
       "destination": "/#investors-club",
       "permanent": false
+    },
+    {
+      "source": "/survey",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/survey.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/surveys",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/surveys.html",
+      "destination": "/",
+      "permanent": false
     }
   ]
 }
