@@ -133,13 +133,14 @@ function closeVenueLightbox() {
   document.querySelectorAll('.venue-lightbox').forEach(b => b.remove());
 }
 document.addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('.ev-media[data-photos]')) { e.preventDefault(); e.target.click(); return; }
   if (e.key === 'Escape') closeVenueLightbox();
   else if (venueLightboxState && e.key === 'ArrowRight') venueLightboxState.go(venueLightboxState.i + 1);
   else if (venueLightboxState && e.key === 'ArrowLeft') venueLightboxState.go(venueLightboxState.i - 1);
 });
 document.addEventListener('click', e => {
-  const photo = e.target.closest('.past-card .photo-row img');
-  if (photo) { openVenueLightbox(photo.currentSrc || photo.src, photo.alt.replace(/^Photo from /, '')); return; }
+  const media = e.target.closest('.ev-media[data-photos]');
+  if (media) { openVenueLightbox(media.dataset.photos.split('|'), media.dataset.title); return; }
   const link = e.target.closest('.venue-link');
   if (link) openVenueLightbox(link.dataset.venuePhotos.split('|'), link.dataset.venueName);
 });

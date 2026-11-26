@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="page-events">
 
   <header class="masthead">
     <div class="masthead-inner wrap">
@@ -62,7 +62,7 @@
         <h2 data-content="events.upcoming.heading">This season</h2>
         <span class="section-note" data-content="events.upcoming.note">2026 / 27</span>
       </div>
-      <div id="upcomingList" class="reveal stagger"></div>
+      <div id="upcomingList"></div>
     </div>
   </section>
 
@@ -72,7 +72,7 @@
         <h2 data-content="events.past.heading">Past events</h2>
         <span class="section-note" data-content="events.past.note">A LOOK BACK</span>
       </div>
-      <div class="past-grid reveal stagger" id="pastGrid"></div>
+      <div id="pastGrid" class="ev-grid"></div>
     </div>
   </section>
 
@@ -141,15 +141,25 @@
 <script>
 // Runs once content saved from /admin is loaded (see content-loader.js).
 UVIG_READY(function () {
+  // ---- Event cards: every event (upcoming or past) uses the same layout,
+  // image on top, text below. Events without an image get a branded tile. ----
+  const todayISO = new Date().toISOString().slice(0, 10);
+  const attr = v => String(v).replace(/"/g, '&quot;');
+
+  function mediaHTML(photos, title, placeholderText, placeholderSub) {
+    if (!photos.length) {
+      return `<div class="ev-media ev-ph"><b>${placeholderText}</b>${placeholderSub ? `<span>${placeholderSub}</span>` : ''}</div>`;
+    }
+    const flyer = /flyer/i.test(photos[0]);
+    return `<div class="ev-media has-img${flyer ? ' ev-contain' : ''}" data-photos="${attr(photos.join('|'))}" data-title="${attr(title)}" role="button" tabindex="0" aria-label="View photos: ${attr(title)}">
+      <img src="${photos[0]}" alt="" loading="lazy">
+      ${photos.length > 1 ? `<span class="ev-count">${photos.length} photos</span>` : ''}
+    </div>`;
+  }
+
   // ---- Upcoming events (confirmed and not yet happened) ----
   const upcomingList = document.getElementById('upcomingList');
-  const todayISO = new Date().toISOString().slice(0, 10);
   const confirmed = UVIG_UPCOMING.filter(ev => ev.status === 'confirmed' && ev.isoDate >= todayISO);
-
-  function dateBits(ev) {
-    const d = new Date(ev.isoDate + 'T00:00:00');
-    return { day: d.getDate(), month: d.toLocaleString('en-US', { month: 'short' }).toUpperCase() };
-  }
 
   upcomingList.innerHTML = !confirmed.length
     ? `<div class="events-empty">
@@ -163,29 +173,27 @@ UVIG_READY(function () {
           <a href="join.html" class="btn btn-primary">Join UVIG</a>
         </div>
       </div>`
-    : [...confirmed].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate)).map(ev => {
-    const { day, month } = dateBits(ev);
-    return `
-      <div class="event-banner" id="${ev.id}">
-        <div class="event-date-block"><div class="day">${day}</div><div class="month">${month}</div></div>
-        <div class="event-body">
-          <span class="partner-tag">${ev.partner !== 'TBD' ? 'WITH ' + ev.partner.toUpperCase() : 'UVIG EVENT'}</span>
+    : `<div class="ev-grid">` + [...confirmed].sort((a,b) => new Date(a.isoDate) - new Date(b.isoDate)).map(ev => {
+      const d = new Date(ev.isoDate + 'T00:00:00');
+      const day = d.getDate(), mon = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+      const when = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) + (ev.time && ev.time !== 'TBD' ? ' · ' + ev.time : '');
+      const rsvp = ev.rsvpUrl ? `<a href="${ev.rsvpUrl}" class="btn btn-primary"${/^https?:/.test(ev.rsvpUrl) ? ' target="_blank" rel="noopener"' : ''}>RSVP</a>` : '';
+      return `
+      <article class="ev-card" id="${ev.id}">
+        ${mediaHTML(ev.flyer ? [ev.flyer] : [], ev.title + ' flyer', day, mon)}
+        <div class="ev-body">
+          <span class="ev-tag">${ev.partner && ev.partner !== 'TBD' ? 'With ' + ev.partner : 'UVIG event'}</span>
           <h3>${ev.title}</h3>
+          <div class="ev-when">${when}</div>
           <p>${ev.blurb}</p>
-          <div class="event-meta-row">
-            <span><strong>Venue:</strong>&nbsp;${renderVenue(ev)}</span>
-            <span><strong>Time:</strong>&nbsp;${ev.time}</span>
-            <span><strong>Speakers:</strong>&nbsp;${ev.speakers}</span>
+          <div class="ev-meta">
+            <span><strong>Venue</strong>${renderVenue(ev)}</span>
+            ${ev.speakers && ev.speakers !== 'N/A' ? `<span><strong>Speakers</strong>${ev.speakers}</span>` : ''}
           </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-            ${ev.rsvpUrl ? `<a href="${ev.rsvpUrl}" class="btn btn-primary" style="margin-top:14px;"${/^https?:/.test(ev.rsvpUrl) ? ' target="_blank" rel="noopener"' : ''}>RSVP</a>` : ''}
-            ${renderCalDropdown(ev.id)}
-          </div>
+          <div class="ev-actions">${rsvp}${renderCalDropdown(ev.id)}</div>
         </div>
-        ${ev.flyer ? `<img class="event-flyer-thumb" src="${ev.flyer}" alt="${ev.title} flyer" loading="lazy">` : ''}
-      </div>
-    `;
-  }).join('');
+      </article>`;
+    }).join('') + `</div>`;
 
   // ---- Past events (always shown, no toggle) ----
   // Confirmed events that have already happened move here automatically,
@@ -204,27 +212,18 @@ UVIG_READY(function () {
       photos: ev.pastPhotos && ev.pastPhotos.length ? ev.pastPhotos : ev.flyer ? [ev.flyer] : undefined
     }));
   const pastEvents = [...recentlyPast, ...UVIG_PAST];
-  pastGrid.innerHTML = pastEvents.map(ev => {
-    const photoBlock = ev.photos ? `
-      <div class="photo-row${ev.photos.length === 1 ? ' single' : ''}">
-        ${ev.photos.map(p => `<img src="${p}" alt="Photo from ${ev.title}" loading="lazy">`).join('')}
-      </div>
-    ` : '';
-    const bodyOpen = ev.photos ? '<div class="photo-card-body">' : '';
-    const bodyClose = ev.photos ? '</div>' : '';
-    return `
-      <div class="past-card tilt-card ${ev.highlight ? 'highlight' : ''} ${ev.photos ? 'has-photo' : ''}">
-        ${photoBlock}
-        ${bodyOpen}
-        <span class="tag">${ev.tag}</span>
-        <h4>${ev.title}</h4>
-        <div class="meta">${ev.dateDisplay} · ${ev.venue}</div>
-        <p>${ev.blurb}</p>
-        ${ev.speakers ? `<div class="speaker-line">${ev.speakers.join(' · ')}</div>` : ''}
-        ${bodyClose}
-      </div>
-    `;
-  }).join('');
+  pastGrid.innerHTML = pastEvents.map(ev => `
+      <article class="ev-card${ev.highlight ? ' highlight' : ''}">
+        ${mediaHTML(ev.photos || [], ev.title, ev.dateDisplay, ev.tag)}
+        <div class="ev-body">
+          <span class="ev-tag">${ev.tag}</span>
+          <h3>${ev.title}</h3>
+          <div class="ev-when">${ev.dateDisplay} · ${ev.venue}</div>
+          <p>${ev.blurb}</p>
+          ${ev.speakers ? `<div class="ev-speakers">${ev.speakers.join(' · ')}</div>` : ''}
+        </div>
+      </article>
+    `).join('');
 
   // ---- Firms marquee (duplicated for seamless loop) ----
   const firmsTrack = document.getElementById('firmsTrack');
