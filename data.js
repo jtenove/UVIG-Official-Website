@@ -328,7 +328,7 @@ const UVIG_TEAM = {
   board: [
     { name: "Alicia Armstrong, CFA", role: "Board Chair", firm: "Associate Portfolio Manager, BCI" },
     { name: "Sheri Love", role: "Director", firm: "UVic BCom Co-op Coordinator" },
-    { name: "Alicia Voss, CFA", role: "Director", firm: "Associate, Derivatives, Collateral & Engineering, BCI" },
+    { name: "Elaine Yuan, CFA", role: "Director", firm: "Principal, Infrastructure and Renewable Resources, BCI" },
     { name: "Steven Fan, CFA", role: "Director", firm: "Investment Analyst, UVic Treasury" },
     { name: "Sascha Jansen-Rudan", role: "Director", firm: "Former UVIG President" }
   ],

@@ -1467,3 +1467,7 @@ footer{border-radius:var(--r-xl) var(--r-xl) 0 0;}
 /* Flyers are portrait posters: show the whole poster (it carries the date, time and place) on a matching tint */
 .ev-media.ev-contain{background:#EEF1F6;}
 .ev-media.ev-contain img{object-fit:contain; object-position:center;}
+
+/* No blurred colour glare anywhere: drop the drifting background blobs and the soft glows */
+.ambient{display:none !important;}
+.newsletter-promo::before, .leadership-band::after, .nl-cta-box::before{display:none;}
